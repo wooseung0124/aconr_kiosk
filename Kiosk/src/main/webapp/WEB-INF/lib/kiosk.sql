@@ -24,6 +24,6 @@ CREATE TABLE order_info(
 	sto_num VARCHAR2(100), --사업자 번호
 	table_num NUMBER NOT NULL, --테이블 이름
 	menu VARCHAR2(100) NOT NULL, --메뉴 이름
-	price NUMBER NOT NULL --메뉴 가격
+	price NUMBER NOT NULL, --메뉴 가격
 	count NUMBER NOT NULL --메뉴 개수
 );
