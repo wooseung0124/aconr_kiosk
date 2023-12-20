@@ -1,31 +1,33 @@
 package kiosk.order.dto;
 
 public class OrderDto {
-	private String sto_num;
+	private String stoNum;
+	private int tableNum;
 	private String menu;
 	private int price;
 	private int count;
 	
 	public OrderDto() {}
 
-	public OrderDto(String sto_num, String menu, int price, int count) {
+	public OrderDto(String stoNum, int tableNum, String menu, int price, int count) {
 		super();
-		this.sto_num = sto_num;
+		this.stoNum = stoNum;
+		this.tableNum = tableNum;
 		this.menu = menu;
 		this.price = price;
 		this.count = count;
 	}
 
-	public String getSto_num() {
-		return sto_num;
-	}
-
-	public void setSto_num(String sto_num) {
-		this.sto_num = sto_num;
-	}
-
 	public String getMenu() {
 		return menu;
+	}
+
+	public int getTableNum() {
+		return tableNum;
+	}
+
+	public void setTableNum(int tableNum) {
+		this.tableNum = tableNum;
 	}
 
 	public void setMenu(String menu) {
@@ -47,5 +49,5 @@ public class OrderDto {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	
+
 }
