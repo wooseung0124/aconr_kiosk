@@ -2,36 +2,36 @@ package kiosk.menu.dto;
 
 public class MenuDto {
 
-	private String sto_num;
+	private String stoNum;
 	private String name;
 	private int price;
 	private String description;
 	private String imageUrl;
-	private String is_sold;
+	private String isSold;
 	private String category;
 	
 	public MenuDto() {
 		
 	}
 
-	public MenuDto(String sto_num, String name, int price, String description, String imageUrl, String is_sold,
+	public MenuDto(String stoNum, String name, int price, String description, String imageUrl, String isSold,
 			String category) {
 		super();
-		this.sto_num = sto_num;
+		this.stoNum = stoNum;
 		this.name = name;
 		this.price = price;
 		this.description = description;
 		this.imageUrl = imageUrl;
-		this.is_sold = is_sold;
+		this.isSold = isSold;
 		this.category = category;
 	}
 
-	public String getSto_num() {
-		return sto_num;
+	public String getStoNum() {
+		return stoNum;
 	}
 
-	public void setSto_num(String sto_num) {
-		this.sto_num = sto_num;
+	public void setStoNum(String stoNum) {
+		this.stoNum = stoNum;
 	}
 
 	public String getName() {
@@ -66,12 +66,12 @@ public class MenuDto {
 		this.imageUrl = imageUrl;
 	}
 
-	public String getIs_sold() {
-		return is_sold;
+	public String getIsSold() {
+		return isSold;
 	}
 
-	public void setIs_sold(String is_sold) {
-		this.is_sold = is_sold;
+	public void setIsSold(String isSold) {
+		this.isSold = isSold;
 	}
 
 	public String getCategory() {
@@ -81,8 +81,7 @@ public class MenuDto {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
-	
+
 	
 	
 	
