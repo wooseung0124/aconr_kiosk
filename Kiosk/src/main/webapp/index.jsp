@@ -1,17 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>index.html</title>
 </head>
 <body>
-	<h1>╠вЁи юс╫ц фДюлаЖюс</h1>
+	<h1>Л·└Л▀°К║° К╖▄К⌠═ М▌≤Л²╢Л╖─</h1>
 	<ul>
-		<li><a href="owner/login.jsp">╥н╠вюн фДюлаЖ юс╫цюс</a></li>
-		<li><a href="menu/menu.jsp">╦ч╢╨ фДюлаЖ юс╫цюс</a></li>
-		<li><a href="customer/order_menu.jsp">╟М╟╢ ╦ч╢╨ аж╧╝ фДюлаЖ юс╫цюс</a></li>
+		<li><a href="owner/login.jsp">К║°Й╥╦Л²╦ М▌≤Л²╢Л╖─ Л·└Л▀°Л·└</a></li>
+		<li><a href="menu/menu.jsp">К╘■К┴╢ Й╢─К╕╛ М▌≤Л²╢Л╖─ Л·└Л▀°Л·└</a></li>
+		<li><a href="customer/order_menu.jsp">ЙЁ═Й╟² К╘■К┴╢ М▌≤Л²╢Л╖─ Л·└Л▀°Л·└</a></li>
 	</ul>
 </body>
 </html>
