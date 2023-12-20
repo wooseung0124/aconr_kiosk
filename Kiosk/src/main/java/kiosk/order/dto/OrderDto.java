@@ -1,16 +1,21 @@
 package kiosk.order.dto;
 
 public class OrderDto {
-	public OrderDto(String stoNum, String name, int price, String description, String imageUrl, String isSold,
-			String category) {
+	private String stoNum;
+	private int tableNum;
+	private String menu;
+	private int price;
+	private int count;
+	
+	public OrderDto() {}
+
+	public OrderDto(String stoNum, int tableNum, String menu, int price, int count) {
 		super();
 		this.stoNum = stoNum;
-		this.name = name;
+		this.tableNum = tableNum;
+		this.menu = menu;
 		this.price = price;
-		this.description = description;
-		this.imageUrl = imageUrl;
-		this.isSold = isSold;
-		this.category = category;
+		this.count = count;
 	}
 
 	public String getStoNum() {
@@ -21,12 +26,20 @@ public class OrderDto {
 		this.stoNum = stoNum;
 	}
 
-	public String getName() {
-		return name;
+	public int getTableNum() {
+		return tableNum;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTableNum(int tableNum) {
+		this.tableNum = tableNum;
+	}
+
+	public String getMenu() {
+		return menu;
+	}
+
+	public void setMenu(String menu) {
+		this.menu = menu;
 	}
 
 	public int getPrice() {
@@ -37,45 +50,11 @@ public class OrderDto {
 		this.price = price;
 	}
 
-	public String getDescription() {
-		return description;
+	public int getCount() {
+		return count;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setCount(int count) {
+		this.count = count;
 	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-	public String getIsSold() {
-		return isSold;
-	}
-
-	public void setIsSold(String isSold) {
-		this.isSold = isSold;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	private String stoNum;
-	private String name;
-	private int price;
-	private String description;
-	private String imageUrl;
-	private String isSold;
-	private String category;
-
-	public OrderDto() {}
 }
