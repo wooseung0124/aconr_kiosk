@@ -1,17 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>index.html</title>
 </head>
 <body>
-	<h1>그냥 임시 페이지임</h1>
+	<h1>占쌓놂옙 占쌈쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙</h1>
 	<ul>
-		<li><a href="owner/login.jsp">로그인 페이지 임시임</a></li>
-		<li><a href="menu/menu.jsp">메뉴 페이지 임시임</a></li>
-		<li><a href="customer/order_menu.jsp">고객 메뉴 주문 페이지 임시임</a></li>
+		<li><a href="owner/login.jsp">占싸깍옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쌈쏙옙占쏙옙</a></li>
+		<li><a href="menu/menu.jsp">占쌨댐옙 占쏙옙占쏙옙占쏙옙 占쌈쏙옙占쏙옙</a></li>
+		<li><a href="customer/order_menu.jsp">占쏙옙 占쌨댐옙 占쌍뱄옙 占쏙옙占쏙옙占쏙옙 占쌈쏙옙占쏙옙</a></li>
 	</ul>
 </body>
 </html>
