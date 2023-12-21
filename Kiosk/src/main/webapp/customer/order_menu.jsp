@@ -7,8 +7,8 @@
 <meta charset="UTF-8">
 <title>/customer/order_menu.jsp</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css" />
-<noscript><link rel="stylesheet" href="${pageContext.request.contextPath}assets/css/noscript.css" /></noscript>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/order_assets/css/main.css" />
+<noscript><link rel="stylesheet" href="${pageContext.request.contextPath}/order_assets/css/noscript.css" /></noscript>
 </head>
 <body class="is-preload">
 
@@ -168,12 +168,12 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-			<script src="${pageContext.request.contextPath}/assets/js/jquery.poptrox.min.js"></script>
-			<script src="${pageContext.request.contextPath}/assets/js/browser.min.js"></script>
-			<script src="${pageContext.request.contextPath}/assets/js/breakpoints.min.js"></script>
-			<script src="${pageContext.request.contextPath}/assets/js/util.js"></script>
-			<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+			<script src="${pageContext.request.contextPath}/order_assets/js/jquery.min.js"></script>
+			<script src="${pageContext.request.contextPath}/order_assets/js/jquery.poptrox.min.js"></script>
+			<script src="${pageContext.request.contextPath}/order_assets/js/browser.min.js"></script>
+			<script src="${pageContext.request.contextPath}/order_assets/js/breakpoints.min.js"></script>
+			<script src="${pageContext.request.contextPath}/order_assets/js/util.js"></script>
+			<script src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
 
 	</body>
 </html>
