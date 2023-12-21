@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	//아이디는 로그인이 구현이 됬을 때 sessionscope에서 가져오겠다.
+	//아이디는 로그인이 구현이 됬을 때 session scope에서 가져오겠다.
 	String name=request.getParameter("name");
 	MenuDto dto=MenuDao.getInstance().getdata(name);
 	
