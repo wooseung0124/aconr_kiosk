@@ -4,9 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Menu_main_page</title>
 </head>
 <body>
-
+	<h1>이제 시작해봅시다</h1>
+	<ul>
+		<li><a href="product/prod_reg.jsp">상품등록</a></li>
+		<li>category</li>
+	</ul>
 </body>
 </html>
