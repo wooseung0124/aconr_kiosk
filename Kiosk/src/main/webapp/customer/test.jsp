@@ -49,16 +49,22 @@ body{
 	<div class="menu">
 		<%for(MenuDto data:list){ %>
 			<div class="sub" >
-			<a href="ordertest.jsp?name=<%=data.getName()%>">
-				<p><%=data.getImageUrl() %></p>
-				</a> 
+				<p>
+				<a href="detailTest.jsp?name=<%=data.getName()%>">
+				<%=data.getImageUrl() %>
+				</a>
+				</p>
 				<div>
-				<p><%=data.getName() %></p>
+				<p><%=data.getName() %></a></p>
 				<p><%=data.getPrice() %></p>
-				</div>
+				</div>	
+				
 			</div>
 			<%} %>
 	</div>
-	
+	<a href="ordertest.jsp">주문내역</a>
+	<a href="shoppingtest.jsp">장바구니</a>
+	<br />
+
 </body>
 </html>

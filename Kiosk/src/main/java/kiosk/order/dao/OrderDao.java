@@ -23,6 +23,8 @@ public class OrderDao {
 		return dao;
 	}
 
+	
+	//주문 내역 보기
 	public List<OrderDto> order(int tablenum) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
