@@ -28,8 +28,8 @@
 				<div class="invalid-feedback">한글 이름 2~4자 이내로 작성해주세요.</div>
 			</div>
 			<div>
-				<label class="form-label" for="email">이메일</label>
-				<input class="form-control" type="email" name="email" id="email"/>
+				<label class="form-label" for="useremail">이메일</label>
+				<input class="form-control" type="email" name="useremail" id="useremail"/>
 				<div class="invalid-feedback">이메일 형식에 맞게 입력하세요.</div>
 			</div>
 			<div>
@@ -72,7 +72,7 @@
 		    document.querySelector("#stonum").classList.remove("is-valid");
 		    document.querySelector("#stonum").classList.remove("is-invalid");
 
-		    if (reg_stoNum.test(businessNumber)) {
+		    if (reg_stoNum.test(stoNum)) {
 		        //유효한 사업자 번호
 		        document.querySelector("#stonum").classList.add("is-valid");
 		        isStoNumValid = true;
@@ -132,43 +132,43 @@
 		//이메일을 검증할 정규 표현식
 		const reg_email=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 		
-		document.querySelector("#email").addEventListener("input", (e)=>{
+		document.querySelector("#useremail").addEventListener("input", (e)=>{
 			//이 함수에는 발생한 이벤트에 대한 정보를 가지고 있는 event 객체가 매개변수에 전달된다.
 			console.log(e);
 			//입력한 문자열 읽어오기  (e.target 은 이벤트가 발생한 바로 그 요소의 참조값이다)
 			const email=e.target.value;
 			
 			//일단 is-valid 와 is-invalid 클래스를 제거를 먼저하고 
-			document.querySelector("#email").classList.remove("is-valid");
-			document.querySelector("#email").classList.remove("is-invalid");
+			document.querySelector("#useremail").classList.remove("is-valid");
+			document.querySelector("#useremail").classList.remove("is-invalid");
 			
 			if(reg_email.test(email)){
-				isEmailValid=true;
-				document.querySelector("#email").classList.add("is-valid");
+				isUserEmailValid=true;
+				document.querySelector("#useremail").classList.add("is-valid");
 			}else{
-				document.querySelector("#email").classList.add("is-invalid");
-				isEmailvalid=false;
+				document.querySelector("#useremail").classList.add("is-invalid");
+				isUserEmailvalid=false;
 			}
 			
 			checkForm();
 		});
 			
 			//fetch() 함수를 이용해서 get 방식으로 입력한 이메일을 보내고 사용가능 여부를 json 으로 응답받는다.
-			fetch("${pageContext.request.contextPath}/user/check_id.jsp?id="+inputEmail)
+			fetch("${pageContext.request.contextPath}/user/check_id.jsp?id="+inputUserEmail)
 			.then(res=>res.json())
 			.then(data=>{
 				//일단 클래스를 제거한 후에 
-				document.querySelector("#email").classList.remove("is-valid");
-				document.querySelector("#email").classList.remove("is-invalid");
+				document.querySelector("#useremail").classList.remove("is-valid");
+				document.querySelector("#useremail").classList.remove("is-invalid");
 				//data 는 {canUse:true} or {canUse:false} 형태의 object 이다.
 				if(data.canUse){
-					document.querySelector("#email").classList.add("is-valid");
+					document.querySelector("#useremail").classList.add("is-valid");
 					//사용할수 있는 이메일이라는 의미에서 true 를 넣어준다.
-					isEmailValid=true;
+					isUserEmailValid=true;
 				}else{
-					document.querySelector("#email").classList.add("is-invalid");
+					document.querySelector("#useremail").classList.add("is-invalid");
 					//사용할수 없는 이메일이라는 의미에서 false 를 넣어준다.
-					isEmailValid=false;
+					isUserEmailValid=false;
 				}
 				checkForm();
 			});
