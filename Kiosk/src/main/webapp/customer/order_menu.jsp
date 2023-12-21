@@ -9,6 +9,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/order_assets/css/main.css" />
 <noscript><link rel="stylesheet" href="${pageContext.request.contextPath}/order_assets/css/noscript.css" /></noscript>
+<style>
+	td {
+		text-align: center;
+	}
+</style>
 </head>
 <body class="is-preload">
 
@@ -20,6 +25,7 @@
 						<h1><a href="${pageContext.request.contextPath}/index.jsp"><strong>home</strong></a></h1>
 						<nav>
 							<ul>
+								<li><a href="#footer2">장바구니</a></li>
 								<li><a href="#footer" class="icon solid fa-info-circle">Category</a></li>
 							</ul>
 						</nav>
@@ -36,90 +42,105 @@
 							<h2>아메리카노</h2>
 							<h3>깊고 진한 향의 여유를 한 모금에 담다</h3>
 							<h3>2000원</h3>
+							<button>장바구니 추가</button>
 						</article>
 						<article class="thumb">
 							<a href="${pageContext.request.contextPath}/images/fulls/cafe_latte.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/cafe_latte.jpg" alt="" /></a>
 							<h2>카페 라떼</h2>
 							<h3>부드러운 우유 거품이 입안 가득 퍼지는 고소한 행복</h3>
 							<h3>2500원</h3>
+							<button>장바구니 추가</button>
 						</article>
 						<article class="thumb">
 							<a href="${pageContext.request.contextPath}/images/fulls/apogato.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
 							<h2>아포가토</h2>
 							<h3>바닐라 아이스크림 위에 부어진 진한 에스프레소의 완벽한 조화</h3>
 							<h3>4500원</h3>
+							<button>장바구니 추가</button>
 						</article>
 						<article class="thumb">
 							<a href="${pageContext.request.contextPath}/images/fulls/americano.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/americano.jpg" alt="" /></a>
 							<h2>아메리카노</h2>
 							<h3>깊고 진한 향의 여유를 한 모금에 담다</h3>
 							<h3>2000원</h3>
+							<button>장바구니 추가</button>
 						</article>
 						<article class="thumb">
 							<a href="${pageContext.request.contextPath}/images/fulls/cafe_latte.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/cafe_latte.jpg" alt="" /></a>
 							<h2>카페 라떼</h2>
 							<h3>부드러운 우유 거품이 입안 가득 퍼지는 고소한 행복</h3>
 							<h3>2500원</h3>
+							<button>장바구니 추가</button>
 						</article>
 						<article class="thumb">
 							<a href="${pageContext.request.contextPath}/images/fulls/apogato.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
 							<h2>아포가토</h2>
 							<h3>바닐라 아이스크림 위에 부어진 진한 에스프레소의 완벽한 조화</h3>
 							<h3>4500원</h3>
+							<button>장바구니 추가</button>
 						</article>
 						<article class="thumb">
 							<a href="${pageContext.request.contextPath}/images/fulls/americano.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/americano.jpg" alt="" /></a>
 							<h2>아메리카노</h2>
 							<h3>깊고 진한 향의 여유를 한 모금에 담다</h3>
 							<h3>2000원</h3>
+							<button>장바구니 추가</button>
 						</article>
 						<article class="thumb">
 							<a href="${pageContext.request.contextPath}/images/fulls/cafe_latte.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/cafe_latte.jpg" alt="" /></a>
 							<h2>카페 라떼</h2>
 							<h3>부드러운 우유 거품이 입안 가득 퍼지는 고소한 행복</h3>
 							<h3>2500원</h3>
+							<button>장바구니 추가</button>
 						</article>
 						<article class="thumb">
 							<a href="${pageContext.request.contextPath}/images/fulls/apogato.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
 							<h2>아포가토</h2>
 							<h3>바닐라 아이스크림 위에 부어진 진한 에스프레소의 완벽한 조화</h3>
 							<h3>4500원</h3>
+							<button>장바구니 추가</button>
 						</article>
 						<article class="thumb">
 							<a href="${pageContext.request.contextPath}/images/fulls/americano.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/americano.jpg" alt="" /></a>
 							<h2>아메리카노</h2>
 							<h3>깊고 진한 향의 여유를 한 모금에 담다</h3>
 							<h3>2000원</h3>
+							<button>장바구니 추가</button>
 						</article>
 						<article class="thumb">
 							<a href="${pageContext.request.contextPath}/images/fulls/cafe_latte.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/cafe_latte.jpg" alt="" /></a>
 							<h2>카페 라떼</h2>
 							<h3>부드러운 우유 거품이 입안 가득 퍼지는 고소한 행복</h3>
 							<h3>2500원</h3>
+							<button>장바구니 추가</button>
 						</article>
 						<article class="thumb">
 							<a href="${pageContext.request.contextPath}/images/fulls/apogato.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
 							<h2>아포가토</h2>
 							<h3>바닐라 아이스크림 위에 부어진 진한 에스프레소의 완벽한 조화</h3>
 							<h3>4500원</h3>
+							<button>장바구니 추가</button>
 						</article>
 						<article class="thumb">
 							<a href="${pageContext.request.contextPath}/images/fulls/americano.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/americano.jpg" alt="" /></a>
 							<h2>아메리카노</h2>
 							<h3>깊고 진한 향의 여유를 한 모금에 담다</h3>
 							<h3>2000원</h3>
+							<button>장바구니 추가</button>
 						</article>
 						<article class="thumb">
 							<a href="${pageContext.request.contextPath}/images/fulls/cafe_latte.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/cafe_latte.jpg" alt="" /></a>
 							<h2>카페 라떼</h2>
 							<h3>부드러운 우유 거품이 입안 가득 퍼지는 고소한 행복</h3>
 							<h3>2500원</h3>
+							<button>장바구니 추가</button>
 						</article>
 						<article class="thumb">
 							<a href="${pageContext.request.contextPath}/images/fulls/apogato.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
 							<h2>아포가토</h2>
 							<h3>바닐라 아이스크림 위에 부어진 진한 에스프레소의 완벽한 조화</h3>
 							<h3>4500원</h3>
+							<button>장바구니 추가</button>
 						</article>
 					</div>
 				<!-- Footer -->
@@ -161,6 +182,92 @@
 										<li>그러면 servlet에서 parameter의 값이 null이 될테이니 null이면 전체의 메뉴를 list에 넣어주는 로직을 짜서 저장해주면 된다.</li>
 									</ul>
 								</section>
+							</div>
+						</div>
+					</footer>
+					
+					<footer id="footer2" class="panel">
+						<div class="inner split">
+							<div>
+								<section>
+									<h2>장바구니 목록</h2>
+									<table>
+										<thead>
+											<td>메뉴 이름</td>
+											<td>수량</td>
+											<td>상품 금액</td>
+											<td>주문 금액</td>
+											<td>삭제</td>
+										</thead>
+										<tbody>
+											<tr>
+												<td>아메리카노</td>
+												<td>2개</td>
+												<td>2000원</td>
+												<td>4000원</td>
+												<td><button>X</button></td>
+											</tr>
+											<tr>
+												<td>아메리카노</td>
+												<td>2개</td>
+												<td>2000원</td>
+												<td>4000원</td>
+												<td><button>X</button></td>
+											</tr>
+											<tr>
+												<td>아메리카노</td>
+												<td>2개</td>
+												<td>2000원</td>
+												<td>4000원</td>
+												<td><button>X</button></td>
+											</tr>
+											<tr>
+												<td>아메리카노</td>
+												<td>2개</td>
+												<td>2000원</td>
+												<td>4000원</td>
+												<td><button>X</button></td>
+											</tr>
+											<tr>
+												<td>아메리카노</td>
+												<td>2개</td>
+												<td>2000원</td>
+												<td>4000원</td>
+												<td><button>X</button></td>
+											</tr>
+										</tbody>
+										<tfoot>
+											<tr>
+												<td>총합계</td>
+												<td colspan='3'>20000원</td>
+												<td><button>주문하기</button></td>
+											</tr>
+										</tfoot>
+									</table>
+						
+								</section>
+							</div>
+							<div>
+								<section>
+									<h2>향기로운 휴식, 당신을 위한 카페 Acorn Cafe</h2>
+									<p>당신의 일상에 여유를 선사하는 카페 오아시스를 소개합니다. 저희 카페에서는 정성스레 내린 커피, 신선한 빵, 그리고 달콤한 디저트를 즐기실 수 있습니다. 각 계절마다 변화하는 메뉴를 통해 자연의 맛을 전달하고자 하며, 건강을 생각한 메뉴 선택도 다양하게 준비되어 있습니다.
+
+아늑한 분위기에서 편안한 대화를 나누거나, 조용히 책을 읽으며 시간을 보내실 수 있습니다. 카페 오아시스는 단순히 음료를 마시는 곳이 아니라, 삶에 휴식을 주는 공간입니다. 여기에서 소중한 순간을 만끽하세요.</p>
+								</section>
+								<section>
+									<h2>Follow me on ...</h2>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+										<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+										<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+									</ul>
+								</section>
+								<p class="copyright">
+									&copy; Acorn Order. Design: Team1.
+								</p>
 							</div>
 						</div>
 					</footer>
