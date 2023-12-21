@@ -31,14 +31,6 @@ public class MenuDto {
 		this.stoNum = stoNum;
 	}
 
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -54,15 +46,6 @@ public class MenuDto {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -77,6 +60,22 @@ public class MenuDto {
 
 	public void setIsSold(String isSold) {
 		this.isSold = isSold;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	
 }
