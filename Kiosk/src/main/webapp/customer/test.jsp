@@ -13,29 +13,7 @@
 <meta charset="UTF-8">
 <title>Main</title>
 <style>
-body{
-	display:flex;
-}
-	.list{
-		list-style-type: none;
-		margin: 0;
-		padding: 0;
-		
-	}
-	.list a{
-		text-decoration: none;
-		padding: 10px;
-	}
-	.menu{
-		display: flex;
 
-	}
-	.sub{
-	width:100px;
-	height:100px;
-	margin:5px;
-	padding: 10px;	
-	}
 </style>
 </head>
 <body>

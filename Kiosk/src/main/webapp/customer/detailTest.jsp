@@ -17,7 +17,7 @@
 </head>
 <body>
 	<div>
-	<form action="shoppingtest.jsp" method="post">
+	<form action="sessiontest.jsp" method="post">
 	<img src="<%=dto.getImageUrl() %>" alt="메뉴이미지" />
 	<div>
 	<label for="name"><%=dto.getName() %></label>
