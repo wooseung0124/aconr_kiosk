@@ -27,13 +27,15 @@ public class MenuDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int rowCount = 0;
+		
 		try {
 			conn = new DbcpBean().getConn();
 			//실행할 sql 문
 			String sql = "INSERT INTO menu_info"
 		               + " (sto_num,name,price,description,imageUrl,is_sold,category)"
-		               + " values(?,?,?,?,?,'no',?)";
+		               + " values(?,?,?,?,?,'NO',?)";
 			pstmt = conn.prepareStatement(sql);
+			
 			//? 에 바인딩 할 내용이 있으면 바인딩
 			pstmt.setString(1,dto.getStoNum());
 			pstmt.setString(2, dto.getName());
@@ -127,8 +129,8 @@ public class MenuDao {
 		}
 	}
 	
-	//상품목록 하나 가져오기
-	public MenuDto getdata(String stoNum) {
+	//상품목록 하나 가져오기  (stoNum 매개변수 추가예정)
+	public MenuDto getdata(String name) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -138,20 +140,23 @@ public class MenuDao {
 		try {
 			conn = new DbcpBean().getConn();
 			//실행할 sql 문
-			String sql = "SELECT name,price,description,imageUrl,is_sold,category"
+			String sql = "SELECT *"
 					+ " FROM menu_info"
-					+ " WHERE sto_num=?";
+					+ " WHERE name=?";
 			pstmt = conn.prepareStatement(sql);
 			//? 에 바인딩할 내용이 있으면 여기서 한다.
-			pstmt.setString(1, stoNum);
+			
+			pstmt.setString(1, name);
+			System.out.println(name);
 
 			//query 문 수행하고 결과(ResultSet) 얻어내기
 			rs = pstmt.executeQuery();
 			//상품정보가 담긴 Dto를 하나 만들어봅시다 
 			if (rs.next()) {
 				dto=new MenuDto();
-				dto.setStoNum(stoNum);
-				dto.setName(rs.getString("name"));
+				//dto.setStoNum(stoNum);
+				dto.setStoNum(rs.getString("sto_num"));
+				dto.setName(name);
 				dto.setPrice(rs.getInt("price"));
 				dto.setDescription(rs.getString("description"));
 				dto.setImageUrl(rs.getString("imageUrl"));
@@ -184,8 +189,8 @@ public class MenuDao {
 			conn = new DbcpBean().getConn();
 			//실행할 sql 문
 			String sql = "SELECT *"
-					+ " FROM menu_info"
-					+ "	ORDER BY NLSSORT(name, 'NLS_SORT=KOREAN')";
+					+ " FROM menu_info";
+					//+ "	ORDER BY NLSSORT(name, 'NLS_SORT=KOREAN')";
 					
 			pstmt = conn.prepareStatement(sql);
 			//? 에 바인딩할 내용이 있으면 여기서 한다.
@@ -232,8 +237,8 @@ public class MenuDao {
 			//실행할 sql 문
 			String sql = "SELECT *"
 					+ " FROM menu_info"
-					+ "	WHERE category=?"
-					+ "	ORDER BY NLSSORT(name, 'NLS_SORT=KOREAN')";
+					+ "	WHERE category=?";
+				;
 					
 			pstmt = conn.prepareStatement(sql);
 			//? 에 바인딩할 내용이 있으면 여기서 한다.
