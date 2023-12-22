@@ -55,7 +55,7 @@
 					
 				</div>
 				<div style="margin-top : 1em;">
-					<button type="submit">회원 가입</button>
+					<button type="submit" disabled>회원 가입</button>
 				</div>
 			</form>
 
