@@ -1,19 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/owner_assets/css/main.css" />
-<title>/owner/login.jsp</title>
+<title>/owner/signup.jsp</title>
 </head>
 <body class="is-preload">
 
 		<!-- Header -->
 			<header id="header">
-				<h1>로그인 성공!</h1>
-				<p>축하드립니다! 로그인이 완료되었습니다. 이제 저희 서비스를 자유롭게 이용하실 수 있습니다. 환영합니다!</p>
-				<a href="#">메뉴 관리로 가기</a>
+				<h1>회원 가입 성공!</h1>
+				<p>축하드립니다! 회원가입이 완료되었습니다. 이제 저희 서비스를 자유롭게 이용하실 수 있습니다. 환영합니다!</p>
+				<a href="${pageContext.request.contextPath}/owner/login_form.jsp">로그인 하러 가기</a>
 			</header>
 
 		<!-- Footer -->

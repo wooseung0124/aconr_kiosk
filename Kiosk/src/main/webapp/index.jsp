@@ -34,7 +34,7 @@
 						</div>
 						<nav>
 							<ul>
-								<li><a href="owner/signup_form.jsp">사장님 페이지</a></li>
+								<li><a href="owner/login_form">사장님 페이지</a></li>
 								<li><a href="customer/order_menu.jsp">손님 페이지</a></li>
 								<!-- 그냥 만들어봄  -->
 								<li><a href="#about">음식점 소개 페이지</a></li>
