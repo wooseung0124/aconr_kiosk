@@ -22,6 +22,7 @@
 					<label for="stoNum">사업자 번호</label>
 					<input type="text"  name="stoNum" id="stoNum" placeholder="사업자 번호"/>
 					<small id="smallStoNum">000-00-00000로 숫자로만 10자로 입력해주세요.</small>
+					<!-- 자동 대시 작성 기능 -->
 				</div>
 				<div>
 					<label for="stoName">가게 이름</label>
@@ -82,7 +83,7 @@
 			console.log(isStoNameValid);
 			console.log(isONameValid);
 			console.log(isEmailValid);
-			console.log(isPwdValid);
+			<console></console>.log(isPwdValid);
 		};
 		
 		//사업자 번호를 검증할 정규 표현식
