@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/login_form.jsp</title>
+<title>/owner/signup_form.jsp</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/owner_assets/css/main.css" />
 </head>
@@ -24,7 +24,6 @@
 					<!-- <small class="form-text">XXX-XX-XXXXX 형태로 숫자로만 10자로 입력해주세요.</small>
 					<div class="valid-feedback">사용 가능한 사업자 번호 입니다.</div>
 					<div class="invalid-feedback">사업자 번호 형태에 맞게 입력해주세요.</div>  -->
-					
 				</div>
 				<div>
 					<label class="form-label" for="stoName">가게 이름</label>
@@ -69,7 +68,7 @@
 
 		<!-- Scripts -->
 			<script src="${pageContext.request.contextPath}/owner_assets/js/main.js"></script>
-
+	
 	</body>
 	<script>
 	let isStoNumValid=false;
@@ -194,6 +193,7 @@
 			}
 			checkForm();
 		});
+<<<<<<< Updated upstream
 
 	});
 
@@ -235,5 +235,15 @@
 	document.querySelector("#pwd").addEventListener("input", checkPwd);
 	
 	document.querySelector("#pwd2").addEventListener("input", checkPwd);
+=======
+		
+		document.querySelector("#stoNum").addEventListener("input" , (e)=> {
+			  	//패턴을 통과하게 되면 아무일도 일어나지 않으며 통과하지 않으면
+				// setCustomValidity를 통해서 오류글을 작성해주고 reportValidity를 통해 오류를 보여준다
+			    e.target.setCustomValidity('사업자 번호는 10자리 숫자여야 합니다.');
+			    e.target.reportValidity()
+			  
+			});
+>>>>>>> Stashed changes
 	</script>
 </html>
