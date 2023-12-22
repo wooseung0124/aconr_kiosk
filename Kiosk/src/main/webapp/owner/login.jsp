@@ -3,13 +3,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/owner_assets/css/main.css" />
 <title>/owner/login.jsp</title>
 </head>
 <body class="is-preload">
 
 		<!-- Header -->
 			<header id="header">
-			
 			<c:choose>
 				<c:when test="${isSuccess}">
 					<h1>로그인 성공!</h1>
@@ -27,7 +28,6 @@
 					</p>
 				</c:otherwise>
 			</c:choose>
-	
 			</header>
 
 		<!-- Footer -->
@@ -39,7 +39,7 @@
 					<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
 				</ul>
 				<ul class="copyright">
-					<li>&copy; Untitled.</li><li>Credits: <a href="http://html5up.net">HTML5 UP</a></li>
+					<li>&copy; Acorn Order. Design: Team1.</li>
 				</ul>
 			</footer>
 

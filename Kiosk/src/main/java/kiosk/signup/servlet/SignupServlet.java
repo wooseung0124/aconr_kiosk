@@ -26,5 +26,6 @@ public class SignupServlet extends HttpServlet{
 		req.setAttribute("o_name", o_name);
 		RequestDispatcher rd=req.getRequestDispatcher("/owner/signup.jsp");
 		rd.forward(req, resp);
+
 	}
 }
