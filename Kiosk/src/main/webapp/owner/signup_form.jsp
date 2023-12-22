@@ -17,7 +17,7 @@
 			</header>
 
 		<!-- Signup Form -->
-			<form id="signup-form" action="signup.jsp" method="post" >
+			<form id="signup-form" action="${pageContext.request.contextPath}/signup" method="post" >
 				<div>
 					<label for="stoNum">사업자 번호</label>
 					<input type="text"  name="stoNum" id="stoNum" placeholder="사업자 번호"/>
