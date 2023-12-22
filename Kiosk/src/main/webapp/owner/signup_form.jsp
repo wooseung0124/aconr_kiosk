@@ -193,8 +193,6 @@
 			}
 			checkForm();
 		});
-<<<<<<< Updated upstream
-
 	});
 
 	
@@ -235,15 +233,13 @@
 	document.querySelector("#pwd").addEventListener("input", checkPwd);
 	
 	document.querySelector("#pwd2").addEventListener("input", checkPwd);
-=======
 		
-		document.querySelector("#stoNum").addEventListener("input" , (e)=> {
-			  	//패턴을 통과하게 되면 아무일도 일어나지 않으며 통과하지 않으면
-				// setCustomValidity를 통해서 오류글을 작성해주고 reportValidity를 통해 오류를 보여준다
-			    e.target.setCustomValidity('사업자 번호는 10자리 숫자여야 합니다.');
-			    e.target.reportValidity()
+	document.querySelector("#stoNum").addEventListener("input" , (e)=> {
+		  	//패턴을 통과하게 되면 아무일도 일어나지 않으며 통과하지 않으면
+			// setCustomValidity를 통해서 오류글을 작성해주고 reportValidity를 통해 오류를 보여준다
+		    e.target.setCustomValidity('사업자 번호는 10자리 숫자여야 합니다.');
+		    e.target.reportValidity()
 			  
 			});
->>>>>>> Stashed changes
 	</script>
 </html>
