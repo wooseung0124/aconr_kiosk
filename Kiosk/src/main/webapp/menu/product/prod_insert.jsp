@@ -3,29 +3,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%
-	MenuDto dto = new MenuDto();
-	String stoNum=(String)session.getAttribute("stoNum");
-	String name= request.getParameter("name");
-	int price=Integer.parseInt(request.getParameter("price"));
-	String description=request.getParameter("description");
-	String imageUrl=request.getParameter("imageUrl");
-	String category=request.getParameter("category");
-	System.out.println(imageUrl);
+
 	
-	dto.setStoNum("123-45-6789"); 
-	dto.setName(name);
-	dto.setPrice(price);
-	dto.setDescription(description);
-	dto.setImageUrl(imageUrl);
-	dto.setCategory(category);
-	
-	boolean isSuccess=MenuDao.getInstance().insert(dto);
-	//jstl을 사용하기 위해서는 request영역에 담는다.
-	request.setAttribute("isSuccess",isSuccess);
-	
-	
-%>
+
 <!DOCTYPE html>
 <html>
 <head>

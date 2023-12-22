@@ -63,8 +63,8 @@ public class MenuDao {
 		}
 	}
 	
-	//상품삭제하기
-	public boolean delete(String stoNum) {
+	//상품삭제하기 name을 stoNum으로 수정해야한다.
+	public boolean delete(String name) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int rowCount = 0;
@@ -72,10 +72,10 @@ public class MenuDao {
 			conn = new DbcpBean().getConn();
 			//실행할 sql 문
 			String sql = "DELETE FROM menu_info"
-		               + " WHERE sto_num=?";
+		               + " WHERE name=?";
 			pstmt = conn.prepareStatement(sql);
 			//? 에 바인딩 할 내용이 있으면 바인딩
-			pstmt.setString(1, stoNum);
+			pstmt.setString(1, name);
 
 			rowCount = pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class MenuDao {
 		}
 	}
 	
-	//상품수정하기
+	//상품수정하기 sto_num으로 찾아야됨
 	public boolean update(MenuDto dto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -105,8 +105,8 @@ public class MenuDao {
 			conn = new DbcpBean().getConn();
 			//실행할 sql 문
 			 String sql = "UPDATE menu_info"
-		               + "   SET name=?,price=?,description=?,imageUrl=?,category=?"
-		               + " WHERE sto_num=?";
+		               + "   SET price=?,description=?,imageUrl=?,category=?"
+		               + " WHERE name=?";
 			pstmt = conn.prepareStatement(sql);
 			//? 에 바인딩 할 내용이 있으면 바인딩
 
