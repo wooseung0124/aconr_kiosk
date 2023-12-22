@@ -5,11 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%
-	List<MenuDto> menu_list=MenuDao.getInstance().getList();
-	request.setAttribute("menu_list", menu_list);
-	
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,8 +54,6 @@
 		<li>category</li>
 	</ul>
 	
- 
-
     <div class="products">
         <h3>Our New Products</h3>
 
@@ -67,7 +61,7 @@
        
         <c:forEach var="tmp" items="${menu_list}">
         
-        	<a href="product/prod_updateform.jsp?name=${tmp.name}" class="product">
+        	<a href="product/prod_updateform?name=${tmp.name}" class="product">
         		<c:choose>
         			<c:when test="${tmp.imageUrl eq  null }">
         			<svg width="225" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="80" height="80" rx="15" fill="#f0f0f0"/><text x="50%" y="50%" text-anchor="middle" fill="#888888" font-size="20">이미지 준비중</text></svg>
