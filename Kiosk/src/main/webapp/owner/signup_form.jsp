@@ -17,7 +17,7 @@
 			</header>
 
 		<!-- Signup Form -->
-			<form id="signup-form" action="signup.jsp" method="post" >
+			<form id="signup-form" action="${pageContext.request.contextPath}/owner/signup" method="post" >
 				<div>
 					<label for="stoNum">사업자 번호</label>
 					<input type="text"  name="stoNum" id="stoNum" placeholder="사업자 번호"/>
@@ -49,9 +49,6 @@
 				<div>
 					<label class="form-label" for="pwd2">비밀번호 확인</label>
 					<input class="form-control" type="password" name="pwd" id="pwd2" placeholder="비밀번호 확인" />
-					<!-- <small class="form-text">비밀번호와 비밀번호 확인란에 입력된 문자가 일치해야 합니다.</small>
-					<div class="valid-feedback">비밀번호가 일치합니다.</div>
-					<div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>  -->
 					
 				</div>
 				<div style="margin-top : 1em;">
@@ -83,7 +80,7 @@
 			console.log(isStoNameValid);
 			console.log(isONameValid);
 			console.log(isEmailValid);
-			<console></console>.log(isPwdValid);
+			console.log(isPwdValid);
 		};
 		
 		//사업자 번호를 검증할 정규 표현식
