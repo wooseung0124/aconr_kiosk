@@ -11,8 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import kiosk.owner.dao.OwnerDao;
 import kiosk.owner.dto.OwnerDto;
-@WebServlet("/signup")
+@WebServlet("/owner/signup")
 public class SignupServlet extends HttpServlet{
+	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
@@ -22,7 +23,8 @@ public class SignupServlet extends HttpServlet{
 		OwnerDto dto=new OwnerDto();
 		boolean isSuccess = OwnerDao.getInstance().insert(dto);
 		req.setAttribute("isSucess", isSuccess);
-		RequestDispatcher rd=req.getRequestDispatcher("owner/signup.jsp");
+		req.setAttribute("o_name", o_name);
+		RequestDispatcher rd=req.getRequestDispatcher("/owner/signup.jsp");
 		rd.forward(req, resp);
 	}
 }

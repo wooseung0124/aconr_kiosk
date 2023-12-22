@@ -2,7 +2,7 @@
 <%@page import="kiosk.owner.dto.OwnerDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +20,7 @@
 				<c:when test="${isSuccess}">
 					<h1>회원 가입 성공!</h1>
 					<p>축하드립니다!<br/> 
-					<strong>${sessionScope.o_name}</strong>님 회원가입이 완료되었습니다. <br/>
+					회원가입이 완료되었습니다. <br/>
 					이제 저희 서비스를 자유롭게 이용하실 수 있습니다.<br/> 
 					환영합니다!</p>
 					<a href="${pageContext.request.contextPath}/owner/login_form.jsp">로그인 하러 가기</a>

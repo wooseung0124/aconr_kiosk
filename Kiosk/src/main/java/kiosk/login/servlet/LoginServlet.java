@@ -2,6 +2,7 @@ package kiosk.login.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -10,13 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/login")
+import kiosk.owner.dao.OwnerDao;
+import kiosk.owner.dto.OwnerDto;
+
+@WebServlet("/owner/login")
 public class LoginServlet extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		 // 사용자가 제출한 폼 데이터에서 사용자 이름과 비밀번호 추출
         String email = req.getParameter("email");
         String pwd = req.getParameter("pwd");
+        OwnerDto dto=new OwnerDto();
+		boolean isSuccess = OwnerDao.getInstance().insert(dto);
+		req.setAttribute("isSucess", isSuccess);
+		RequestDispatcher rd=req.getRequestDispatcher("/index.jsp");
+		rd.forward(req, resp);
 
         // 실제로는 데이터베이스에서 사용자 정보를 가져와서 확인하는 것이 일반적입니다.
         // 여기서는 간단한 예제를 위해 미리 정의된 값과 비교합니다.
