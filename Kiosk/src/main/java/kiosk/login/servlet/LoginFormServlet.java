@@ -19,6 +19,7 @@ public class LoginFormServlet extends HttpServlet{
 		System.out.println(cooks);
 		RequestDispatcher rd = req.getRequestDispatcher("/owner/login_form.jsp");
 		if(cooks != null) req.setAttribute("cookie", cooks);
+		//로그인 폼에서 cookie의 값이 null 이 아니라면 자동완성을 해주는 기능을 추후 추가하자
 		rd.forward(req, resp);
 	}
 }
