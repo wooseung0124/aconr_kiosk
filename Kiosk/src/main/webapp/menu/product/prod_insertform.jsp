@@ -14,7 +14,7 @@
 		<h1>상품등록페이지입니다.</h1>
 	
 		<h3>상품 정보를 등록해주세요</h3>
-		<form action="insert.jsp">
+		<form action="prod_insert" method="post">
 			<div>
 				<label for="name">상품명</label>
 				<input type="text" name="name" id="name" placeholder="상품 이름 입력" />

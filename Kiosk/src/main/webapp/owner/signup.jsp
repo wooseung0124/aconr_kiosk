@@ -1,19 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="kiosk.owner.dao.OwnerDao"%>
+<%@page import="kiosk.owner.dto.OwnerDto"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/owner_assets/css/main.css" />
-<title>/owner/login.jsp</title>
+<title>/owner/signup.jsp</title>
 </head>
 <body class="is-preload">
 
 		<!-- Header -->
 			<header id="header">
+			
 			<c:choose>
 				<c:when test="${isSuccess}">
-					<h1>로그인 성공!</h1>
+					<h1>회원 가입 성공!</h1>
 					<p>축하드립니다!<br/> 
 					회원가입이 완료되었습니다. <br/>
 					이제 저희 서비스를 자유롭게 이용하실 수 있습니다.<br/> 
@@ -28,6 +33,7 @@
 					</p>
 				</c:otherwise>
 			</c:choose>
+	
 			</header>
 
 		<!-- Footer -->

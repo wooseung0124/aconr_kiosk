@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<a href="${pageContext.request.contextPath}/menu/menu">메뉴로 가보기</a>
 </body>
 </html>
