@@ -106,7 +106,7 @@ public class MenuDao {
 			System.out.println(dto.getDescription());
 			//실행할 sql 문
 			 String sql = "UPDATE menu_info"
-		               + " SET price=?,description=?,imageurl=?,category=?"
+		               + " SET price=?,description=?,imageurl=?,category=?, is_sold=?"
 		               + " WHERE name=?";
 			pstmt = conn.prepareStatement(sql);
 			//? 에 바인딩 할 내용이 있으면 바인딩
@@ -114,7 +114,8 @@ public class MenuDao {
 			pstmt.setString(2, dto.getDescription());
 			pstmt.setString(3, dto.getImageUrl());
 			pstmt.setString(4, dto.getCategory());
-			pstmt.setString(5, dto.getName());
+			pstmt.setString(5, dto.getIsSold());
+			pstmt.setString(6, dto.getName());
 			rowCount = pstmt.executeUpdate();
 //			rowCount = pstmt.execute() ? 1 : 0;
 			conn.commit();

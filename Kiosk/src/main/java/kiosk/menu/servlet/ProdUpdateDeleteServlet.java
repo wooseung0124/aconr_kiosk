@@ -27,6 +27,7 @@ public class ProdUpdateDeleteServlet extends HttpServlet {
 		String description=req.getParameter("description");
 		String imageUrl=req.getParameter("imageUrl");
 		String category=req.getParameter("category");
+		String isSold=req.getParameter("isSold");
 		
 		
 		//dto.setStoNum(stoNum); 
@@ -35,20 +36,20 @@ public class ProdUpdateDeleteServlet extends HttpServlet {
 		dto.setDescription(description);
 		dto.setImageUrl(imageUrl);
 		dto.setCategory(category);
+		dto.setIsSold(isSold);
+	
 		
-		System.out.println(dto.getName());
-		System.out.println(dto.getPrice());
-		System.out.println(dto.getDescription());
-		System.out.println(dto.getImageUrl());
-		System.out.println(dto.getCategory());
+		
+//		System.out.println(dto.getName());
+//		System.out.println(dto.getPrice());
+//		System.out.println(dto.getDescription());
+//		System.out.println(dto.getImageUrl());
+//		System.out.println(dto.getCategory());
+		System.out.println(dto.getIsSold());
 		
 		
 		//jstl을 사용하기 위해서는 request영역에 담는다.
 		req.setAttribute("dto", dto);
-	
-		
-		
-
 		
 	
 		if(action.equals("수정")) {
