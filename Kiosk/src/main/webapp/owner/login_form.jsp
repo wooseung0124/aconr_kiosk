@@ -13,7 +13,9 @@
 		<!-- Header -->
 			<header id="header">
 				<h1>Acorn Kiosk</h1>
-				<p>사장님 로그인 페이지에 오신 것을 환영합니다.<br> 이곳에서는 가게 운영에 필요한 모든 관리 기능에 접근하실 수 있습니다. </p>
+				<p>사장님 로그인 페이지에 오신 것을 환영합니다.<br> 이곳에서는 가게 운영에 필요한 모든 관리 기능에 접근하실 수 있습니다.<br>
+					<strong><a href="signup_form.jsp">회원가입 하러 가기</a></strong>
+				</p>
 			</header>
 
 		<!-- Signup Form -->
