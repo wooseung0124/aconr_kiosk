@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title></title>
 </head>
 <body>
+	<h1>임시 메인페이지</h1>
 	<a href="${pageContext.request.contextPath}/menu/menu">메뉴로 가보기</a>
 </body>
 </html>
