@@ -42,16 +42,15 @@ public class ProdUpdateDeleteServlet extends HttpServlet {
 		System.out.println(dto.getImageUrl());
 		System.out.println(dto.getCategory());
 		
-		boolean isSuccess=MenuDao.getInstance().update(dto);
+		
 		//jstl을 사용하기 위해서는 request영역에 담는다.
 		req.setAttribute("dto", dto);
-		req.setAttribute("isSuccess",isSuccess);
-		req.setAttribute("action", action);
+	
 		
-		System.out.println(isSuccess);
+		
 
 		
-	/*	
+	
 		if(action.equals("수정")) {
 			boolean isSuccess=MenuDao.getInstance().update(dto);
 			//jstl을 사용하기 위해서는 request영역에 담는다.
@@ -66,7 +65,7 @@ public class ProdUpdateDeleteServlet extends HttpServlet {
 			req.setAttribute("action", action);
 			System.out.println(isSuccess);
 		}
-	*/
+
 		
 		RequestDispatcher rd= req.getRequestDispatcher("/menu/product/prod_update_delete.jsp");
 		rd.forward(req,resp);

@@ -103,9 +103,10 @@ public class MenuDao {
 		int rowCount = 0;
 		try {
 			conn = new DbcpBean().getConn();
+			System.out.println(dto.getDescription());
 			//실행할 sql 문
 			 String sql = "UPDATE menu_info"
-		               + " SET price=?,description=?,imageUrl=?,category=?"
+		               + " SET price=?,description=?,imageurl=?,category=?"
 		               + " WHERE name=?";
 			pstmt = conn.prepareStatement(sql);
 			//? 에 바인딩 할 내용이 있으면 바인딩
@@ -115,8 +116,13 @@ public class MenuDao {
 			pstmt.setString(4, dto.getCategory());
 			pstmt.setString(5, dto.getName());
 			rowCount = pstmt.executeUpdate();
+//			rowCount = pstmt.execute() ? 1 : 0;
+			conn.commit();
+			System.out.println(rowCount);
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("fail1");
+			
 		} finally {
 			try {
 				if (pstmt != null)
@@ -124,12 +130,16 @@ public class MenuDao {
 				if (conn != null)
 					conn.close();
 			} catch (Exception e) {
+				System.out.println("fail2");
+				
 			}
 		}
 		if (rowCount > 0) {
 			return true;
 		} else {
+			System.out.println("fail3");
 			return false;
+			
 		}
 	}
 	

@@ -2,12 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    
-<%
-	String action=(String)request.getAttribute("action");
-	MenuDto dto=(MenuDto)request.getAttribute("dto");
-	boolean isSuccess=(boolean)request.getAttribute("isSuccess");
-	
-%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -16,39 +11,46 @@
 <title>/menu/prod_update_delete.jsp</title>
 </head>
 <body>
-<script>
-<%if(isSuccess){%>
-	alert("상품 수정이 완료되었습니다.")
-	window.location.href = '${pageContext.request.contextPath}/menu/menu';
-<%}else{%>
-	alert("상품 수정을 실패하였습니다.")
-		window.location.href='${pageContext.request.contextPath}/menu/product/prod_updateform?name=<%=dto.getName()%>';
-<%}%>
-</script>
-<%--
-	<script>
+
 	
-		<%if(action.equals("수정")){ %>
-			<%if(isSuccess){%>
-				alert("상품 수정이 완료되었습니다.")
-				window.location.href = '${pageContext.request.contextPath}/menu/menu';
-			<%}else{%>
-				alert("상품 수정을 실패하였습니다.")
-		 		window.location.href='${pageContext.request.contextPath}/menu/product/prod_updateform';
-			<%}%>
-			
-		<%}else if(action.equals("삭제")){%>
-			<%if(isSuccess){%>
-				alert("상품 삭제가 완료되었습니다.")
-				window.location.href = '${pageContext.request.contextPath}/menu/menu';
-			<%}else{%>
-				alert("상품 삭제를 실패하였습니다.")
-		 		window.location.href='${pageContext.request.contextPath}/menu/menu';
-			<%}%>
-		<%}%>
-		*/
-	</script>
-	 --%>
+<c:choose>
+    <c:when test="${action eq '수정'}">
+        <c:choose>
+            <c:when test="${isSuccess}">
+                <script>
+                    alert("상품 수정이 완료되었습니다.");
+                    window.location.href = '${pageContext.request.contextPath}/menu/menu';
+                </script>
+            </c:when>
+            <c:otherwise>
+                <script>
+                    alert("상품 수정을 실패하였습니다.");
+                    window.location.href = '${pageContext.request.contextPath}/menu/product/prod_updateform';
+                </script>
+            </c:otherwise>
+        </c:choose>
+    </c:when>
+    <c:when test="${action eq '삭제'}">
+        <c:choose>
+            <c:when test="${isSuccess}">
+                <script>
+                    alert("상품 삭제가 완료되었습니다.");
+                    window.location.href = '${pageContext.request.contextPath}/menu/menu';
+                </script>
+            </c:when>
+            <c:otherwise>
+                <script>
+                    alert("상품 삭제를 실패하였습니다.");
+                    window.location.href = '${pageContext.request.contextPath}/menu/product/prod_updateform';
+                </script>
+            </c:otherwise>
+        </c:choose>
+    </c:when>
+</c:choose>
+	
+	
+	
+
 	
 </body>
 </html>

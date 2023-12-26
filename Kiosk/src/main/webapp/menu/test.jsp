@@ -10,4 +10,4 @@
 	<h1>임시 메인페이지</h1>
 	<a href="${pageContext.request.contextPath}/menu/menu">메뉴로 가보기</a>
 </body>
-</html>
+</html>	
