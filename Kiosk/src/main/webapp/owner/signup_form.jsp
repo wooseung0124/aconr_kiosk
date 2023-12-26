@@ -249,7 +249,7 @@
 				pwd2.reportValidity();
 				small.innerText="";
 				checkForm();
-				return;
+				return;z`
 			}else {
 				pwd.setCustomValidity("");
 				pwd2.setCustomValidity("");
