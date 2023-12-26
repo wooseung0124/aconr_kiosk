@@ -19,7 +19,7 @@
 			</header>
 
 		<!-- Signup Form -->
-			<form id="signup-form" action="${pageContext.request.contextPath}/login" method="post" >
+			<form id="signup-form" action="${pageContext.request.contextPath}/owner/login" method="post" >
 				<div>
 					<label for="email">이메일</label>
 					<input type="email" name="email" id="email" placeholder="Email Address" />

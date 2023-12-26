@@ -10,43 +10,236 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Menu_main_page</title>
-<style>
-	.product-list{
-    width: 735px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.products h3{
-    font-size: 24px;
-    color: #545454;
-    margin-top:60px;
-    margin-bottom: 60px;
-    text-align: center;
-}
-
-.product{
-    display: block;
-    width: 225px;
-    text-align: center;
-    text-decoration:none;
-    color: black;
-    float:left;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 30px;
-}
-
-.product-name{
-    margin-top: 20px;
-    margin-bottom: 4px;
-}
-
-.clearfix{
-    clear: both;
-}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/menu_assets/css/main.css" />
+<title>menu/menu.jsp</title>
 </head>
+<body class="is-preload">
+
+		<!-- Header -->
+			<div id="header">
+
+				<div class="top">
+
+					<!-- Logo -->
+						<div id="logo">
+							<span class="image avatar48"><img src="${pageContext.request.contextPath}/images/avatar.jpg" alt="" /></span>
+							<h1 id="title">김동주</h1>
+							<p>억만장자</p>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="#top" id="top-link"><span class="icon solid fa-home">메뉴관리</span></a></li>
+								<!-- todo 이부분에서 가지고있는 카테고리 종류를 가져와야 함 -->
+								<li><a href="#portfolio" id="portfolio-link"><span class="icon solid fa-th">커피</span></a></li>
+								<li><a href="#about" id="about-link"><span class="icon solid fa-user">빵</span></a></li>
+								<li><a href="#contact" id="contact-link"><span class="icon solid fa-envelope">디저트</span></a></li>
+							</ul>
+						</nav>
+
+				</div>
+
+				<div class="bottom">
+
+					<!-- Social Icons -->
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+							<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+							<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+
+				</div>
+
+			</div>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- Intro -->
+					<section id="top" class="one dark cover">
+						<div class="container">
+
+							<header>
+								<h2 class="alt">카테고리별 메뉴 관리</h2>
+								<p>키오스크를 통해 카테고리별로 메뉴를 효율적으로 관리합시다. 각 메뉴의 가격, 재고, 그리고 상세 정보 등을 손쉽게 업데이트하고, 실시간으로 변경사항을 고객에게 전달할 수 있습니다.</p>
+							</header>
+
+							<footer>
+								<a href="#portfolio" class="button scrolly">메뉴 관리하기</a>
+							</footer>
+
+						</div>
+					</section>
+
+				<!-- Portfolio -->
+					<section id="portfolio" class="two">
+						<div class="container">
+
+							<header>
+								<h2>커피</h2>
+							</header>
+
+							<p>커피 메뉴 관리 페이지에 오신 것을 환영합니다. 이곳에서는 각 커피 메뉴의 가격, 재고 상태, 그리고 상세 정보를 손쉽게 업데이트하고 관리할 수 있습니다. 효율적인 운영을 위해 활용해보세요.</p>
+							
+							<!-- 
+								todo 아래코드가 하나의 아이템임 
+								1.이미지를 클릭시 정보를 변경하는 기능  
+								2. 가격을 변경하는 기능 
+								
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
+										<header>
+											<h3>아포가토</h3>
+										</header>
+									</article>
+								</div>
+							 -->
+							<div class="row">
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/americano.jpg" alt="" /></a>
+										<header>
+											<h3>아메리카노</h3>
+										</header>
+									</article>
+								</div>
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
+										<header>
+											<h3>아포가토</h3>
+										</header>
+									</article>
+								</div>
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
+										<header>
+											<h3>아포가토</h3>
+										</header>
+									</article>
+								</div>
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
+										<header>
+											<h3>아포가토</h3>
+										</header>
+									</article>
+								</div>
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
+										<header>
+											<h3>아포가토</h3>
+										</header>
+									</article>
+								</div>
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
+										<header>
+											<h3>아포가토</h3>
+										</header>
+									</article>
+								</div>
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
+										<header>
+											<h3>아포가토</h3>
+										</header>
+									</article>
+								</div>
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
+										<header>
+											<h3>아포가토</h3>
+										</header>
+									</article>
+								</div>
+							</div>
+						</div>
+					</section>
+
+				<!-- About Me -->
+					<section id="about" class="three">
+						<div class="container">
+
+							<header>
+								<h2>About Me</h2>
+							</header>
+
+							<a href="#" class="image featured"><img src="${pageContext.request.contextPath}/images/pic08.jpg" alt="" /></a>
+
+							<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
+							ultricies curae quis et rhoncus velit. Lobortis elementum aliquet nec vitae
+							laoreet eget cubilia quam non etiam odio tincidunt montes. Elementum sem
+							parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper
+							dolor. Libero rutrum ut lacinia donec curae mus vel quisque sociis nec
+							ornare iaculis.</p>
+
+						</div>
+					</section>
+
+				<!-- Contact -->
+					<section id="contact" class="four">
+						<div class="container">
+
+							<header>
+								<h2>Contact</h2>
+							</header>
+
+							<p>Elementum sem parturient nulla quam placerat viverra
+							mauris non cum elit tempus ullamcorper dolor. Libero rutrum ut lacinia
+							donec curae mus. Eleifend id porttitor ac ultricies lobortis sem nunc
+							orci ridiculus faucibus a consectetur. Porttitor curae mauris urna mi dolor.</p>
+
+							<form method="post" action="#">
+								<div class="row">
+									<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
+									<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
+									<div class="col-12">
+										<textarea name="message" placeholder="Message"></textarea>
+									</div>
+									<div class="col-12">
+										<input type="submit" value="Send Message" />
+									</div>
+								</div>
+							</form>
+
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Footer -->
+			<div id="footer">
+
+				<!-- Copyright -->
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="${pageContext.request.contextPath}/menu_assets/js/jquery.min.js"></script>
+			<script src="${pageContext.request.contextPath}/menu_assets/js/jquery.scrolly.min.js"></script>
+			<script src="${pageContext.request.contextPath}/menu_assets/js/jquery.scrollex.min.js"></script>
+			<script src="${pageContext.request.contextPath}/menu_assets/js/browser.min.js"></script>
+			<script src="${pageContext.request.contextPath}/menu_assets/js/breakpoints.min.js"></script>
+			<script src="${pageContext.request.contextPath}/menu_assets/js/util.js"></script>
+			<script src="${pageContext.request.contextPath}/menu_assets/js/main.js"></script>
+
+	</body>
+<!-- 
 <body>
 	<h1>이제 시작해봅시다</h1>
 	<ul>
@@ -83,4 +276,5 @@
         </div>
 	
 </body>
+-->
 </html>

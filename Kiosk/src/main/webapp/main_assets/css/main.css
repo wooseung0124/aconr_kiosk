@@ -473,7 +473,6 @@ input, select, textarea {
 		display: block;
 		float: left;
 		margin-right: -2rem;
-		opacity: 0;
 		width: 1rem;
 		z-index: -1;
 	}
