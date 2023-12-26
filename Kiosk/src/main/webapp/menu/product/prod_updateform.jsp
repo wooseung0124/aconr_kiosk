@@ -3,6 +3,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
+<%
+	MenuDto dto=(MenuDto)request.getAttribute("dto");
+	System.out.println(dto.getIsSold());
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +34,7 @@
 		<h1>상품 수정 페이지입니다.</h1>
 	
 		<h3>상품 정보를 등록해주세요</h3>
-		<form action="prod_update_delete" method="post">
+		<form action="prod_update_delete" id="prod_update_delete" method="post">
 			<input type="hidden" name="imageUrl" value="${dto.imageUrl}"/>
 			<div>
 				<label for="name">상품명</label>
@@ -63,10 +70,15 @@
 				<label for="category">카테고리</label>
 				<input type="text" name="category" id="category" value="${dto.getCategory()}" placeholder="카테고리 입력" />
 			</div>
+			<div>
+				<label for="isSold">품절여부</label>
+				 <input type="checkbox" id="isSold" name="isSold" value="YES">
+				 <input type="hidden" id="isSoldChecked" value="${dto.isSold}"} />
+			</div>
 			
 		
 		
-				<input type="submit" name="action" value='수정'/>
+				<input type="submit" name="action" value='수정' onclick="handleCheckbox()"/>
 				<input type="submit" name="action" value="삭제" />
 			
 			
@@ -76,6 +88,26 @@
 		</div>
 		
 <script>
+		// 업데이트 폼에 체크 적용부분
+		let checkValue= document.querySelector("#isSoldChecked").value;
+		console.log(checkValue);
+		
+		if(checkValue="YES"){
+			document.querySelector("#isSold").checked=true;
+		}
+		
+		
+		function handleCheckbox() {
+		    const checkbox = document.getElementById('isSold');
+		    if (!checkbox.checked) {
+		        const form = document.getElementById('prod_update_delete');
+		        const hiddenInput = document.createElement('input');
+		        hiddenInput.type = 'hidden';
+		        hiddenInput.name = 'isSold';
+		        hiddenInput.value = 'NO';
+		        form.appendChild(hiddenInput);
+		    }
+		}
 		//링크를 클릭했을때 
 		document.querySelector("#imageUrl").addEventListener("click", ()=>{
 			// input type="file" 요소를 강제 클릭해서 파일 선택 창을 띄운다.
