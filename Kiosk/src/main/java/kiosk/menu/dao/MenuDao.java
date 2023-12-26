@@ -63,7 +63,7 @@ public class MenuDao {
 		}
 	}
 	
-	//상품삭제하기 name을 stoNum으로 수정해야한다.
+	//상품삭제하기 name과 stoNum으로 수정해야한다.
 	public boolean delete(String name) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -96,23 +96,33 @@ public class MenuDao {
 		}
 	}
 	
-	//상품수정하기 sto_num으로 찾아야됨
+	//상품수정하기 sto_num과 name으로 찾아야됨
 	public boolean update(MenuDto dto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int rowCount = 0;
 		try {
 			conn = new DbcpBean().getConn();
+			System.out.println(dto.getDescription());
 			//실행할 sql 문
 			 String sql = "UPDATE menu_info"
-		               + "   SET price=?,description=?,imageUrl=?,category=?"
+		               + " SET price=?,description=?,imageurl=?,category=?"
 		               + " WHERE name=?";
 			pstmt = conn.prepareStatement(sql);
 			//? 에 바인딩 할 내용이 있으면 바인딩
-
+			pstmt.setInt(1, dto.getPrice());
+			pstmt.setString(2, dto.getDescription());
+			pstmt.setString(3, dto.getImageUrl());
+			pstmt.setString(4, dto.getCategory());
+			pstmt.setString(5, dto.getName());
 			rowCount = pstmt.executeUpdate();
+//			rowCount = pstmt.execute() ? 1 : 0;
+			conn.commit();
+			System.out.println(rowCount);
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("fail1");
+			
 		} finally {
 			try {
 				if (pstmt != null)
@@ -120,12 +130,16 @@ public class MenuDao {
 				if (conn != null)
 					conn.close();
 			} catch (Exception e) {
+				System.out.println("fail2");
+				
 			}
 		}
 		if (rowCount > 0) {
 			return true;
 		} else {
+			System.out.println("fail3");
 			return false;
+			
 		}
 	}
 	
@@ -134,7 +148,6 @@ public class MenuDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
 		MenuDto dto=null;
 		
 		try {

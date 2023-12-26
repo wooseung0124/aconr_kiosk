@@ -12,6 +12,8 @@ public class MenuDto {
 	
 	public MenuDto() {
 		
+		
+		
 	}
 
 	public MenuDto(String stoNum, String name, int price, String description, String imageUrl, String isSold,
