@@ -27,7 +27,7 @@ public class ProdUpdateDeleteServlet extends HttpServlet {
 		String description=req.getParameter("description");
 		String imageUrl=req.getParameter("imageUrl");
 		String category=req.getParameter("category");
-		String isSold=req.getParameter("isSold");
+		String sell=req.getParameter("sell");
 		
 		
 		//dto.setStoNum(stoNum); 
@@ -36,7 +36,7 @@ public class ProdUpdateDeleteServlet extends HttpServlet {
 		dto.setDescription(description);
 		dto.setImageUrl(imageUrl);
 		dto.setCategory(category);
-		dto.setSell(isSold);
+		dto.setSell(sell);
 	
 		
 		
