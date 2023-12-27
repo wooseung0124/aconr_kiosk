@@ -18,12 +18,8 @@ public class OrderDto {
 		this.count = count;
 	}
 
-	public String getStoNum() {
-		return stoNum;
-	}
-
-	public void setStoNum(String stoNum) {
-		this.stoNum = stoNum;
+	public String getMenu() {
+		return menu;
 	}
 
 	public int getTableNum() {
@@ -32,10 +28,6 @@ public class OrderDto {
 
 	public void setTableNum(int tableNum) {
 		this.tableNum = tableNum;
-	}
-
-	public String getMenu() {
-		return menu;
 	}
 
 	public void setMenu(String menu) {
@@ -57,4 +49,5 @@ public class OrderDto {
 	public void setCount(int count) {
 		this.count = count;
 	}
+
 }
