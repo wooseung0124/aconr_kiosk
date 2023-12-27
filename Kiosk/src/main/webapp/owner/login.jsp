@@ -47,6 +47,22 @@
 
 		<!-- Scripts -->
 			<script src="${pageContext.request.contextPath}/owner_assets/js/main.js"></script>
-
+	
+	<script>
+		// OwnerDto를 쿠키에 저장하는 함수
+	    const saveOwnerDtoToCookie = (ownerDto) => {
+	        const jsonOwnerDto = JSON.stringify(ownerDto);
+	        document.cookie = "ownerDto=" + encodeURIComponent(jsonOwnerDto) + "; path=/";
+	    };
+	
+	    // 저장할 OwnerDto 객체 생성 (예시)
+	    const ownerDto = {
+	        email: "example@example.com"
+	        // 다른 필드도 추가 가능
+	    };
+	
+	    // OwnerDto를 쿠키에 저장
+	    saveOwnerDtoToCookie(ownerDto);
+	</script>
 	</body>
 </html>
