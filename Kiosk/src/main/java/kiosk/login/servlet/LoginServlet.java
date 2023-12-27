@@ -33,6 +33,7 @@ public class LoginServlet extends HttpServlet{
             // 사용자 인증이 성공하면 세션을 생성하고 사용자를 로그인 상태로 유지
             HttpSession session = req.getSession();
             session.setAttribute("email", email);
+            session.setAttribute("stoNum", dto.getSto_num());
             isSuccess = true;
         } else {
             // 인증이 실패하면 로그인 페이지로 다시 이동

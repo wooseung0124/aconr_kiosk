@@ -7,13 +7,13 @@ public class MenuDto {
 	private int price; //메뉴 가격
 	private String imageUrl;  //메뉴 이미지 주소 
 	private String description; //메뉴 상세설명
-	private String isSold; //메뉴 솔드아웃 체크
+	private String sell; //메뉴 솔드아웃 체크
 	
 	public MenuDto() {}
 
 
 	public MenuDto(String stoNum, String category, String name, int price, String imageUrl, String description,
-			String isSold) {
+			String sell) {
 		super();
 		this.stoNum = stoNum;
 		this.category = category;
@@ -21,7 +21,7 @@ public class MenuDto {
 		this.price = price;
 		this.imageUrl = imageUrl;
 		this.description = description;
-		this.isSold = isSold;
+		this.sell = sell;
 	}
 
 	public String getStoNum() {
@@ -55,12 +55,12 @@ public class MenuDto {
 		this.description = description;
 	}
 
-	public String getIsSold() {
-		return isSold;
+	public String getSell() {
+		return sell;
 	}
 
-	public void setIsSold(String isSold) {
-		this.isSold = isSold;
+	public void setSell(String isSold) {
+		this.sell = sell;
 	}
 
 	public String getImageUrl() {
