@@ -20,7 +20,7 @@ public class MenuDetail extends HttpServlet{
 		
 		String name=req.getParameter("name");
 		//test 메뉴임
-		MenuDto dto=MenuDao.getInstance().detaillist(name);
+		MenuDto dto=MenuDao.getInstance().getdata(name);
 		
 		req.setAttribute("menudto", dto);
 		RequestDispatcher rd=req.getRequestDispatcher("/customer/detailTest.jsp");

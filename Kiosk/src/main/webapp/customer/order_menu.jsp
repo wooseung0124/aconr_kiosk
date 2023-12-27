@@ -1,26 +1,23 @@
-<%@page import="customer.mvc.model.dto.CategoryDto"%>
+
+<%@page import="kiosk.menu.dto.MenuDto"%>
+<%@page import="kiosk.menu.dto.CategoryDto"%>
+<%@page import="kiosk.menu.dao.MenuDao"%>
 <%@page import="java.util.Random"%>
-<%@page import="customer.mvc.model.dto.MenuDto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
-<%@page import="customer.mvc.model.dao.MenuDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <% 
 //String stoNum = (String)req.getAttribute("stoNum"); => session 에 담기
-String stoNum = "000-00-00000"; // 임시, 테스트 DB에도 저장되어있음(kiosk.sql 참고)
-		
+String stoNum = (String)session.getAttribute("stoNum"); // 임시, 테스트 DB에도 저장되어있음(kiosk.sql 참고)
+System.out.println(stoNum);
 MenuDao menuDao=MenuDao.getInstance(); // 현재 경로 : customer.mvc.model.dao.MenuDao
-List<CategoryDto> categoryList=new ArrayList<>();
-System.out.println("order_menu.jsp 접속");
-		
-	try {// 일단 카테고리 등록여부 확인
-		categoryList=menuDao.getList(stoNum);
-		System.out.println(categoryList);
-			
+List<CategoryDto> categoryList = MenuDao.getInstance().getCategory(stoNum);
+
+System.out.println(categoryList);
+	try {// 일단 카테고리 등록여부 확인			
 		if(categoryList.isEmpty()) { // 그 와중에 사장님이 장사할 생각이 없는지 아직 등록하지 않았을 경우
-			categoryList = null; // 혹시 몰라 초기화 작업
 			CategoryDto dto=new CategoryDto();
 			dto.setStoNum(stoNum);
 			dto.setCategory("장사할 생각이 없음");

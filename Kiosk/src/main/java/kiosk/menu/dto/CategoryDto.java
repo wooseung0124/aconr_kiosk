@@ -1,4 +1,4 @@
-package customer.mvc.model.dto;
+package kiosk.menu.dto;
 
 public class CategoryDto {
 	private String stoNum;
