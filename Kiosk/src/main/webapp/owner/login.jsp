@@ -19,7 +19,6 @@
 					회원가입이 완료되었습니다. <br/>
 					이제 저희 서비스를 자유롭게 이용하실 수 있습니다.<br/> 
 					환영합니다!</p>
-					<a href="${pageContext.request.contextPath}/owner/login_form.jsp">로그인 하러 가기</a>
 					<br />
 					<a href="${pageContext.request.contextPath}/menu/menu">메뉴 관리 하러 가기</a>
 				</c:when>

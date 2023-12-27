@@ -31,11 +31,12 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li><a href="#top" id="top-link"><span class="icon solid fa-home">메뉴관리</span></a></li>
+								<li><a href="#top" id="top-link"><span class="icon solid fa-home">홈</span></a></li>
 								<!-- todo 이부분에서 가지고있는 카테고리 종류를 가져와야 함 -->
-								<li><a href="#portfolio" id="portfolio-link"><span class="icon solid fa-th">커피</span></a></li>
-								<li><a href="#about" id="about-link"><span class="icon solid fa-user">빵</span></a></li>
-								<li><a href="#contact" id="contact-link"><span class="icon solid fa-envelope">디저트</span></a></li>
+								<li><a href="#portfolio1" id="portfolio-link"><span class="icon solid fa-th">커피</span></a></li>
+								<li><a href="#portfolio2" id="about-link"><span class="icon solid fa-user">빵</span></a></li>
+								<li><a href="#portfolio3" id="contact-link"><span class="icon solid fa-envelope">디저트</span></a></li>
+								<li><a href="product/prod_insertform.jsp" id="portfolio-link"><span class="icon solid fa-th">메뉴 추가하기</span></a></li>
 							</ul>
 						</nav>
 
@@ -69,14 +70,14 @@
 							</header>
 
 							<footer>
-								<a href="#portfolio" class="button scrolly">메뉴 관리하기</a>
+								<a href="product/prod_insertform.jsp" class="button scrolly">메뉴 추가하기</a>
 							</footer>
 
 						</div>
 					</section>
 
 				<!-- Portfolio -->
-					<section id="portfolio" class="two">
+					<section id="portfolio1" class="two">
 						<div class="container">
 
 							<header>
@@ -167,56 +168,97 @@
 							</div>
 						</div>
 					</section>
-
-				<!-- About Me -->
-					<section id="about" class="three">
+					<section id="portfolio2" class="two">
 						<div class="container">
 
 							<header>
-								<h2>About Me</h2>
+								<h2>빵</h2>
 							</header>
 
-							<a href="#" class="image featured"><img src="${pageContext.request.contextPath}/images/pic08.jpg" alt="" /></a>
-
-							<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
-							ultricies curae quis et rhoncus velit. Lobortis elementum aliquet nec vitae
-							laoreet eget cubilia quam non etiam odio tincidunt montes. Elementum sem
-							parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper
-							dolor. Libero rutrum ut lacinia donec curae mus vel quisque sociis nec
-							ornare iaculis.</p>
-
-						</div>
-					</section>
-
-				<!-- Contact -->
-					<section id="contact" class="four">
-						<div class="container">
-
-							<header>
-								<h2>Contact</h2>
-							</header>
-
-							<p>Elementum sem parturient nulla quam placerat viverra
-							mauris non cum elit tempus ullamcorper dolor. Libero rutrum ut lacinia
-							donec curae mus. Eleifend id porttitor ac ultricies lobortis sem nunc
-							orci ridiculus faucibus a consectetur. Porttitor curae mauris urna mi dolor.</p>
-
-							<form method="post" action="#">
-								<div class="row">
-									<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
-									<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
-									<div class="col-12">
-										<textarea name="message" placeholder="Message"></textarea>
-									</div>
-									<div class="col-12">
-										<input type="submit" value="Send Message" />
-									</div>
+							<p>커피 메뉴 관리 페이지에 오신 것을 환영합니다. 이곳에서는 각 커피 메뉴의 가격, 재고 상태, 그리고 상세 정보를 손쉽게 업데이트하고 관리할 수 있습니다. 효율적인 운영을 위해 활용해보세요.</p>
+							
+							<!-- 
+								todo 아래코드가 하나의 아이템임 
+								1.이미지를 클릭시 정보를 변경하는 기능  
+								2. 가격을 변경하는 기능 
+								
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
+										<header>
+											<h3>아포가토</h3>
+										</header>
+									</article>
 								</div>
-							</form>
-
+							 -->
+							<div class="row">
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/americano.jpg" alt="" /></a>
+										<header>
+											<h3>아메리카노</h3>
+										</header>
+									</article>
+								</div>
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
+										<header>
+											<h3>아포가토</h3>
+										</header>
+									</article>
+								</div>
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
+										<header>
+											<h3>아포가토</h3>
+										</header>
+									</article>
+								</div>
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
+										<header>
+											<h3>아포가토</h3>
+										</header>
+									</article>
+								</div>
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
+										<header>
+											<h3>아포가토</h3>
+										</header>
+									</article>
+								</div>
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
+										<header>
+											<h3>아포가토</h3>
+										</header>
+									</article>
+								</div>
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
+										<header>
+											<h3>아포가토</h3>
+										</header>
+									</article>
+								</div>
+								<div class="col-4">
+									<article class="item">
+										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
+										<header>
+											<h3>아포가토</h3>
+										</header>
+									</article>
+								</div>
+							</div>
 						</div>
 					</section>
-
 			</div>
 
 		<!-- Footer -->
@@ -224,7 +266,7 @@
 
 				<!-- Copyright -->
 					<ul class="copyright">
-						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						<li>&copy; Acorn Order. Design: Team1.</li>
 					</ul>
 
 			</div>
