@@ -1,11 +1,11 @@
 package kiosk.order.dto;
 
 public class OrderDto {
-	private String stoNum;
-	private int tableNum;
-	private String menu;
-	private int price;
-	private int count;
+	private String stoNum; //사업자 번호
+	private int tableNum; //좌석번호
+	private String menu; // 메뉴 1종류
+	private int price; // 그 메뉴 가격
+	private int count; // 그 메뉴의 수량
 	
 	public OrderDto() {}
 
@@ -44,6 +44,14 @@ public class OrderDto {
 
 	public int getCount() {
 		return count;
+	}
+
+	public String getStoNum() {
+		return stoNum;
+	}
+
+	public void setStoNum(String stoNum) {
+		this.stoNum = stoNum;
 	}
 
 	public void setCount(int count) {

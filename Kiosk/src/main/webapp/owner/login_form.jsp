@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	//쿠키를 불러와야함 -> ownerDto
+	
+	//쿠키를 불러왔어
+	
+	//근데 없어? 그러면은 그냥 노터치
+			
+	//근데 있어? 그러면은 자동완성해줘야함
+%>
 <!DOCTYPE html>
 <html>
 <head>

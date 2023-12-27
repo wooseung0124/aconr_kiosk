@@ -13,6 +13,7 @@
     <welcome-file>index.jsp</welcome-file>
   
   </welcome-file-list>
+  
 <!-- oracle DB 설정 -->
   <resource-ref>
 	 <description>Oracle Datasource example</description>
