@@ -5,14 +5,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
-  	request.setCharacterEncoding("utf-8");
-
-    %>
+   
+    List<OrderDto> shoplist=(List<OrderDto>) session.getAttribute("shoplist");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>/장바구니</title>
 </head>
 <body>
 
@@ -20,17 +20,27 @@
 	<h3>장바구니</h3>
 	<p>
 	<% 
-	List<OrderDto> shoplist=(List<OrderDto>) session.getAttribute("shoplist");
-	for(OrderDto tmp:shoplist){%>
+	int total=0;
+	
+	for(OrderDto tmp:shoplist){
+	total +=tmp.getPrice() *tmp.getCount();
+	%>
 	<p>
         메뉴: <%= tmp.getMenu() %>, 수량: <%= tmp.getCount() %>, 가격: <%= tmp.getPrice() %> 
-        <a href="deletesession.jsp?name=<%=tmp.getMenu()%>">삭제하기</a>
+       <td> <a href="${pageContext.request.contextPath}/customer/delete?menu=<%=tmp.getMenu()%>">삭제</a></td>
     </p>
 		
-	<%} %>
+	<%}if(total!=0){ %>
+	합계 :<%=total %>
 	</p>
-	<a href="ordertest.jsp">주문하기</a>
-	<a href="test.jsp">닫기</a>
+	<a href="${pageContext.request.contextPath}/customer/order">주문하기</a>
+	<a href="${pageContext.request.contextPath}/customer/menu">장바구니 더 담기</a>
+	<%}else if(total==0){ %>
+		<p>장바구니 목록이 없어요! 메뉴를 장바구니에 넣어주세요!</p>
+		<a href="${pageContext.request.contextPath}/customer/menu">메뉴 보기</a>
+	<%} %>	
+
+
 </div>
 
 </body>

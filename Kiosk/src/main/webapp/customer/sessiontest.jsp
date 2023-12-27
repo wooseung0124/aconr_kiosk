@@ -17,7 +17,7 @@
 
         // 세션에서 "shoplist" 속성을 가져옵니다.
         List<OrderDto> shoplist = (List<OrderDto>) session.getAttribute("shoplist");
-
+		
         // 만약 "shoplist" 속성이 없다면 새로운 리스트를 생성합니다.
         if(shoplist == null){
             shoplist = new ArrayList<OrderDto>();
@@ -26,15 +26,16 @@
             // 이미 동일한 name이 있는지 검사
             for (OrderDto order : shoplist) {
                 if (order.getMenu().equals(name)) {
-                    // 이미 있는 경우 세션에 추가하지 않고 종료
+                    // 이미 있는 경우 세션에 추가하지 않고 카운트 +1
                     order.setCount(order.getCount() + 1);
+                    
+                	//장바구니 페이지로 보내기
                     String url = request.getContextPath();
                     response.sendRedirect(url + "/customer/shoppingtest.jsp");
                     return;
                 }
             }
         }
-
         // "shoplist" 속성에 새로운 주문을 추가합니다.
         OrderDto dto = new OrderDto();
         dto.setMenu(name);

@@ -3,8 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String name=request.getParameter("name");
-	MenuDto dto=MenuDao.getInstance().detaillist(name);
+	
+	MenuDto dto=(MenuDto)request.getAttribute("menudto");
 %>
 <!DOCTYPE html>
 <html>
@@ -17,11 +17,15 @@
 </head>
 <body>
 	<div>
-	<form action="sessiontest.jsp" method="post">
-	<img src="<%=dto.getImageUrl() %>" alt="메뉴이미지" />
+	<form action="${pageContext.request.contextPath}/customer/session" method="post">
 	<div>
-	<label for="name"><%=dto.getName() %></label>
-	<input type="hidden"  name="name" value="<%=dto.getName() %>" >
+	<img src="<%=dto.getImageUrl() %>" alt="메뉴이미지" />
+	<input type="hidden"  name="imageurl" value="<%=dto.getImageUrl() %>" >
+	</div>
+	<div>
+	<!-- name 을 menu로 바꾸기 -->
+	<label for="menu"><%=dto.getName() %></label>
+	<input type="hidden"  name="menu" value="<%=dto.getName()%>" >
 	</div>
 	<div>
 	<label for="description"><%=dto.getDescription() %></label>

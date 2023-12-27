@@ -4,9 +4,9 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-  		List <MenuDto> list=MenuDao.getInstance().menulist();
-    %>
+<%
+	List <MenuDto> list=(List<MenuDto>)request.getAttribute("menulist");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +28,7 @@
 		<%for(MenuDto data:list){ %>
 			<div class="sub" >
 				<p>
-				<a href="detailTest.jsp?name=<%=data.getName()%>">
+				<a href="${pageContext.request.contextPath}/customer/MenuDetail?name=<%=data.getName()%>">
 				<%=data.getImageUrl() %>
 				</a>
 				</p>
@@ -40,8 +40,8 @@
 			</div>
 			<%} %>
 	</div>
-	<a href="ordertest.jsp">주문내역</a>
-	<a href="shoppingtest.jsp">장바구니</a>
+	<a href="${pageContext.request.contextPath}/customer/orderlist">주문내역</a>
+	<a href="${pageContext.request.contextPath}/customer/ShoppingList">장바구니</a>
 	<br />
 
 </body>
