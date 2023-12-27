@@ -103,25 +103,9 @@
                         </header>
    
                         <p>커피 메뉴 관리 페이지에 오신 것을 환영합니다. 이곳에서는 각 커피 메뉴의 가격, 재고 상태, 그리고 상세 정보를 손쉽게 업데이트하고 관리할 수 있습니다. 효율적인 운영을 위해 활용해보세요.</p>
-                        
-
-                        <!-- 
-                           todo 아래코드가 하나의 아이템임 
-                           1.이미지를 클릭시 정보를 변경하는 기능  
-                           2. 가격을 변경하는 기능 
-                           
-                           <div class="col-4">
-                              <article class="item">
-                                 <a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/apogato.jpg" alt="" /></a>
-                                 <header>
-                                    <h3>아포가토</h3>
-                                 </header>
-                              </article>
-                           </div>
-                         -->
                          <div class="row">
                            <c:forEach var="tmp2" items="${menu_list}">
-                           <c:if test="${tmp2.category eq tmp1.category}">
+                           <c:if test="${tmp2.category eq tmp1.category and tmp2.stoNum eq tmp1.stoNum}">
                                  <div class="col-4">
                                     <article class="item">
                                        <a href="product/prod_updateform?name=${tmp2.name}" class="image fit">
@@ -143,18 +127,7 @@
                         </div>
                      </div>
                   </section>
-               </c:forEach>
-               
-         
-            <!-- Footer -->
-         <div id="footer">
-
-            <!-- Copyright -->
-               <ul class="copyright">
-                  <li>&copy; Acorn Order. Design: Team1.</li>
-               </ul>
-
-         </div>         
+               </c:forEach>        
       <!-- Scripts -->
          <script src="${pageContext.request.contextPath}/menu_assets/js/jquery.min.js"></script>
          <script src="${pageContext.request.contextPath}/menu_assets/js/jquery.scrolly.min.js"></script>
