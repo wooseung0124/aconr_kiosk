@@ -36,7 +36,7 @@ public class ProdUpdateDeleteServlet extends HttpServlet {
 		dto.setDescription(description);
 		dto.setImageUrl(imageUrl);
 		dto.setCategory(category);
-		dto.setIsSold(isSold);
+		dto.setSell(isSold);
 	
 		
 		
@@ -45,7 +45,7 @@ public class ProdUpdateDeleteServlet extends HttpServlet {
 //		System.out.println(dto.getDescription());
 //		System.out.println(dto.getImageUrl());
 //		System.out.println(dto.getCategory());
-		System.out.println(dto.getIsSold());
+		System.out.println(dto.getSell());
 		
 		
 		//jstl을 사용하기 위해서는 request영역에 담는다.

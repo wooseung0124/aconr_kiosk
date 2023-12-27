@@ -30,9 +30,10 @@ public class ProdInsertServlet extends HttpServlet {
 			imageUrl=null;
 		}
 		String category=req.getParameter("category");
+		String stoNum = (String)req.getSession().getAttribute("stoNum");
 		System.out.println(imageUrl);
 		
-		//dto.setStoNum("123-45-6789"); 
+		dto.setStoNum(stoNum); 
 		dto.setName(name);
 		dto.setPrice(price);
 		dto.setDescription(description);

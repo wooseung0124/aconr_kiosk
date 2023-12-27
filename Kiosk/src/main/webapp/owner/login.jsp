@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+	//이 페이지에 들어오게되면?? + 로그인이 성공되었을 때 
+			
+	//쿠키를 저장한다
+			
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
