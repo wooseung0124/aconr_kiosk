@@ -87,6 +87,40 @@ td {
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
+<script>
+	// 여기는 사용자가 카테고리를 선택했을 때 즉각즉각 데이터를 웹브라우저에서 요청하고 응답하도록 구현
+	new Vue({
+		el:".is-preload",
+		data:{
+			menuList:{
+				stoNum:"",
+				name:"",
+				price:0,
+				description:"",
+				imageUrl:"",
+				sell:"",
+				category:""
+			}
+		},
+		methods:{
+			getList(e){
+				//서버에 글 목록을 fetch() 함수를 이용해서 요청 
+                fetch("${pageContext.request.contextPath}/customer/menu_list.jsp"{ // 서버에 요청하는 방식 : 링크, form전송 + 자바스크립트로 요청법(fetch)
+                        // fetch의 옵션설정
+                        method:"get", // 메소드 전송방식
+                        headers:{"Content-Type":"application/x-www-form-urlencoded; charset=utf-8"}, // 요청헤더
+                        body:`category=e.target.innerText` // 요청몸통
+                    })
+                .then(res=>res.json())
+                .then(data=>{
+                    //data 는 글 정보가 들어 있는  [{},{},{},...] 이런형식의 배열이다. 
+                    
+                });
+			}
+		}
+	})
+</script>
+
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -109,7 +143,8 @@ td {
 		</div>
 		
 		<div id="main">
-			<c:forEach var="tmp" items="${menuList}">
+		
+			<c:forEach var="tmp" items="${menuList}" >
 			<article class="thumb">
 				<!-- 사진링크는 추후에 ${tmp.imageUrl}로 바꿀 예정 -->
 				<a href="${pageContext.request.contextPath}/images/fulls/americano.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/americano.jpg" alt="" /></a>
@@ -158,7 +193,7 @@ td {
 						<h2>CHOOSE CATEGORY</h2>
 						<ul class="action">
 							<c:forEach var="tmp" items="${requestScope.category}">
-								<li><a href="${pageContext.request.contextPath}/customer/menu_list.jsp?category=${tmp.category}">${tmp.category}</a></li>
+								<li @click="getList">${tmp.category}</li>
 							</c:forEach>
 						</ul>
 					</section>
