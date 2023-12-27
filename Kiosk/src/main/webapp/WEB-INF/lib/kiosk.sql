@@ -6,7 +6,7 @@ CREATE TABLE owner_info(
 	o_name VARCHAR2(100) CONSTRAINT owner_info_owner_name_nn NOT NULL,--사업자(가입자) 이름
 	email VARCHAR2(100) CONSTRAINT owner_info_email_nn NOT NULL,--이메일겸 아이디
 	pwd VARCHAR2(100) CONSTRAINT owner_info_pwd_nn NOT NULL
-)
+);
 
 -- 상품의 정보를 저장할 테이블
 CREATE TABLE menu_info(
@@ -24,6 +24,6 @@ CREATE TABLE order_info(
 	sto_num VARCHAR2(100), --사업자 번호
 	table_num NUMBER NOT NULL, --테이블 이름
 	menu VARCHAR2(100) NOT NULL, --메뉴 이름
-	price NUMBER NOT NULL --메뉴 가격
+	price NUMBER NOT NULL, --메뉴 가격
 	count NUMBER NOT NULL --메뉴 개수
 );
