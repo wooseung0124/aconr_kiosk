@@ -10,7 +10,6 @@ import kiosk.menu.dto.MenuDto;
 import kiosk.util.DbcpBean;
 
 public class MenuDao {
-
 	private static MenuDao dao;
 	
 	private MenuDao() {}
@@ -19,6 +18,7 @@ public class MenuDao {
 		if(dao==null) {
 			dao=new MenuDao();
 		}
+		
 		return dao;
 	}
 	
@@ -275,7 +275,6 @@ public class MenuDao {
 		}	
 		return list;
 	}
-	
 	
 	//카테고리별 상품목록가져오기 
 	public List<MenuDto> getListCategory(String category){

@@ -101,6 +101,7 @@
 								</div>
 							 -->
 							<div class="row">
+								
 								<div class="col-4">
 									<article class="item">
 										<a href="#" class="image fit"><img src="${pageContext.request.contextPath}/images/fulls/americano.jpg" alt="" /></a>
