@@ -22,6 +22,43 @@ public class MenuDao {
 		return dao;
 	}
 	
+	//카테고리 리스트 가져오기
+	public List<String> getCategory(){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<String> list=new ArrayList<>();
+		try {
+			conn = new DbcpBean().getConn();
+			//실행할 sql 문
+			String sql = "SELECT DISTINCT category"
+					+ " FROM menu_info";
+					
+			pstmt = conn.prepareStatement(sql);
+			//? 에 바인딩할 내용이 있으면 여기서 한다.
+
+			//query 문 수행하고 결과(ResultSet) 얻어내기
+			rs = pstmt.executeQuery();
+			//반복문 돌면서 
+			while (rs.next()) {
+				list.add(rs.getString("category"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close(); //Connection 객체의 close() 메소드를 호출하면 Pool 에 반납된다.
+			} catch (Exception e) {
+			}
+		}	
+		return list;
+	}
+	
 	//상품 등록
 	public boolean insert(MenuDto dto) {
 		Connection conn = null;
@@ -63,7 +100,7 @@ public class MenuDao {
 		}
 	}
 	
-	//상품삭제하기 name을 stoNum으로 수정해야한다.
+	//상품삭제하기 name과 stoNum으로 수정해야한다.
 	public boolean delete(String name) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -96,23 +133,34 @@ public class MenuDao {
 		}
 	}
 	
-	//상품수정하기 sto_num으로 찾아야됨
+	//상품수정하기 sto_num과 name으로 찾아야됨
 	public boolean update(MenuDto dto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int rowCount = 0;
 		try {
 			conn = new DbcpBean().getConn();
+			System.out.println(dto.getDescription());
 			//실행할 sql 문
 			 String sql = "UPDATE menu_info"
-		               + "   SET price=?,description=?,imageUrl=?,category=?"
+		               + " SET price=?,description=?,imageurl=?,category=?, is_sold=?"
 		               + " WHERE name=?";
 			pstmt = conn.prepareStatement(sql);
 			//? 에 바인딩 할 내용이 있으면 바인딩
-
+			pstmt.setInt(1, dto.getPrice());
+			pstmt.setString(2, dto.getDescription());
+			pstmt.setString(3, dto.getImageUrl());
+			pstmt.setString(4, dto.getCategory());
+			pstmt.setString(5, dto.getIsSold());
+			pstmt.setString(6, dto.getName());
 			rowCount = pstmt.executeUpdate();
+//			rowCount = pstmt.execute() ? 1 : 0;
+			conn.commit();
+			System.out.println(rowCount);
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("fail1");
+			
 		} finally {
 			try {
 				if (pstmt != null)
@@ -120,12 +168,16 @@ public class MenuDao {
 				if (conn != null)
 					conn.close();
 			} catch (Exception e) {
+				System.out.println("fail2");
+				
 			}
 		}
 		if (rowCount > 0) {
 			return true;
 		} else {
+			System.out.println("fail3");
 			return false;
+			
 		}
 	}
 	
@@ -134,7 +186,6 @@ public class MenuDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
 		MenuDto dto=null;
 		
 		try {
