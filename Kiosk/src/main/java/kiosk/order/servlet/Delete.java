@@ -23,7 +23,7 @@ public class Delete extends HttpServlet{
 		
 		List<OrderDto> shoplist = (List<OrderDto>) req.getSession().getAttribute("shoplist");
 		
-		if(shoplist.size()==0) {
+		if(shoplist==null) {
 			 RequestDispatcher rd=req.getRequestDispatcher("/customer/index.jsp");
 		     rd.forward(req, resp);
 		     return;

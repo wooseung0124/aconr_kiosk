@@ -1,7 +1,6 @@
 package kiosk.order.servlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,18 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kiosk.menu.dao.MenuDao;
-import kiosk.menu.dto.MenuDto;
+import kiosk.order.dao.OrderDao;
 
-@WebServlet("/customer/alter")
-public class Alter extends HttpServlet{
+@WebServlet("/customer/pay")
+public class Pay extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("utf-8");
+		int table_num=1;
+		boolean pass=OrderDao.getInstance().delete(table_num);
 		
-		String msg=(String) req.getAttribute("msg");
-		System.out.println(msg);
-		
-		resp.sendRedirect(msg);
+		RequestDispatcher rd=req.getRequestDispatcher("/customer/index.jsp");
+		rd.forward(req, resp);
 	}
 }

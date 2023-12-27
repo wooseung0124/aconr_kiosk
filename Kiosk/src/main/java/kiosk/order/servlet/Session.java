@@ -20,19 +20,16 @@ public class Session extends HttpServlet{
 	
 	req.setCharacterEncoding("utf-8");
 	
-	if(req.getParameter("menu")!=null) {
+	if(req.getParameter("menu")!=null&&req.getParameter("msg")==null) {
+	
 	String menu=req.getParameter("menu");
 	String imageurl=req.getParameter("iageurl");
 	String description= req.getParameter("description");
 	int price = Integer.parseInt(req.getParameter("price"));
-	
-	//테스트 데이터 
-	 int count = 1;
+	int count=Integer.parseInt(req.getParameter("count"));
 
 	 int tableNum = 22;
      
-	
-	 
 	 List<OrderDto> shoplist = (List<OrderDto>) req.getSession().getAttribute("shoplist");
 		
      // 만약 "shoplist" 속성이 없다면 새로운 리스트를 생성합니다.
@@ -54,7 +51,7 @@ public class Session extends HttpServlet{
  
          
      }
-             OrderDto dto = new OrderDto();
+         OrderDto dto = new OrderDto();
          dto.setMenu(menu);
          dto.setCount(count);
          dto.setPrice(price);
@@ -66,8 +63,43 @@ public class Session extends HttpServlet{
          RequestDispatcher rd=req.getRequestDispatcher("/customer/shoppingtest.jsp");
          rd.forward(req, resp);
     
-     //여기있떤코드
-   
+         
+		}else {
+			int tableNum = 22;
+		     
+			List<OrderDto> shoplist = (List<OrderDto>) req.getSession().getAttribute("shoplist");
+			
+			String msg=req.getParameter("msg");
+			String menu=req.getParameter("menu");
+			if(msg.equals("plus")) {
+		         for (OrderDto order : shoplist) {
+		             if (order.getMenu().equals(menu)) {
+		                 // 이미 존재하는경우 카운트만 1 증가시킨다.
+		                 order.setCount(order.getCount() + 1);
+		          
+		    			RequestDispatcher rd=req.getRequestDispatcher("/customer/shoppingtest.jsp");
+		    			rd.forward(req, resp);
+		    			return;
+		             }
+		         }	
+			}else if(msg.equals("minus")) {
+				for (OrderDto order : shoplist) {
+		             if (order.getMenu().equals(menu)) {
+		                if(order.getCount()==1) {
+		                	RequestDispatcher rd=req.getRequestDispatcher("/customer/delete?menu="+menu);
+			    			rd.forward(req, resp);
+			    			return;
+		                }else {
+		                	order.setCount(order.getCount() - 1);
+		                }
+		    			RequestDispatcher rd=req.getRequestDispatcher("/customer/shoppingtest.jsp");
+		    			rd.forward(req, resp);
+		    			return;
+		             }
+			}
+			
+			
+		}
 		}
 	}
 }

@@ -26,7 +26,11 @@
 	total +=tmp.getPrice() *tmp.getCount();
 	%>
 	<p>
-        메뉴: <%= tmp.getMenu() %>, 수량: <%= tmp.getCount() %>, 가격: <%= tmp.getPrice() %> 
+        메뉴: <%= tmp.getMenu() %>
+        ,<a href="${pageContext.request.contextPath}/customer/session?menu=<%=tmp.getMenu()%>&msg=minus"><button type="button">-</button></a>
+         수량: <%= tmp.getCount() %>
+       <a href="${pageContext.request.contextPath}/customer/session?menu=<%=tmp.getMenu()%>&msg=plus"> <button type="button">+</button></a>
+        , 가격: <%= tmp.getPrice() %> 
        <td> <a href="${pageContext.request.contextPath}/customer/delete?menu=<%=tmp.getMenu()%>">삭제</a></td>
     </p>
 		

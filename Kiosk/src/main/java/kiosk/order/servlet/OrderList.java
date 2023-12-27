@@ -24,7 +24,7 @@ public class OrderList extends HttpServlet{
 		
 		List<OrderDto> list = OrderDao.getInstance().order(tablenum);
 		if(list.size()==0) {
-			//req.setAttribute("msg", "주문내역이 비어있습니다.");
+		
 	         RequestDispatcher rd=req.getRequestDispatcher("/customer/menu");
 	         rd.forward(req, resp);
 	         return;

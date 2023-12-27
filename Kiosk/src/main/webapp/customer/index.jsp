@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>start</title>
 </head>
 <body>
 	<a href="${pageContext.request.contextPath}/customer/menu">3</a>
