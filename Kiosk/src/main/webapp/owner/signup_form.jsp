@@ -197,7 +197,7 @@
 		//비밀 번호를 검증할 정규 표현식(특수문자 포함여부)
 		const reg_pwd=/[\W]/;
 		//함수를 미리 만들어서 
-		const checkPwd = ()=>{
+		const checkPwd1 = ()=>{
 			//양쪽에 입력한 비밀번호를 읽어와서
 			let pwd=document.querySelector("#pwd");
 			let pwd2=document.querySelector("#pwd2");
@@ -208,16 +208,8 @@
 			if( !reg_pwd.test(pwd.value)){
 				isPwdValid = false;
 				pwd.setCustomValidity("특수문자를 포함해야 합니다.");
-				pwd.reportValidity();
 				pwd2.setCustomValidity("");
-				small.innerText="";
-				checkForm();
-				return;
-			} else if(!reg_pwd.test(pwd2.value)) {
-				isPwdValid = false;
-				pwd2.setCustomValidity("특수문자를 포함해야 합니다.");
-				pwd2.reportValidity();
-				pwd.setCustomValidity("");
+				pwd.reportValidity();
 				small.innerText="";
 				checkForm();
 				return;
@@ -239,10 +231,48 @@
 				small.innerText="";
 			}
 			checkForm();
+			
 		};
 		
-		document.querySelector("#pwd").addEventListener("input", checkPwd);
+		const checkPwd2 = ()=>{
+			//양쪽에 입력한 비밀번호를 읽어와서
+			let pwd=document.querySelector("#pwd");
+			let pwd2=document.querySelector("#pwd2");
+			
+			const small = document.querySelector("#smallPwd");
+			//일단 정규표현식을 만족하는지 확인해서 만족하지 않으면 함수를 여기서 종료
+			//만일 첫번째 비밀번호가 정규표현식을 통과하지 못하거나 또는 두번째 비밀번호가 정규표현식을 통과하지 못한다면
+			if(!reg_pwd.test(pwd2.value)) {
+				isPwdValid = false;
+				pwd2.setCustomValidity("특수문자를 포함해야 합니다.");
+				pwd.setCustomValidity("");
+				pwd2.reportValidity();
+				small.innerText="";
+				checkForm();
+				return;z`
+			}else {
+				pwd.setCustomValidity("");
+				pwd2.setCustomValidity("");
+			}
+			
+			if(pwd.value == pwd2.value){
+				//비밀번호가 유효 하다는 의미에서 true 를 넣어준다.
+				isPwdValid = true;
+				pwd.setCustomValidity("");
+				small.innerText = "사용 가능한 비밀번호 입니다.";
+			}else{
+				//비밀번호가 유효 하지 않다는 의미에서 false 를 넣어준다.
+				isPwdValid = false;
+				pwd.setCustomValidity("비밀번호가 일치하지 않습니다.");
+				pwd.reportValidity();
+				small.innerText="";
+			}
+			checkForm();
+			
+		};
 		
-		document.querySelector("#pwd2").addEventListener("input", checkPwd);
+		document.querySelector("#pwd").addEventListener("input", checkPwd1);
+		
+		document.querySelector("#pwd2").addEventListener("input", checkPwd2);
 	</script>
 </html>

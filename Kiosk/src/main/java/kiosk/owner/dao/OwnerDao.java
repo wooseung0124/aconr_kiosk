@@ -60,7 +60,7 @@ public class OwnerDao {
 		try {
 			conn = new DbcpBean().getConn();
 			//실행할 sql 문
-			String sql = "SELECT sto_num, sto_name, o_name, pwd"
+			String sql = "SELECT *"
 					+ " FROM owner_info"
 					+ " WHERE email=?";
 			pstmt = conn.prepareStatement(sql);
@@ -74,7 +74,7 @@ public class OwnerDao {
 				String sto_name = rs.getString("sto_name");
 				String o_name = rs.getString("o_name");
 				String pwd = rs.getString("pwd");
-				dto = new OwnerDto(email, sto_num, sto_name, o_name, pwd);
+				dto = new OwnerDto(sto_num, sto_name, o_name, email, pwd);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
