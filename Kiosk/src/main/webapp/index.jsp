@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-
-
-
-%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,8 +31,8 @@
 						<nav>
 							<ul>
 								<li><a href="owner/login_form">사장님 페이지</a></li>
-								<li><a href="customer/order_menu.jsp">손님 페이지</a></li>
-								<!-- 그냥 만들어봄  -->
+								<!-- 서블릿 이동  -->
+								<li><a href="${pageContext.request.contextPath}/customer/order_menu.jsp">손님 페이지</a></li>
 								<li><a href="#about">음식점 소개 페이지</a></li>
 							</ul>
 						</nav>
