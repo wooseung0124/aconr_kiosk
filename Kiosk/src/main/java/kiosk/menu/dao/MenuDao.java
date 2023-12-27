@@ -128,7 +128,7 @@ public class MenuDao {
 			conn = new DbcpBean().getConn();
 			//실행할 sql 문
 			String sql = "INSERT INTO menu_info"
-		               + " (sto_num,name,price,description,imageUrl,is_sold,category)"
+		               + " (sto_num,name,price,description,imageUrl,sell,category)"
 		               + " values(?,?,?,?,?,'NO',?)";
 			pstmt = conn.prepareStatement(sql);
 			
@@ -270,7 +270,7 @@ public class MenuDao {
 				dto.setPrice(rs.getInt("price"));
 				dto.setDescription(rs.getString("description"));
 				dto.setImageUrl(rs.getString("imageUrl"));
-				dto.setSell(rs.getString("is_sold"));
+				dto.setSell(rs.getString("sell"));
 				dto.setCategory(rs.getString("category"));
 			}
 		} catch (Exception e) {
@@ -315,7 +315,7 @@ public class MenuDao {
 				dto.setPrice(rs.getInt("price"));
 				dto.setDescription(rs.getString("description"));
 				dto.setImageUrl(rs.getString("imageUrl"));
-				dto.setSell(rs.getString("is_sold"));
+				dto.setSell(rs.getString("sell"));
 				dto.setCategory(rs.getString("category"));
 				list.add(dto);
 			}

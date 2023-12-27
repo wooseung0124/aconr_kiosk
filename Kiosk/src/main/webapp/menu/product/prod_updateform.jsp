@@ -7,7 +7,9 @@
 
 <%
 	MenuDto dto=(MenuDto)request.getAttribute("dto");
-	// System.out.println(dto.getIsSold());
+
+	System.out.println(dto.getSell());
+
 	
 %>
 <!DOCTYPE html>
@@ -71,9 +73,9 @@
 				<input type="text" name="category" id="category" value="${dto.getCategory()}" placeholder="카테고리 입력" />
 			</div>
 			<div>
-				<label for="isSold">품절여부</label>
-				 <input type="checkbox" id="isSold" name="isSold" value="YES">
-				 <input type="hidden" id="isSoldChecked" value="${dto.isSold}"} />
+				<label for="sell">품절여부</label>
+				 <input type="checkbox" id="sell" name="sell" value="YES">
+				 <input type="hidden" id="sellchecked" value="${dto.sell}"/>
 			</div>
 			
 		
@@ -89,21 +91,21 @@
 		
 <script>
 		// 업데이트 폼에 체크 적용부분
-		let checkValue= document.querySelector("#isSoldChecked").value;
+		let checkValue= document.querySelector("#sellChecked").value;
 		console.log(checkValue);
 		
 		if(checkValue="YES"){
-			document.querySelector("#isSold").checked=true;
+			document.querySelector("#sell").checked=true;
 		}
 		
 		
 		function handleCheckbox() {
-		    const checkbox = document.getElementById('isSold');
+		    const checkbox = document.getElementById('sell');
 		    if (!checkbox.checked) {
 		        const form = document.getElementById('prod_update_delete');
 		        const hiddenInput = document.createElement('input');
 		        hiddenInput.type = 'hidden';
-		        hiddenInput.name = 'isSold';
+		        hiddenInput.name = 'sell';
 		        hiddenInput.value = 'NO';
 		        form.appendChild(hiddenInput);
 		    }
