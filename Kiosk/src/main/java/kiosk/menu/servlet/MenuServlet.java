@@ -18,14 +18,15 @@ import kiosk.menu.dto.MenuDto;
 public class MenuServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		//카테고리도 가져와야함 
+		List<String> categoryList = MenuDao.getInstance().getCategory();
+		System.out.println(categoryList);
 		List<MenuDto> menu_list=MenuDao.getInstance().getList();
 		req.setAttribute("menu_list", menu_list);
+		req.setAttribute("categoryList", categoryList);
 		RequestDispatcher rd= req.getRequestDispatcher("/menu/menu.jsp");
 		rd.forward(req, resp);
 		
-				
-				
 				
 	}
 }
