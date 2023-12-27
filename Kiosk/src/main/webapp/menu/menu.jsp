@@ -31,12 +31,12 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li><a href="#top" id="top-link"><span class="icon solid fa-home">홈</span></a></li>
-								<!-- todo 이부분에서 가지고있는 카테고리 종류를 가져와야 함 -->
-								<li><a href="#portfolio1" id="portfolio-link"><span class="icon solid fa-th">커피</span></a></li>
-								<li><a href="#portfolio2" id="about-link"><span class="icon solid fa-user">빵</span></a></li>
-								<li><a href="#portfolio3" id="contact-link"><span class="icon solid fa-envelope">디저트</span></a></li>
+								<li><a href="${pageContext.request.contextPath}/index.jsp" id="top-link"><span class="icon solid fa-home">홈</span></a></li>
 								<li><a href="product/prod_insertform.jsp" id="portfolio-link"><span class="icon solid fa-th">메뉴 추가하기</span></a></li>
+								<!-- todo 이부분에서 가지고있는 카테고리 종류를 가져와야 함 -->
+								<c:forEach var="item" items="${categoryList}">
+									<li><a href="#portfolio1" id="portfolio-link"><span class="icon solid fa-coffee">${item}</span></a></li>	
+								</c:forEach>
 							</ul>
 						</nav>
 
