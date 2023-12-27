@@ -28,8 +28,6 @@ public class MenuServlet extends HttpServlet {
 		req.setAttribute("menu_list", menu_list);
 		req.setAttribute("categoryList", categoryList);
 		RequestDispatcher rd= req.getRequestDispatcher("/menu/menu.jsp");
-		rd.forward(req, resp);
-		
-				
+		rd.forward(req, resp);	
 	}
 }
