@@ -1,4 +1,3 @@
-
 <%@page import="kiosk.menu.dto.MenuDto"%>
 <%@page import="kiosk.menu.dto.CategoryDto"%>
 <%@page import="kiosk.menu.dao.MenuDao"%>
@@ -8,57 +7,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<% 
-//String stoNum = (String)req.getAttribute("stoNum"); => session 에 담기
-String stoNum = (String)session.getAttribute("stoNum"); // 임시, 테스트 DB에도 저장되어있음(kiosk.sql 참고)
+<%
+String stoNum = (String) session.getAttribute("stoNum");
 System.out.println(stoNum);
-MenuDao menuDao=MenuDao.getInstance(); // 현재 경로 : customer.mvc.model.dao.MenuDao
+MenuDao menuDao = MenuDao.getInstance();
 List<CategoryDto> categoryList = MenuDao.getInstance().getCategory(stoNum);
 
-System.out.println(categoryList);
-	try {// 일단 카테고리 등록여부 확인			
-		if(categoryList.isEmpty()) { // 그 와중에 사장님이 장사할 생각이 없는지 아직 등록하지 않았을 경우
-			CategoryDto dto=new CategoryDto();
-			dto.setStoNum(stoNum);
-			dto.setCategory("장사할 생각이 없음");
-			categoryList.add(dto);
-		}
-			
-		}catch(Exception e) {
-			System.err.println("category error :"+e);
-			
-		}finally {
-			request.setAttribute("category", categoryList);
-		}
-	
-// =====================================================================================	
+try {// 일단 카테고리 등록여부 확인
+	if (categoryList.isEmpty()) { // 그 와중에 사장님이 장사할 생각이 없는지 아직 등록하지 않았을 경우
+		CategoryDto dto = new CategoryDto();
+		dto.setStoNum(stoNum);
+		dto.setCategory("장사할 생각이 없음");
+		categoryList.add(dto);
+	}
 
-categoryList = (List)request.getAttribute("category");
+} catch (Exception e) {
+	System.err.println("category error :" + e);
 
-// 첫화면은 랜덤으로 카테고리 하나 선택 후 'category' 변수에 담기
-Random random=new Random();
-List<String> row=new ArrayList<>();
-List<String> sto=new ArrayList<>();
-List<MenuDto> menuList=new ArrayList<>();
-CategoryDto dto=new CategoryDto();
-
-for(CategoryDto tmp : categoryList) {
-	row.add(tmp.getCategory());
-	sto.add(tmp.getStoNum());
-	System.out.println(row);
+} finally {
+	request.setAttribute("category", categoryList);
 }
 
-int rowNum=random.nextInt(row.size());
+// =====================================================================================	
+
+categoryList = (List) request.getAttribute("category");
+
+// 첫화면은 랜덤으로 카테고리 하나 선택 후 'category' 변수에 담기
+Random random = new Random();
+List<String> row = new ArrayList<>();
+List<String> sto = new ArrayList<>();
+List<MenuDto> menuList = new ArrayList<>();
+CategoryDto dto = new CategoryDto();
+
+for (CategoryDto tmp : categoryList) {
+	row.add(tmp.getCategory());
+	sto.add(tmp.getStoNum());
+}
+
+int rowNum = random.nextInt(row.size());
 String randomCategory = row.get(rowNum);
 System.out.println(randomCategory);
 
 dto.setStoNum(stoNum);
 dto.setCategory(randomCategory);
 
-menuList=MenuDao.getInstance().getList(dto);
-System.out.println("카테고리별 메뉴항목들"+menuList);
+menuList = MenuDao.getInstance().getList(dto);
 
-request.setAttribute("menuList", menuList);	
+request.setAttribute("menuList", menuList);
 %>
 
 <!DOCTYPE html>
@@ -81,43 +76,6 @@ td {
 </style>
 </head>
 <body class="is-preload">
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
-<script>
-	// 여기는 사용자가 카테고리를 선택했을 때 즉각즉각 데이터를 웹브라우저에서 요청하고 응답하도록 구현
-	new Vue({
-		el:".is-preload",
-		data:{
-			menuList:{
-				stoNum:"",
-				name:"",
-				price:0,
-				description:"",
-				imageUrl:"",
-				sell:"",
-				category:""
-			}
-		},
-		methods:{
-			getList(e){
-				//서버에 글 목록을 fetch() 함수를 이용해서 요청 
-                fetch("${pageContext.request.contextPath}/customer/menu_list.jsp"{ // 서버에 요청하는 방식 : 링크, form전송 + 자바스크립트로 요청법(fetch)
-                        // fetch의 옵션설정
-                        method:"get", // 메소드 전송방식
-                        headers:{"Content-Type":"application/x-www-form-urlencoded; charset=utf-8"}, // 요청헤더
-                        body:`category=e.target.innerText` // 요청몸통
-                    })
-                .then(res=>res.json())
-                .then(data=>{
-                    //data 는 글 정보가 들어 있는  [{},{},{},...] 이런형식의 배열이다. 
-                    
-                });
-			}
-		}
-	})
-</script>
-
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -136,23 +94,43 @@ td {
 
 		<!-- Main -->
 		<div class="category">
-			<h1><%=randomCategory %></h1>
+			<h1><%=randomCategory%></h1>
 		</div>
-		
+
 		<div id="main">
-		
-			<c:forEach var="tmp" items="${menuList}" >
+
+			<!-- 첫화면 접속시 작동할 코드 -->
+			<c:forEach var="tmp" items="${menuList}">
+				<article class="thumb">
+					<!-- 사진링크는 추후에 ${tmp.imageUrl}로 바꿀 예정 -->
+					<a
+						href="${pageContext.request.contextPath}/images/fulls/americano.jpg"
+						class="image"><img
+						src="${pageContext.request.contextPath}/images/fulls/americano.jpg"
+						alt="" /></a>
+					<h2>${tmp.name}</h2>
+					<h3>${tmp.description}</h3>
+					<h3>${tmp.price}원</h3>
+					<button>장바구니 추가</button>
+				</article>
+			</c:forEach>
+
+			<!-- 고객이 원하는 카테고리 선택시 작동할 코드 -->
 			<article class="thumb">
 				<!-- 사진링크는 추후에 ${tmp.imageUrl}로 바꿀 예정 -->
-				<a href="${pageContext.request.contextPath}/images/fulls/americano.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/americano.jpg" alt="" /></a>
-				<h2>${tmp.name}</h2>
-				<h3>${tmp.description}</h3>
-				<h3>${tmp.price}원</h3>
+				<a
+					href="${pageContext.request.contextPath}/images/fulls/an_empty_glass.jpeg"
+					class="image"><img
+					src="${pageContext.request.contextPath}/images/fulls/an_empty_glass.jpeg"
+					alt="" /></a>
+				<h2></h2>
+				<h3></h3>
+				<h3></h3>
 				<button>장바구니 추가</button>
 			</article>
-			</c:forEach>
-			
+
 		</div>
+
 		<!-- Footer -->
 		<footer id="footer" class="panel">
 			<div class="inner split">
@@ -184,7 +162,7 @@ td {
 					</section>
 					<p class="copyright">&copy; Acorn Order. Design: Team1.</p>
 				</div>
-				
+
 				<div>
 					<section>
 						<h2>CHOOSE CATEGORY</h2>
@@ -195,7 +173,7 @@ td {
 						</ul>
 					</section>
 				</div>
-				
+
 			</div>
 		</footer>
 
@@ -306,6 +284,37 @@ td {
 		src="${pageContext.request.contextPath}/order_assets/js/util.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
+	
+	<script> 
+	// 여기는 사용자가 카테고리를 선택했을 때 즉각즉각 데이터를 웹브라우저에서 요청하고 응답하도록 구현
+	
+	new Vue({
+		el:"#wrapper",
+		data:{
+			menuList:[],
+			fristMake:true,
+			secondMake:false
+		},
+		methods:{
+			getList(e){
+				this.fristMake=false;
+				this.secondMake=true;
+				//서버에 글 목록을 fetch() 함수를 이용해서 요청 
+                fetch("${pageContext.request.contextPath}/customer/menu_list.jsp",{ // 서버에 요청하는 방식 : 링크, form전송 + 자바스크립트로 요청법(fetch)
+                        // fetch의 옵션설정
+                        method:"get", // 메소드 전송방식
+                        headers:{"Content-Type":"application/x-www-form-urlencoded; charset=utf-8"}, // 요청헤더
+                        body:`category=e.target.innerText` // 요청몸통
+                    })
+                .then(res=>res.json())
+                .then(data=>{
+                    //data 는 글 정보가 들어 있는  [{},{},{},...] 이런형식의 배열이다. 
+                	this.menuList=data.menuList;
+                });
+            }
+		}
+	});
+	</script>
 
 </body>
 </html>

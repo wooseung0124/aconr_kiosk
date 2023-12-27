@@ -14,6 +14,7 @@ import kiosk.menu.dto.MenuDto;
 
 @WebServlet("/customer/MenuDetail")
 public class MenuDetail extends HttpServlet{
+	// get파라미터로 name을 통해 상세메뉴 가져오
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");

@@ -7,7 +7,7 @@
 
 <%
 	MenuDto dto=(MenuDto)request.getAttribute("dto");
-	System.out.println(dto.getIsSold());
+	// System.out.println(dto.getIsSold());
 	
 %>
 <!DOCTYPE html>

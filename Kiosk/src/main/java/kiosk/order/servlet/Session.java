@@ -15,11 +15,14 @@ import kiosk.order.dto.OrderDto;
 
 @WebServlet("/customer/session")
 public class Session extends HttpServlet{
+	// 디테일 메뉴 정보를 form을 통해 정보를 불러오기
+	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
 	req.setCharacterEncoding("utf-8");
 	
+	// 테스트 DB
 	if(req.getParameter("menu")!=null) {
 	String menu=req.getParameter("menu");
 	String imageurl=req.getParameter("iageurl");

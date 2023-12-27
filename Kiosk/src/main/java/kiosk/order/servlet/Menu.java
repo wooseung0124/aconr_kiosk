@@ -15,6 +15,7 @@ import kiosk.menu.dto.MenuDto;
 
 @WebServlet("/customer/menu")
 public class Menu extends HttpServlet {
+	//두번째, DB에서 테스트 메뉴 가져오기
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");

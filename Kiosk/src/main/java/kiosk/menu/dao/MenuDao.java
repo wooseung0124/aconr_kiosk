@@ -32,7 +32,7 @@ public class MenuDao {
 		try {
 			
 			conn = new DbcpBean().getConn();
-			String sql = "select *"
+			String sql = "select name, price, description, imageUrl, sell"
 					+ " from menu_info"
 					+ " where sto_num = ? and category = ?";
 			pstmt = conn.prepareStatement(sql);
