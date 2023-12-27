@@ -33,6 +33,8 @@ System.out.println("order_menu.jsp 접속");
 		}finally {
 			request.setAttribute("category", categoryList);
 		}
+	
+// =====================================================================================	
 
 categoryList = (List)request.getAttribute("category");
 
@@ -109,6 +111,7 @@ td {
 		<div id="main">
 			<c:forEach var="tmp" items="${menuList}">
 			<article class="thumb">
+				<!-- 사진링크는 추후에 ${tmp.imageUrl}로 바꿀 예정 -->
 				<a href="${pageContext.request.contextPath}/images/fulls/americano.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/americano.jpg" alt="" /></a>
 				<h2>${tmp.name}</h2>
 				<h3>${tmp.description}</h3>
@@ -149,16 +152,18 @@ td {
 					</section>
 					<p class="copyright">&copy; Acorn Order. Design: Team1.</p>
 				</div>
+				
 				<div>
 					<section>
 						<h2>CHOOSE CATEGORY</h2>
 						<ul class="action">
-							<c:forEach var="tmp" items="${category}">
-								<li><a href="/menuList? category=${tmp}"></a>${tmp}</li>
+							<c:forEach var="tmp" items="${requestScope.category}">
+								<li><a href="${pageContext.request.contextPath}/customer/menu_list.jsp?category=${tmp.category}">${tmp.category}</a></li>
 							</c:forEach>
 						</ul>
 					</section>
 				</div>
+				
 			</div>
 		</footer>
 
