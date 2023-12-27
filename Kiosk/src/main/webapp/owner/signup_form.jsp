@@ -17,21 +17,20 @@
 			</header>
 
 		<!-- Signup Form -->
-			<form id="signup-form" action="${pageContext.request.contextPath}/owner/signup" method="post"  >
+			<form id="signup-form" action="${pageContext.request.contextPath}/owner/signup.jsp" method="post" >
 				<div>
 					<label for="stoNum">사업자 번호</label>
-					<input type="text"  name="stoNum" id="stoNum" placeholder="사업자 번호"/>
+					<input type="text"  name="sto_Num" id="stoNum" placeholder="사업자 번호"/>
 					<small id="smallStoNum">000-00-00000로 숫자로만 10자로 입력해주세요.</small>
-					<!-- 자동 대시 작성 기능 -->
 				</div>
 				<div>
 					<label for="stoName">가게 이름</label>
-					<input type="text" name="stoName" id="stoName" placeholder="가게 이름" />
+					<input type="text" name="sto_Name" id="stoName" placeholder="가게 이름" />
 					<small id="smallStoName">한글로만 30자 이내로 입력해주세요.</small>
 				</div>
 				<div>
 					<label for="oName">사장님 이름</label>
-					<input type="text" name="oName" id="oName" placeholder="사장님 이름" />
+					<input type="text" name="o_Name" id="oName" placeholder="사장님 이름" />
 					<small id="smallOName">한글로 2~4자 이내로 입력해주세요.</small>
 					
 				</div>
@@ -60,6 +59,7 @@
 			<script src="${pageContext.request.contextPath}/owner_assets/js/main.js"></script>
 	
 	</body>
+	
 	<script>
 		let isStoNumValid=false;
 		let isStoNameValid=false;
