@@ -1,6 +1,6 @@
-<%@page import="customer.mvc.model.dto.CategoryDto"%>
+
+<%@page import="kiosk.menu.dao.MenuDao"%>
 <%@page import="java.util.Random"%>
-<%@page import="customer.mvc.model.dto.MenuDto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="customer.mvc.model.dao.MenuDao"%>
@@ -12,7 +12,7 @@
 String stoNum = "000-00-00000"; // 임시, 테스트 DB에도 저장되어있음(kiosk.sql 참고)
 		
 MenuDao menuDao=MenuDao.getInstance(); // 현재 경로 : customer.mvc.model.dao.MenuDao
-List<CategoryDto> categoryList=new ArrayList<>();
+List<String> categoryList = MenuDao.getInstance().getCategory();
 System.out.println("order_menu.jsp 접속");
 		
 	try {// 일단 카테고리 등록여부 확인
