@@ -1,3 +1,4 @@
+<%@page import="kiosk.owner.dto.OwnerDto"%>
 <%@page import="kiosk.menu.dao.MenuDao"%>
 <%@page import="kiosk.menu.dto.MenuDto"%>
 <%@page import="java.util.List"%>
@@ -6,6 +7,14 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
+	request.setCharacterEncoding("utf-8");
+	//Object type을 String type으로 casting
+	String oName=(String)session.getAttribute("oName");
+	String email=(String)session.getAttribute("email");
+	String stoNum=(String)session.getAttribute("stoNum");
+	
+	
+	
    //카테고리 받아옴
    
    //옆에 네비바에 이용
@@ -55,8 +64,8 @@
                <!-- Logo -->
                   <div id="logo">
                      <span class="image avatar48"><img src="${pageContext.request.contextPath}/images/avatar.jpg" alt="" /></span>
-                     <h1 id="title">김동주</h1>
-                     <p>억만장자</p>
+                     <h1 id="title">${sessionScope.oName}</h1>
+                     <p><%=email %></p>
                   </div>
 
                <!-- Nav -->
@@ -77,7 +86,7 @@
 
                <!-- Social Icons -->
                   <ul class="icons">
-                     <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                     <li><a href="${pageContext.request.contextPath}/owner/logout.jsp" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
                      <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
                      <li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
                      <li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>

@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
+<<<<<<< HEAD
+	//이 페이지에 들어오게되면?? + 로그인이 성공되었을 때 
+	String email = (String)request.getAttribute("email");	
+	//쿠키를 저장한다
+	Cookie cook = new Cookie("email",email); 
+	System.out.println(email);
+	cook.setMaxAge(60*60*24);
+	response.addCookie(cook);
+=======
 	String email = request.getParameter("email");
 	String pwd = request.getParameter("pwd");
 	String isSave = "true";
@@ -20,6 +29,7 @@
 		response.addCookie(cook2);
 	}
 	
+>>>>>>> upstream/main
 	
 %>
 <!DOCTYPE html>
@@ -42,7 +52,7 @@
 					이제 저희 서비스를 자유롭게 이용하실 수 있습니다.<br/> 
 					환영합니다!</p>
 					<br />
-					<a href="${pageContext.request.contextPath}/menu/menu">메뉴 관리 하러 가기</a>
+					<a href="${pageContext.request.contextPath}/menu/menu.jsp">메뉴 관리 하러 가기</a>
 				</c:when>
 				<c:otherwise>
 					<p>
