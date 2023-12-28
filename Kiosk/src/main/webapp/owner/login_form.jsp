@@ -1,19 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	//쿠키를 불러와야함 -> ownerDto
-	Cookie[] cooks = request.getCookies();
-	//쿠키를 불러왔어
-	String email = null;
-	//근데 없어? 그러면은 그냥 노터치
-	if(cooks != null){
-		for(Cookie tmp : cooks){
-			String key = tmp.getName();
-			if(key.equals("email")) email = tmp.getValue();
-		}
-	}
-	//근데 있어? 그러면은 자동완성해줘야함
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +21,7 @@
 	<form id="signup-form" action="${pageContext.request.contextPath}/owner/login" method="post" >
 		<div>
 			<label for="email">이메일</label>
-			<input type="email" name="email" id="email" placeholder="Email Address" value="<%=email%>"/>
+			<input type="email" name="email" id="email" placeholder="Email Address"/>
 		</div>
 		<div>
 			<label class="form-label" for="pwd">비밀번호</label>

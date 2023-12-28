@@ -5,6 +5,7 @@
 <%
 	
 	MenuDto dto=(MenuDto)request.getAttribute("menudto");
+// 5다섯, 1개의 메뉴를 디테일하게 봄
 %>
 <!DOCTYPE html>
 <html>
