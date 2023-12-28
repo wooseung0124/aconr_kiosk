@@ -1,35 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
-<<<<<<< HEAD
-	//이 페이지에 들어오게되면?? + 로그인이 성공되었을 때 
-	String email = (String)request.getAttribute("email");	
-	//쿠키를 저장한다
-	Cookie cook = new Cookie("email",email); 
-	System.out.println(email);
-	cook.setMaxAge(60*60*24);
-	response.addCookie(cook);
-=======
 	String email = request.getParameter("email");
 	String pwd = request.getParameter("pwd");
-	String isSave = "true";
-	if(isSave != null) {
+	String isSave = request.getParameter("isSave");
+	if(isSave != null){
+		//아이디 비밀번호를 쿠키로 응답하고 1주일 동안 유지되도록 한다.
 		Cookie cook1 = new Cookie("savedEmail", email);
 		Cookie cook2 = new Cookie("savedPwd", pwd);
 		cook1.setMaxAge(60*60*24*7);
 		cook2.setMaxAge(60*60*24*7);
 		response.addCookie(cook1);
 		response.addCookie(cook2);
-	}else {
-		Cookie cook1 = new Cookie("savedEmail","");
-		Cookie cook2 = new Cookie("savedPwd",null);
+
+	}else{
+		//특정 키값으로 저장된 쿠키값 삭제하기 (value 에는 아무 값이나 넣어도 상관없다)
+		Cookie cook1 = new Cookie("savedEmail", "");
+		Cookie cook2 = new Cookie("savedPwd", null);
 		cook1.setMaxAge(0);
-		cook2.setMaxAge(0);
+		cook2.setMaxAge(0);		
 		response.addCookie(cook1);
 		response.addCookie(cook2);
 	}
-	
->>>>>>> upstream/main
+
 	
 %>
 <!DOCTYPE html>
@@ -79,22 +72,5 @@
 
 		<!-- Scripts -->
 			<script src="${pageContext.request.contextPath}/owner_assets/js/main.js"></script>
-	
-	<script>
-		// OwnerDto를 쿠키에 저장하는 함수
-	    const saveOwnerDtoToCookie = (ownerDto) => {
-	        const jsonOwnerDto = JSON.stringify(ownerDto);
-	        document.cookie = "ownerDto=" + encodeURIComponent(jsonOwnerDto) + "; path=/";
-	    };
-	
-	    // 저장할 OwnerDto 객체 생성 (예시)
-	    const ownerDto = {
-	        email: "example@example.com"
-	        // 다른 필드도 추가 가능
-	    };
-	
-	    // OwnerDto를 쿠키에 저장
-	    saveOwnerDtoToCookie(ownerDto);
-	</script>
 	</body>
 </html>
