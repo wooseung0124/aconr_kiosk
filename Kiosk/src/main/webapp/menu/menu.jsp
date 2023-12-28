@@ -66,7 +66,7 @@
                      <span class="image avatar48"><img src="${pageContext.request.contextPath}/images/avatar.jpg" alt="" /></span>
                      <h1 id="title">${sessionScope.oName}</h1>
                      <p><%=email %></p>
-                     <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open" viewBox="0 0 16 16">
+                     <a href="${pageContext.request.contextPath}/owner/logout.jsp"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open" viewBox="0 0 16 16">
   <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/>
   <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117zM11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z"/>
 </svg></a>
@@ -90,7 +90,7 @@
 
                <!-- Social Icons -->
                   <ul class="icons">
-                     <li><a href="${pageContext.request.contextPath}/owner/logout.jsp" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                     <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
                      <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
                      <li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
                      <li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
