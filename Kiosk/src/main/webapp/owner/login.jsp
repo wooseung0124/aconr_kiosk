@@ -2,9 +2,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	//이 페이지에 들어오게되면?? + 로그인이 성공되었을 때 
-			
+	String email = (String)request.getAttribute("email");		
 	//쿠키를 저장한다
-			
+	Cookie cook = new Cookie("email",email); 
+	System.out.println(email);
+	cook.setMaxAge(60*60*24);
+	response.addCookie(cook);
 	
 %>
 <!DOCTYPE html>

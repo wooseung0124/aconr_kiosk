@@ -25,8 +25,6 @@ public class ProdUpdateFormServlet extends HttpServlet {
 		udto.setStoNum(stoNum);
 		MenuDto dto=MenuDao.getInstance().getdata(udto);
 		
-		System.out.println("이름: "+dto.getName()+"가격: "+dto.getPrice()+"설명: "+dto.getDescription());
-		
 		req.setAttribute("dto", dto);
 		RequestDispatcher rd=req.getRequestDispatcher("/menu/product/prod_updateform.jsp");
 		rd.forward(req, resp);

@@ -34,8 +34,8 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li><a href="${pageContext.request.contextPath}/menu/menu.jsp" id="top-link"><span class="icon solid fa-home">홈</span></a></li>
-								<li><a href="#contact" id="portfolio-link"><span class="icon solid fa-th">메뉴 추가하기</span></a></li>
+								<li><a href="${pageContext.request.contextPath}/menu/menu" id="top-link"><span class="icon solid fa-home">메뉴 화면</span></a></li>
+								<li><a href="" id="portfolio-link"><span class="icon solid fa-th">메뉴 추가하기</span></a></li>
 							</ul>
 						</nav>
 
