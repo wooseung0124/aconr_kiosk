@@ -27,7 +27,7 @@
 					이제 저희 서비스를 자유롭게 이용하실 수 있습니다.<br/> 
 					환영합니다!</p>
 					<br />
-					<a href="${pageContext.request.contextPath}/menu/menu">메뉴 관리 하러 가기</a>
+					<a href="${pageContext.request.contextPath}/menu/menu.jsp">메뉴 관리 하러 가기</a>
 				</c:when>
 				<c:otherwise>
 					<p>
