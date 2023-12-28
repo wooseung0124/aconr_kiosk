@@ -142,7 +142,9 @@ td {
 				<h2>${tmp.name}</h2>
 				<h3>${tmp.description}</h3>
 				<h3>${tmp.price}원</h3>
-				<button>장바구니 추가</button>
+				
+				<input type="button" value="장바구니 추가" onclick="clicked();" />
+				<button type="button" onclick="clicked(); ">장바구니 추가</button>
 			</article>
 			</c:forEach>
 
@@ -318,8 +320,10 @@ td {
 		src="${pageContext.request.contextPath}/order_assets/js/util.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
-	
-
-
+	<script>
+		function clicked(e){
+			console.log("asdfsadf");
+		}
+	</script>
 </body>
 </html>

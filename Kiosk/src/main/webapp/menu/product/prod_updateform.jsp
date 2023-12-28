@@ -112,19 +112,16 @@
 									</c:choose>
 								</a>
 							</div>
-						</div>
-						
-						<div>
+						</div >
+						<div class ="col-6 col-12-moblie">
 							<label for="sell">품절여부</label>
 							 <input type="checkbox" id="sell" name="sell" value="YES" >
-							 <input type="hidden" id="sellChecked" value="${dto.sell}">
 						</div>
-						
-					
-						<div class="col-6">
+						<input type="hidden" id="sellChecked" value="${dto.sell}">
+						<div>
 							<input type="submit" name="action" value='수정' onclick="handleCheckbox()"/>
 						</div>		
-						<div class="col-6">
+						<div>
 							<input type="submit" name="action" value="삭제" />
 						</div>	
 					<div>
