@@ -1,3 +1,4 @@
+<%@page import="kiosk.owner.dto.OwnerDto"%>
 <%@page import="kiosk.menu.dao.MenuDao"%>
 <%@page import="kiosk.menu.dto.MenuDto"%>
 <%@page import="java.util.List"%>
@@ -6,6 +7,14 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
+	request.setCharacterEncoding("utf-8");
+	//Object type을 String type으로 casting
+	String oName=(String)session.getAttribute("oName");
+	String email=(String)session.getAttribute("email");
+	String stoNum=(String)session.getAttribute("stoNum");
+	
+	
+	
    //카테고리 받아옴
    
    //옆에 네비바에 이용
@@ -30,6 +39,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/menu_assets/css/main.css" />
 <title>menu/menu.jsp</title>
+<style>
+	#item img{
+		width:300px;
+		height:300px;
+	}
+	#item header{
+		display:flex;
+		justify-content:center;
+	}
+	#imagefit{
+		display:flex;
+		justify-content:center;
+	}
+</style>
 </head>
 <body class="is-preload">
 
@@ -41,18 +64,18 @@
                <!-- Logo -->
                   <div id="logo">
                      <span class="image avatar48"><img src="${pageContext.request.contextPath}/images/avatar.jpg" alt="" /></span>
-                     <h1 id="title">김동주</h1>
-                     <p>억만장자</p>
+                     <h1 id="title">${sessionScope.oName}</h1>
+                     <p><%=email %></p>
                   </div>
 
                <!-- Nav -->
                   <nav id="nav">
                      <ul>
-                        <li><a href="${pageContext.request.contextPath}/index.jsp" id="top-link"><span class="icon solid fa-home">홈</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/index.jsp" id="top-link"><span class="icon solid fa-home">메인화면</span></a></li>
                         <li><a href="product/prod_insertform.jsp" id="portfolio-link"><span class="icon solid fa-th">메뉴 추가하기</span></a></li>
                         <!-- todo 이부분에서 가지고있는 카테고리 종류를 가져와야 함 -->
                         <c:forEach var="item" items="${categoryList}">
-                           <li><a href="#portfolio1" id="portfolio-link"><span class="icon solid fa-coffee">${item.category}</span></a></li>   
+                           <li><a href="#${item.category}" class="portfolio-link scroll_move"><span class="icon solid fa-coffee">${item.category}</span></a></li>   
                         </c:forEach>
                      </ul>
                   </nav>
@@ -63,7 +86,7 @@
 
                <!-- Social Icons -->
                   <ul class="icons">
-                     <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                     <li><a href="${pageContext.request.contextPath}/owner/logout.jsp" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
                      <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
                      <li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
                      <li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
@@ -92,32 +115,30 @@
 
                   </div>
                </section>
-
-            <!-- Portfolio -->
             <c:forEach var="tmp1" items="${categoryList}" >
-                  <section id="portfolio1" class="two">
+                  <section id="${tmp1.category}" class="two">
                      <div class="container">
    
                         <header>
                            <h2>${tmp1.category}</h2>
                         </header>
-   
                         <p>커피 메뉴 관리 페이지에 오신 것을 환영합니다. 이곳에서는 각 커피 메뉴의 가격, 재고 상태, 그리고 상세 정보를 손쉽게 업데이트하고 관리할 수 있습니다. 효율적인 운영을 위해 활용해보세요.</p>
                          <div class="row">
                            <c:forEach var="tmp2" items="${menu_list}">
                            <c:if test="${tmp2.category eq tmp1.category and tmp2.stoNum eq tmp1.stoNum}">
                                  <div class="col-4">
-                                    <article class="item">
-                                       <a href="product/prod_updateform?name=${tmp2.name}" class="image fit">
+                                    <article id="item" class="item">
+                                       <a href="product/prod_updateform?name=${tmp2.name}" id="imagefit" class="image fit">
                                        <c:choose>   
                                             <c:when test="${tmp2.imageUrl eq  null }">
-                                               <svg width="225" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="80" height="80" rx="15" fill="#f0f0f0"/><text x="50%" y="50%" text-anchor="middle" fill="#888888" font-size="20">이미지 준비중</text></svg>
+                                               <img src="${pageContext.request.contextPath}/images/prepare.jpg" alt="" />
                                             </c:when>
-                                            <c:otherwise><img id="ImageUrl" src="${pageContext.request.contextPath}/upload/${tmp2.imageUrl }" alt="상품 이미지"  width="200px" height="200px"/></c:otherwise>
+                                            <c:otherwise><img id="ImageUrl" src="${pageContext.request.contextPath}/upload/${tmp2.imageUrl }" alt="상품 이미지"/></c:otherwise>
                                          </c:choose>
                                        </a>
+                                       
                                        <header>
-                                          <h3>${tmp2.name}</h3>
+                                          <h3 style="width:300px;">${tmp2.name}</h3>
                                        </header>
                                     </article>
                                  </div>  
@@ -136,7 +157,26 @@
          <script src="${pageContext.request.contextPath}/menu_assets/js/breakpoints.min.js"></script>
          <script src="${pageContext.request.contextPath}/menu_assets/js/util.js"></script>
          <script src="${pageContext.request.contextPath}/menu_assets/js/main.js"></script>
+		<script>
+			$(document).ready(function($) {
+	            $(".scroll_move").click(function(event){
+	                console.log(".scroll_move");         
+	                event.preventDefault();
+	                var target = $(this).attr("href");
+	                $('html,body').animate({scrollTop:$(target).offset().top}, 500);
+	            });
+	
+	        });
+			
+			$(document).ready(function($) {
+			    // 기존 클릭 이벤트 처리 코드...
 
+			    // 페이지 새로고침 시 맨 위로 스크롤
+			    $(window).on('beforeunload', function() {
+			        $('html,body').scrollTop(0);
+			    });
+			});
+		</script>
    </body>
 <!-- 
 <body>

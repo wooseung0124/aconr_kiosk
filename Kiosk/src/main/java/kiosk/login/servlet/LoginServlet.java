@@ -1,6 +1,11 @@
 package kiosk.login.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,7 +29,7 @@ public class LoginServlet extends HttpServlet{
         boolean isSuccess;
 //        OwnerDto dto=new OwnerDto();
 //		boolean isSuccess = OwnerDao.getInstance().insert(dto);
-		
+        
 
         // 실제로는 데이터베이스에서 사용자 정보를 가져와서 확인하는 것이 일반적입니다.
         // 여기서는 간단한 예제를 위해 미리 정의된 값과 비교합니다.
@@ -34,7 +39,9 @@ public class LoginServlet extends HttpServlet{
             HttpSession session = req.getSession();
             session.setAttribute("email", email);
             session.setAttribute("stoNum", dto.getSto_num());
+            session.setAttribute("oName", dto.getO_name());
             isSuccess = true;
+         
         } else {
             // 인증이 실패하면 로그인 페이지로 다시 이동
         	isSuccess = false;
