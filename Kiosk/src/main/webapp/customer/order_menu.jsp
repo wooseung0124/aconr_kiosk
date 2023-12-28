@@ -109,7 +109,14 @@ td {
 			<c:forEach var="tmp" items="${menuList}">
 			<article class="thumb">
 				<!-- 사진링크는 추후에 ${tmp.imageUrl}로 바꿀 예정 -->
-				<a href="${pageContext.request.contextPath}/images/fulls/americano.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/americano.jpg" alt="" /></a>
+				<c:choose>
+					<c:when test="${tmp.imageUrl eq null}">
+						<a href="${pageContext.request.contextPath}/images/prepare.jpg" class="image"><img src="${pageContext.request.contextPath}/images/prepare.jpg" alt="" /></a>
+					</c:when>
+					<c:otherwise>
+						<a href="${pageContext.request.contextPath}/upload/${tmp.imageUrl}" class="image"><img src="${pageContext.request.contextPath}/upload/${tmp.imageUrl}" alt="" /></a>		
+					</c:otherwise>
+				</c:choose>
 				<h2>${tmp.name}</h2>
 				<h3>${tmp.description}</h3>
 				<h3>${tmp.price}원</h3>

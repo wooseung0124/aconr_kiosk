@@ -59,7 +59,7 @@ public class MenuDto {
 		return sell;
 	}
 
-	public void setSell(String isSold) {
+	public void setSell(String sell) {
 		this.sell = sell;
 	}
 
