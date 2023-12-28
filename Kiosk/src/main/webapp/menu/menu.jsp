@@ -30,6 +30,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/menu_assets/css/main.css" />
 <title>menu/menu.jsp</title>
+<style>
+	
+</style>
 </head>
 <body class="is-preload">
 
@@ -48,11 +51,11 @@
                <!-- Nav -->
                   <nav id="nav">
                      <ul>
-                        <li><a href="${pageContext.request.contextPath}/index.jsp" id="top-link"><span class="icon solid fa-home">홈</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/index.jsp" id="top-link"><span class="icon solid fa-home">메인화면</span></a></li>
                         <li><a href="product/prod_insertform.jsp" id="portfolio-link"><span class="icon solid fa-th">메뉴 추가하기</span></a></li>
                         <!-- todo 이부분에서 가지고있는 카테고리 종류를 가져와야 함 -->
                         <c:forEach var="item" items="${categoryList}">
-                           <li><a href="#portfolio1" id="portfolio-link"><span class="icon solid fa-coffee">${item.category}</span></a></li>   
+                           <li><a href="${'#'}${item.category}" id="${item.category}-link"><span class="icon solid fa-coffee">${item.category}</span></a></li>   
                         </c:forEach>
                      </ul>
                   </nav>
@@ -92,16 +95,13 @@
 
                   </div>
                </section>
-
-            <!-- Portfolio -->
             <c:forEach var="tmp1" items="${categoryList}" >
-                  <section id="portfolio1" class="two">
+                  <section id="${tmp1.category}" class="two">
                      <div class="container">
    
                         <header>
                            <h2>${tmp1.category}</h2>
                         </header>
-   
                         <p>커피 메뉴 관리 페이지에 오신 것을 환영합니다. 이곳에서는 각 커피 메뉴의 가격, 재고 상태, 그리고 상세 정보를 손쉽게 업데이트하고 관리할 수 있습니다. 효율적인 운영을 위해 활용해보세요.</p>
                          <div class="row">
                            <c:forEach var="tmp2" items="${menu_list}">
@@ -111,9 +111,9 @@
                                        <a href="product/prod_updateform?name=${tmp2.name}" class="image fit">
                                        <c:choose>   
                                             <c:when test="${tmp2.imageUrl eq  null }">
-                                               <svg width="225" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="80" height="80" rx="15" fill="#f0f0f0"/><text x="50%" y="50%" text-anchor="middle" fill="#888888" font-size="20">이미지 준비중</text></svg>
+                                               <img src="${pageContext.request.contextPath}/images/prepare.jpg" alt="" />
                                             </c:when>
-                                            <c:otherwise><img id="ImageUrl" src="${pageContext.request.contextPath}/upload/${tmp2.imageUrl }" alt="상품 이미지"  width="200px" height="200px"/></c:otherwise>
+                                            <c:otherwise><img id="ImageUrl" src="${pageContext.request.contextPath}/upload/${tmp2.imageUrl }" alt="상품 이미지"/></c:otherwise>
                                          </c:choose>
                                        </a>
                                        <header>

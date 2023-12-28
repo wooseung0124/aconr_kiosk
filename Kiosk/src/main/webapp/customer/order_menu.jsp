@@ -131,17 +131,21 @@ td {
 
 			<!-- 첫화면 접속시 작동할 코드 -->
 			<c:forEach var="tmp" items="${menuList}">
-				<article class="thumb">
-					<a  id=""
-						href="${pageContext.request.contextPath}/images/fulls/americano.jpg"
-						class="image"><img
-						src="${pageContext.request.contextPath}/images/fulls/americano.jpg"
-						alt="" /></a>
-					<h2>${tmp.name}</h2>
-					<h3>${tmp.description}</h3>
-					<h3>${tmp.price}원</h3>
-					<button>장바구니 추가</button>
-				</article>
+			<article class="thumb">
+				<!-- 사진링크는 추후에 ${tmp.imageUrl}로 바꿀 예정 -->
+				<c:choose>
+					<c:when test="${tmp.imageUrl eq null}">
+						<a href="${pageContext.request.contextPath}/images/prepare.jpg" class="image"><img src="${pageContext.request.contextPath}/images/prepare.jpg" alt="" /></a>
+					</c:when>
+					<c:otherwise>
+						<a href="${pageContext.request.contextPath}/upload/${tmp.imageUrl}" class="image"><img src="${pageContext.request.contextPath}/upload/${tmp.imageUrl}" alt="" /></a>		
+					</c:otherwise>
+				</c:choose>
+				<h2>${tmp.name}</h2>
+				<h3>${tmp.description}</h3>
+				<h3>${tmp.price}원</h3>
+				<button>장바구니 추가</button>
+			</article>
 			</c:forEach>
 
 			<!-- 고객이 원하는 카테고리 선택시 작동할 코드 -->

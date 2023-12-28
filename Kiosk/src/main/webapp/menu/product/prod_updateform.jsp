@@ -7,9 +7,6 @@
 
 <%
 	MenuDto dto=(MenuDto)request.getAttribute("dto");
-
-	System.out.println(dto.getSell());
-
 	
 %>
 <!DOCTYPE html>
@@ -27,7 +24,6 @@
 		width: 200px;
 		height: 200px;
 		border: 1px solid #cecece;
-	
 	}
 </style>
 </head>
@@ -75,7 +71,7 @@
 			<div>
 				<label for="sell">품절여부</label>
 				 <input type="checkbox" id="sell" name="sell" value="YES">
-				 <input type="hidden" id="sellchecked" value="${dto.sell}"/>
+				 <input type="hidden" id="sellChecked" value="${dto.sell}"/>
 			</div>
 			
 		
@@ -94,7 +90,7 @@
 		let checkValue= document.querySelector("#sellChecked").value;
 		console.log(checkValue);
 		
-		if(checkValue="YES"){
+		if(checkValue=="YES"){
 			document.querySelector("#sell").checked=true;
 		}
 		

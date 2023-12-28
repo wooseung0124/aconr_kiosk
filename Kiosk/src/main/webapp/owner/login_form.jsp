@@ -2,11 +2,16 @@
     pageEncoding="UTF-8"%>
 <%
 	//쿠키를 불러와야함 -> ownerDto
-	
+	Cookie[] cooks = request.getCookies();
 	//쿠키를 불러왔어
-	
+	String email = null;
 	//근데 없어? 그러면은 그냥 노터치
-			
+	if(cooks != null){
+		for(Cookie tmp : cooks){
+			String key = tmp.getName();
+			if(key.equals("email")) email = tmp.getValue();
+		}
+	}
 	//근데 있어? 그러면은 자동완성해줘야함
 %>
 <!DOCTYPE html>
@@ -21,18 +26,16 @@
 
 	<!-- Header -->
 	<header id="header">
-		<h1>Acorn Kiosk</h1>
+		<h1><a href="${pageContext.request.contextPath}/index.jsp">Acorn Kiosk</a></h1>
 		<p>사장님 로그인 페이지에 오신 것을 환영합니다.<br> 이곳에서는 가게 운영에 필요한 모든 관리 기능에 접근하실 수 있습니다.<br>
 			<strong><a href="signup_form.jsp">회원가입 하러 가기</a></strong>
 		</p>
 	</header>
-
-<<<<<<< HEAD
 	<!-- Signup Form -->
 	<form id="signup-form" action="${pageContext.request.contextPath}/owner/login" method="post" >
 		<div>
 			<label for="email">이메일</label>
-			<input type="email" name="email" id="email" placeholder="Email Address" />
+			<input type="email" name="email" id="email" placeholder="Email Address" value="<%=email%>"/>
 		</div>
 		<div>
 			<label class="form-label" for="pwd">비밀번호</label>
