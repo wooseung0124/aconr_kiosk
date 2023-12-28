@@ -2,6 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	request.setCharacterEncoding("utf-8");
+	//Object type을 String type으로 casting
+	String oName=(String)session.getAttribute("oName");
+	String email=(String)session.getAttribute("email");
+	String stoNum=(String)session.getAttribute("stoNum");
+	
 	MenuDto dto = new MenuDto();
 %>    
 <!DOCTYPE html>
@@ -27,8 +33,8 @@
 					<!-- Logo -->
 						<div id="logo">
 							<span class="image avatar48"><img src="${pageContext.request.contextPath}/images/avatar.jpg" alt="" /></span>
-							<h1 id="title">김동주</h1>
-							<p>억만장자</p>
+							<h1 id="title">${sessionScope.oName}</h1>
+							<p><%=email %></p>
 						</div>
 
 					<!-- Nav -->
