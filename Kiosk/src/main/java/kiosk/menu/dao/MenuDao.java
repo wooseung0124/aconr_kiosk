@@ -33,7 +33,7 @@ public class MenuDao {
 		try {
 			
 			conn = new DbcpBean().getConn();
-			String sql = "select *"
+			String sql = "select sto_num, name, price, description, imageUrl, sell, category"
 					+ " from menu_info"
 					+ " where sto_num = ? and category = ?";
 			pstmt = conn.prepareStatement(sql);
@@ -69,7 +69,7 @@ public class MenuDao {
 			} catch (Exception e) {
 			}
 		}
-		
+		System.out.println("dao에서 가져온 list"+list);
 		return list;
 	}
 	
