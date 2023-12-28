@@ -11,6 +11,12 @@
 <title>/menu/product/prod_reg.jsp</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/menu_assets/css/main.css" />
+<style>
+	#imageUrl{
+		width:255px;
+		height:150px;
+	}
+</style>
 </head>
 <body class="is-preload">
 	<!-- Header -->
@@ -85,7 +91,7 @@
 												<%if(dto.getImageUrl()==null){ %>
 													<svg width="225" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="80" height="80" rx="15" fill="#f0f0f0"/><text x="50%" y="50%" text-anchor="middle" fill="#888888" font-size="20">이미지 준비중</text></svg>
 												<%}else{ %>
-													<img id="imageUrl" src="${pageContext.request.contextPath}/upload/<%=dto.getImageUrl() %>" alt="상품 이미지"  width="200px" height="200px"/>
+													<img id="imageUrl" src="${pageContext.request.contextPath}/upload/<%=dto.getImageUrl() %>" alt="상품 이미지" />
 												<%} %>
 											</a>
 										</div>
