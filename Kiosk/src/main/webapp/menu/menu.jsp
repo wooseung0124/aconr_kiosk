@@ -102,7 +102,6 @@
                         <header>
                            <h2>${tmp1.category}</h2>
                         </header>
-   
                         <p>커피 메뉴 관리 페이지에 오신 것을 환영합니다. 이곳에서는 각 커피 메뉴의 가격, 재고 상태, 그리고 상세 정보를 손쉽게 업데이트하고 관리할 수 있습니다. 효율적인 운영을 위해 활용해보세요.</p>
                          <div class="row">
                            <c:forEach var="tmp2" items="${menu_list}">

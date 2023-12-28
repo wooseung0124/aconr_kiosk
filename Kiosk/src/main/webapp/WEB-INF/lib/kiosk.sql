@@ -57,6 +57,10 @@ insert into menu_info (sto_num, name, price, description, imageUrl, sell, catego
 insert into menu_info (sto_num, name, price, description, imageUrl, sell, category)values('000-00-00000','탄산수','1800','맛있쪙','','YES','음료');
 insert into menu_info (sto_num, name, price, description, imageUrl, sell, category)values('000-00-00000','쥬스','1800','맛있쪙','','YES','음료');
 
+-- 키오스크 테스트용 데이터(메뉴 지우기용)
+select * from menu_info;
+delete from menu_info where sto_num = '000-00-00000';
+
 -- 키오스크 테스트용 데이터(지정한 요청사항 임시정보)
 insert into etc_info (sto_num, etc) values('000-00-00000', '물');
 insert into etc_info (sto_num, etc) values('000-00-00000', '수저');

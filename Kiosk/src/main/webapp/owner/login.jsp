@@ -1,13 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
-	//이 페이지에 들어오게되면?? + 로그인이 성공되었을 때 
-	String email = (String)request.getAttribute("email");		
-	//쿠키를 저장한다
-	Cookie cook = new Cookie("email",email); 
-	System.out.println(email);
-	cook.setMaxAge(60*60*24);
-	response.addCookie(cook);
+	String email = request.getParameter("email");
+	String pwd = request.getParameter("pwd");
+	String isSave = "true";
+	if(isSave != null) {
+		Cookie cook1 = new Cookie("savedEmail", email);
+		Cookie cook2 = new Cookie("savedPwd", pwd);
+		cook1.setMaxAge(60*60*24*7);
+		cook2.setMaxAge(60*60*24*7);
+		response.addCookie(cook1);
+		response.addCookie(cook2);
+	}else {
+		Cookie cook1 = new Cookie("savedEmail","");
+		Cookie cook2 = new Cookie("savedPwd",null);
+		cook1.setMaxAge(0);
+		cook2.setMaxAge(0);
+		response.addCookie(cook1);
+		response.addCookie(cook2);
+	}
+	
 	
 %>
 <!DOCTYPE html>

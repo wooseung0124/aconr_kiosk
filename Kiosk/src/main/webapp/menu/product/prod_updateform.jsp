@@ -8,8 +8,6 @@
 <%
 	MenuDto dto=(MenuDto)request.getAttribute("dto");
 	
-	System.out.println(dto.getName());
-	
 %>
 <!DOCTYPE html>
 <html>
