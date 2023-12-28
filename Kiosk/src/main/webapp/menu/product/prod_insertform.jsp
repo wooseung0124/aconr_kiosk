@@ -56,55 +56,55 @@
 			</div>
 	<div id="main">
 		<!-- Contact -->
-					<section id="contact" class="three">
-						<div class="container">
+		<section id="contact" class="three">
+			<div class="container">
 
-							<header>
-								<h2>메뉴 추가하기</h2>
-							</header>
+				<header>
+					<h2>메뉴 추가하기</h2>
+				</header>
 
-							<p>새롭게 출시된 메뉴를 손쉽게 등록하세요! 간단한 정보 입력으로 메뉴 이름, 가격, 상세 설명을 추가하고, 매력적인 이미지로 고객의 눈길을 사로잡으세요. 품절 정보와 카테고리 분류로 메뉴 관리가 한결 편리해집니다. 지금 바로 시작해 보세요.</p>
+				<p>새롭게 출시된 메뉴를 손쉽게 등록하세요! 간단한 정보 입력으로 메뉴 이름, 가격, 상세 설명을 추가하고, 매력적인 이미지로 고객의 눈길을 사로잡으세요. 품절 정보와 카테고리 분류로 메뉴 관리가 한결 편리해집니다. 지금 바로 시작해 보세요.</p>
 
-							<form method="post" action="prod_insert">
-								<input type="hidden" name="imageUrl" value="<%=dto.getImageUrl() %>" />
-								<div class="row">
-									<div class="col-6 col-12-mobile">
-										<label for="name">메뉴 이름</label>
-										<input type="text" name="name" placeholder="메뉴 이름 입력" />
-									</div>
-									<div class="col-6 col-12-mobile">
-										<label for="price">가격</label>
-										<input type="text" name="price" id="price" " placeholder="메뉴 가격 입력" />
-									</div>
-									<div class="col-12">
-										<label for="description">메뉴 설명</label>
-										<textarea name="description" id="description" placeholder="메뉴 설명 입력"></textarea>
-									</div>
-									<div class="col-6 col-12-mobile">
-										<label for="category">카테고리</label>
-										<input type="text" name="category" id="category" placeholder="카테고리 입력"/>
-									</div>
-									<div class="col-6 col-12-moblie">
-										<label for="imageUrl">상품사진</label>
-										<div>
-											<a href="javascript:" id="imageUrl">
-												<%if(dto.getImageUrl()==null){ %>
-													<svg width="225" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="80" height="80" rx="15" fill="#f0f0f0"/><text x="50%" y="50%" text-anchor="middle" fill="#888888" font-size="20">이미지 준비중</text></svg>
-												<%}else{ %>
-													<img id="imageUrl" src="${pageContext.request.contextPath}/upload/<%=dto.getImageUrl() %>" alt="상품 이미지" />
-												<%} %>
-											</a>
-										</div>
-									</div>
-									<div class="col-12">
-										<input type="submit" value="메뉴 등록" />
-									</div>
-								</div>
-							</form>
-							<!-- 화면에 보이지 않는 이미지 선택할 input type="file" -->
-							<input type="file" id="image" accept="image/*" hidden/>
+				<form method="post" action="prod_insert">
+					<input type="hidden" name="imageUrl" value="<%=dto.getImageUrl() %>" />
+					<div class="row">
+						<div class="col-6 col-12-mobile">
+							<label for="name">메뉴 이름</label>
+							<input type="text" name="name" placeholder="메뉴 이름 입력" />
 						</div>
-					</section>
+						<div class="col-6 col-12-mobile">
+							<label for="price">가격</label>
+							<input type="text" name="price" id="price" " placeholder="메뉴 가격 입력" />
+						</div>
+						<div class="col-12">
+							<label for="description">메뉴 설명</label>
+							<textarea name="description" id="description" placeholder="메뉴 설명 입력"></textarea>
+						</div>
+						<div class="col-6 col-12-mobile">
+							<label for="category">카테고리</label>
+							<input type="text" name="category" id="category" placeholder="카테고리 입력"/>
+						</div>
+						<div class="col-6 col-12-moblie">
+							<label for="imageUrl">상품사진</label>
+							<div>
+								<a href="javascript:" id="imageUrl">
+									<%if(dto.getImageUrl()==null){ %>
+										<svg width="225" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="80" height="80" rx="15" fill="#f0f0f0"/><text x="50%" y="50%" text-anchor="middle" fill="#888888" font-size="20">이미지 준비중</text></svg>
+									<%}else{ %>
+										<img id="imageUrl" src="${pageContext.request.contextPath}/upload/<%=dto.getImageUrl() %>" alt="상품 이미지" />
+									<%} %>
+								</a>
+							</div>
+						</div>
+						<div class="col-12">
+							<input type="submit" value="메뉴 등록" />
+						</div>
+					</div>
+				</form>
+				<!-- 화면에 보이지 않는 이미지 선택할 input type="file" -->
+				<input type="file" id="image" accept="image/*" hidden/>
+			</div>
+		</section>
 	</div>	
 	<script>
 		//링크를 클릭했을때 
