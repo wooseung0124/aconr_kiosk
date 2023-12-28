@@ -52,7 +52,7 @@
                         <li><a href="product/prod_insertform.jsp" id="portfolio-link"><span class="icon solid fa-th">메뉴 추가하기</span></a></li>
                         <!-- todo 이부분에서 가지고있는 카테고리 종류를 가져와야 함 -->
                         <c:forEach var="item" items="${categoryList}">
-                           <li><a href="#portfolio1" id="portfolio-link"><span class="icon solid fa-coffee">${item.category}</span></a></li>   
+                           <li><a href="${'#'}${item.category}" id="${item.category}-link"><span class="icon solid fa-coffee">${item.category}</span></a></li>   
                         </c:forEach>
                      </ul>
                   </nav>
@@ -95,7 +95,7 @@
 
             <!-- Portfolio -->
             <c:forEach var="tmp1" items="${categoryList}" >
-                  <section id="portfolio1" class="two">
+                  <section id="${tmp1.category}" class="two">
                      <div class="container">
    
                         <header>
@@ -111,7 +111,7 @@
                                        <a href="product/prod_updateform?name=${tmp2.name}" class="image fit">
                                        <c:choose>   
                                             <c:when test="${tmp2.imageUrl eq  null }">
-                                               <svg width="225" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="80" height="80" rx="15" fill="#f0f0f0"/><text x="50%" y="50%" text-anchor="middle" fill="#888888" font-size="20">이미지 준비중</text></svg>
+                                               <svg width="225" height="150" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="80" height="80" rx="15" fill="#f0f0f0"/><text x="50%" y="50%" text-anchor="middle" fill="#888888" font-size="20">이미지 준비중</text></svg>
                                             </c:when>
                                             <c:otherwise><img id="ImageUrl" src="${pageContext.request.contextPath}/upload/${tmp2.imageUrl }" alt="상품 이미지"  width="200px" height="200px"/></c:otherwise>
                                          </c:choose>
