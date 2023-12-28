@@ -33,7 +33,7 @@
 								<li><a href="owner/login_form">사장님 페이지</a></li>
 								<!-- 서블릿 이동  -->
 								<li><a href="${pageContext.request.contextPath}/customer/order_menu.jsp">손님 페이지</a></li>
-								<li><a href="#about">음식점 소개 페이지</a></li>
+								<li><a href="#about">카페 소개 페이지</a></li>
 							</ul>
 						</nav>
 					</header>

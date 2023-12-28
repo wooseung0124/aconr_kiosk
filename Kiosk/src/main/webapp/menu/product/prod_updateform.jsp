@@ -155,7 +155,7 @@
 						<div class="col-6">
 							<input type="submit" name="action" value='수정' onclick="handleCheckbox()"/>
 						</div>		
-						<div class="col-6">
+						<div>
 							<input type="submit" name="action" value="삭제" />
 						</div>	
 					<div>

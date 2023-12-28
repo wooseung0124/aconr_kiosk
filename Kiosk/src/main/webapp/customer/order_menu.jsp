@@ -10,15 +10,13 @@
 <%
 // 여기는 사장님이 장사 오픈 전에 로그인 여부를 확인하여 DB에서 어떤 사장님의 메뉴를 가져올 지 판단하는 구간
 // 만약 로그인이 안된 상태로 접근할 경우 예외처리 페이지를 보여줘야 한다.
-// String stoNum = (String) session.getAttribute("stoNum");
+String stoNum = (String) session.getAttribute("stoNum");
 
 
 // (작업중)
 
 //=====================================================================================
 // 여기는 사장님이 로그인 후 장사를 시작했다고 가정하여 고객님들이 키오스크를 눌렀을 때 메뉴를 가져오기 위한 첫번째 작업
-String stoNum = "000-00-00000"; // 임시코드
-System.out.println(stoNum);
 
 MenuDao menuDao = MenuDao.getInstance();
 List<CategoryDto> categoryList = MenuDao.getInstance().getCategory(stoNum);
@@ -135,7 +133,7 @@ td {
 				<!-- 사진링크는 추후에 ${tmp.imageUrl}로 바꿀 예정 -->
 				<c:choose>
 					<c:when test="${tmp.imageUrl eq null}">
-						<a href="${pageContext.request.contextPath}/images/fulls/prepare.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/prepare.jpg" alt="" /></a>
+						<a href="${pageContext.request.contextPath}/images/fulls/prepare.jpg"  class="image"><img src="${pageContext.request.contextPath}/images/fulls/prepare.jpg" alt=""  /></a>
 					</c:when>
 					<c:otherwise>
 						<a href="${pageContext.request.contextPath}/upload/${tmp.imageUrl}" class="image"><img src="${pageContext.request.contextPath}/upload/${tmp.imageUrl}" alt="" /></a>		
@@ -320,8 +318,5 @@ td {
 		src="${pageContext.request.contextPath}/order_assets/js/util.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
-	
-
-
 </body>
 </html>
