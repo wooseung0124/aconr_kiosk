@@ -46,13 +46,9 @@
 	    content: "\2713"; /* 체크 표시 유니코드 사용 */
 	    display: block;
 	    text-align: center;
-	    line-height: 64.33px; /* 체크박스 크기에 맞게 조정 */
 	    color: #2196F3; /* 체크된 상태의 색상 */
 	    font-size: 40px; /* 텍스트 크기에 따라 조정 */
 	}
-	/*.sell{
-		margin-top:5px;
-	}*/
 </style>
 </head>
 <body class="is-preload">
@@ -165,65 +161,6 @@
 				</div>
 		</section>
 	</div>	
-	
-	<%--
-	<div class="container">
-		<h1>상품 수정 페이지입니다.</h1>
-	
-		<h3>상품 정보를 등록해주세요</h3>
-		<form action="prod_update_delete" id="prod_update_delete" method="post">
-			<input type="hidden" name="imageUrl" value="${dto.imageUrl}"/>
-			<div>
-				<label for="name">상품명</label>
-				<input type="text" name="name" id="name" value="${dto.name}" placeholder="상품 이름 입력" />
-			</div>
-			<div>
-				<label for="price">가격</label>
-				<input type="number" name="price" id="price" value="${dto.price}" placeholder="가격 입력" />
-			</div>
-			<div>
-				<label for="description">상품설명</label>
-				<textarea name="description" id="description"  cols="30" rows="10">${dto.getDescription() }</textarea>
-			</div>
-			<div>
-				<label for="imageUrl">상품사진</label>
-				<div>
-					<a href="javascript:" id="imageUrl">
-						<c:choose>
-						    <c:when test="${empty dto.imageUrl}">
-						        <svg width="225" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-						            <rect x="10" y="10" width="80" height="80" rx="15" fill="#f0f0f0"/>
-						            <text x="50%" y="50%" text-anchor="middle" fill="#888888" font-size="20">이미지 준비중</text>
-						        </svg>
-						    </c:when>
-						    <c:otherwise>
-						        <img id="imageUrl" src="${pageContext.request.contextPath}/upload/${dto.imageUrl}" alt="상품 이미지" width="200px" height="200px"/>
-						    </c:otherwise>
-						</c:choose>
-					</a>
-				</div>
-			</div>
-			<div>
-				<label for="category">카테고리</label>
-				<input type="text" name="category" id="category" value="${dto.getCategory()}" placeholder="카테고리 입력" />
-			</div>
-			<div>
-				<label for="sell">품절여부</label>
-				 <input type="checkbox" id="sell" name="sell" value="YES">
-				 <input type="hidden" id="sellChecked" value="${dto.sell}"/>
-			</div>
-			
-		
-		
-				<input type="submit" name="action" value='수정' onclick="handleCheckbox()"/>
-				<input type="submit" name="action" value="삭제" />
-			
-			
-		</form>
-		<!-- 화면에 보이지 않는 이미지 선택할 input type="file" -->
-		<input type="file" id="image" accept="image/*"/>
-		</div>
-		 --%>
 		
 <script>
 		// 업데이트 폼에 체크 적용부분
