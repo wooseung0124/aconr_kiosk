@@ -21,10 +21,38 @@
 	}
 	
 	#imageUrl{
-		width: 200px;
-		height: 200px;
-		border: 1px solid #cecece;
+		width: 300px;
+		height: 300px;
+		text-decoration:none;
 	}
+	
+	/* 체크박스 기본 스타일 숨기기 */
+	input[type="checkbox"] {
+	    appearance: none; /* 대부분의 브라우저에서 기본 스타일 숨김 */
+	    -webkit-appearance: none; /* WebKit 기반 브라우저에서 기본 스타일 숨김 */
+	    -moz-appearance: none; /* Firefox에서 기본 스타일 숨김 */
+	    /* 다른 브라우저 지원을 위한 속성 추가 */
+	    /* 원하는 스타일 적용 */
+	    /* 예시 스타일 - 원하는 디자인으로 변경 */
+	    width: 64.33px;
+	    height: 64.33px;
+	    border: 2px solid #ccc;
+	    border-radius: 3px;
+	}
+	
+		/* 체크 표시 스타일 */
+	input[type="checkbox"]:checked::before {
+		z-index:3;
+	    content: "\2713"; /* 체크 표시 유니코드 사용 */
+	    display: block;
+	    text-align: center;
+	    line-height: 64.33px; /* 체크박스 크기에 맞게 조정 */
+	    color: #2196F3; /* 체크된 상태의 색상 */
+	    font-size: 40px; /* 텍스트 크기에 따라 조정 */
+	}
+	/*.sell{
+		margin-top:5px;
+	}*/
 </style>
 </head>
 <body class="is-preload">
@@ -79,23 +107,7 @@
 				<form action="prod_update_delete" id="prod_update_delete" method="post">
 					<div class="row">
 						<input type="hidden" name="imageUrl" value="${dto.imageUrl}"/>
-						<div class="col-6 col-12-mobile">
-							<label for="name">상품명</label>
-							<input type="text" name="name" id="name" value="${dto.name}" placeholder="상품 이름 입력" />
-						</div>
-						<div class="col-6 col-12-mobile">
-							<label for="price">가격</label>
-							<input type="text" name="price" id="price" value="${dto.price}" placeholder="가격 입력" />
-						</div>
-						<div class="col-12">
-							<label for="description">상품설명</label>
-							<textarea name="description" id="description"  cols="30" rows="10">${dto.getDescription() }</textarea>
-						</div>
-						<div class="col-6 col-12-mobile">
-							<label for="category">카테고리</label>
-							<input type="text" name="category" id="category" value="${dto.getCategory()}" placeholder="카테고리 입력" />
-						</div>
-						<div class="col-6 col-12-mobile">
+						<div class="col-12 ">
 							<label for="imageUrl">상품사진</label>
 							<div>
 								<a href="javascript:" id="imageUrl">
@@ -107,18 +119,37 @@
 									        </svg>
 									    </c:when>
 									    <c:otherwise>
-									        <img id="imageUrl" src="${pageContext.request.contextPath}/upload/${dto.imageUrl}" alt="상품 이미지" width="200px" height="200px"/>
+									        <img id="imageUrl" src="${pageContext.request.contextPath}/upload/${dto.imageUrl}" alt="상품 이미지"/>
 									    </c:otherwise>
 									</c:choose>
 								</a>
 							</div>
 						</div>
 						
-						<div>
-							<label for="sell">품절여부</label>
-							 <input type="checkbox" id="sell" name="sell" value="YES" >
+						<div class="col-4 col-12-mobile">
+							<label for="name">상품명</label>
+							<input type="text" name="name" id="name" value="${dto.name}" placeholder="상품 이름 입력" />
+						</div>
+						<div class="col-2 col-12-mobile">
+							<label for="price">가격</label>
+							<input type="text" name="price" id="price" value="${dto.price}" placeholder="가격 입력" />
+						</div>
+						<div class="col-4 col-12-mobile">
+							<label for="category">카테고리</label>
+							<input type="text" name="category" id="category" value="${dto.getCategory()}" placeholder="카테고리 입력" />
+						</div>
+						<div class=" col-12-mobile">
+							<label for="sell" style="text-align:center;">품절여부</label>
+							 <input type="checkbox" class="sell" id="sell" name="sell" value="YES" >
 							 <input type="hidden" id="sellChecked" value="${dto.sell}">
 						</div>
+						
+						<div class="col-12">
+							<label for="description">상품설명</label>
+							<textarea name="description" id="description"  cols="30" rows="10">${dto.getDescription() }</textarea>
+						</div>
+						
+						
 						
 					
 						<div class="col-6">
