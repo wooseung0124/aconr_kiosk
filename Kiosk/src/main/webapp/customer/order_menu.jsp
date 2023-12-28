@@ -133,7 +133,7 @@ td {
 				<!-- 사진링크는 추후에 ${tmp.imageUrl}로 바꿀 예정 -->
 				<c:choose>
 					<c:when test="${tmp.imageUrl eq null}">
-						<a href="${pageContext.request.contextPath}/images/fulls/prepare.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/prepare.jpg" alt="" /></a>
+						<a href="${pageContext.request.contextPath}/images/fulls/prepare.jpg"  class="image"><img src="${pageContext.request.contextPath}/images/fulls/prepare.jpg" alt=""  /></a>
 					</c:when>
 					<c:otherwise>
 						<a href="${pageContext.request.contextPath}/upload/${tmp.imageUrl}" class="image"><img src="${pageContext.request.contextPath}/upload/${tmp.imageUrl}" alt="" /></a>		
@@ -142,9 +142,7 @@ td {
 				<h2>${tmp.name}</h2>
 				<h3>${tmp.description}</h3>
 				<h3>${tmp.price}원</h3>
-				
-				<input type="button" value="장바구니 추가" onclick="clicked();" />
-				<button type="button" onclick="clicked(); ">장바구니 추가</button>
+				<button>장바구니 추가</button>
 			</article>
 			</c:forEach>
 
@@ -320,10 +318,5 @@ td {
 		src="${pageContext.request.contextPath}/order_assets/js/util.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
-	<script>
-		function clicked(e){
-			console.log("asdfsadf");
-		}
-	</script>
 </body>
 </html>

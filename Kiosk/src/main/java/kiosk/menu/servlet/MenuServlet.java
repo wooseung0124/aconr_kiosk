@@ -21,6 +21,7 @@ public class MenuServlet extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//그 사업자 번호를 가져와야함 
 		String stoNum = (String) req.getSession().getAttribute("stoNum");
+		System.out.println(stoNum);
 		//카테고리도 가져와야함
 		List<CategoryDto> categoryList = MenuDao.getInstance().getCategory(stoNum);
 		System.out.println(categoryList);
