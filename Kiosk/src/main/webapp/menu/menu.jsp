@@ -1,3 +1,4 @@
+<%@page import="kiosk.owner.dto.OwnerDto"%>
 <%@page import="kiosk.menu.dao.MenuDao"%>
 <%@page import="kiosk.menu.dto.MenuDto"%>
 <%@page import="java.util.List"%>
@@ -6,6 +7,14 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
+	request.setCharacterEncoding("utf-8");
+	//Object type을 String type으로 casting
+	String oName=(String)session.getAttribute("oName");
+	String email=(String)session.getAttribute("email");
+	String stoNum=(String)session.getAttribute("stoNum");
+	
+	
+	
    //카테고리 받아옴
    
    //옆에 네비바에 이용
@@ -31,7 +40,18 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/menu_assets/css/main.css" />
 <title>menu/menu.jsp</title>
 <style>
-	
+	#item img{
+		width:300px;
+		height:300px;
+	}
+	#item header{
+		display:flex;
+		justify-content:center;
+	}
+	#imagefit{
+		display:flex;
+		justify-content:center;
+	}
 </style>
 </head>
 <body class="is-preload">
@@ -44,8 +64,12 @@
                <!-- Logo -->
                   <div id="logo">
                      <span class="image avatar48"><img src="${pageContext.request.contextPath}/images/avatar.jpg" alt="" /></span>
-                     <h1 id="title">김동주</h1>
-                     <p>억만장자</p>
+                     <h1 id="title">${sessionScope.oName}</h1>
+                     <p><%=email %></p>
+                     <a href="${pageContext.request.contextPath}/owner/logout.jsp"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open" viewBox="0 0 16 16">
+  <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/>
+  <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117zM11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z"/>
+</svg></a>
                   </div>
 
                <!-- Nav -->
@@ -55,7 +79,7 @@
                         <li><a href="product/prod_insertform.jsp" id="portfolio-link"><span class="icon solid fa-th">메뉴 추가하기</span></a></li>
                         <!-- todo 이부분에서 가지고있는 카테고리 종류를 가져와야 함 -->
                         <c:forEach var="item" items="${categoryList}">
-                           <li><a href="${'#'}${item.category}" id="${item.category}-link"><span class="icon solid fa-coffee">${item.category}</span></a></li>   
+                           <li><a href="#${item.category}" class="portfolio-link scroll_move"><span class="icon solid fa-coffee">${item.category}</span></a></li>   
                         </c:forEach>
                      </ul>
                   </nav>
@@ -107,8 +131,8 @@
                            <c:forEach var="tmp2" items="${menu_list}">
                            <c:if test="${tmp2.category eq tmp1.category and tmp2.stoNum eq tmp1.stoNum}">
                                  <div class="col-4">
-                                    <article class="item">
-                                       <a href="product/prod_updateform?name=${tmp2.name}" class="image fit">
+                                    <article id="item" class="item">
+                                       <a href="product/prod_updateform?name=${tmp2.name}" id="imagefit" class="image fit">
                                        <c:choose>   
                                             <c:when test="${tmp2.imageUrl eq  null }">
                                                <img src="${pageContext.request.contextPath}/images/prepare.jpg" alt="" />
@@ -116,8 +140,9 @@
                                             <c:otherwise><img id="ImageUrl" src="${pageContext.request.contextPath}/upload/${tmp2.imageUrl }" alt="상품 이미지"/></c:otherwise>
                                          </c:choose>
                                        </a>
+                                       
                                        <header>
-                                          <h3>${tmp2.name}</h3>
+                                          <h3 style="width:300px;">${tmp2.name}</h3>
                                        </header>
                                     </article>
                                  </div>  
@@ -136,7 +161,26 @@
          <script src="${pageContext.request.contextPath}/menu_assets/js/breakpoints.min.js"></script>
          <script src="${pageContext.request.contextPath}/menu_assets/js/util.js"></script>
          <script src="${pageContext.request.contextPath}/menu_assets/js/main.js"></script>
+		<script>
+			$(document).ready(function($) {
+	            $(".scroll_move").click(function(event){
+	                console.log(".scroll_move");         
+	                event.preventDefault();
+	                var target = $(this).attr("href");
+	                $('html,body').animate({scrollTop:$(target).offset().top}, 500);
+	            });
+	
+	        });
+			
+			$(document).ready(function($) {
+			    // 기존 클릭 이벤트 처리 코드...
 
+			    // 페이지 새로고침 시 맨 위로 스크롤
+			    $(window).on('beforeunload', function() {
+			        $('html,body').scrollTop(0);
+			    });
+			});
+		</script>
    </body>
 <!-- 
 <body>

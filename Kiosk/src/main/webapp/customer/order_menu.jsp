@@ -150,32 +150,51 @@ td {
 
 		<!-- Main -->
 		<div class="category">
-			<h1>${titleCategory}</h1>
+			<c:choose>
+				<c:when test="${isEmpty}">
+					<h1>메뉴 준비중</h1>
+				</c:when>
+				<c:otherwise>
+					<h1>${randomCategory}</h1>
+				</c:otherwise>
+			</c:choose>
+
 		</div>
 
-		<div id="main">
-
-			<!-- 첫화면 접속시 작동할 코드, c:forEach 이건 웹브라우저 로딩 이후 사라짐-->
-			<c:forEach var="tmp" items="${menuList}">
-			
-			<article class="thumb">
-				<c:choose>
-					<c:when test="${tmp.imageUrl eq null}">
-						<a href="${pageContext.request.contextPath}/images/prepare.jpg" class="image"><img src="${pageContext.request.contextPath}/images/prepare.jpg" alt="" /></a>
-					</c:when>
-					<c:otherwise>
-						<a href="${pageContext.request.contextPath}/upload/${tmp.imageUrl}" class="image"><img src="${pageContext.request.contextPath}/upload/${tmp.imageUrl}" alt="" /></a>		
-					</c:otherwise>
-				</c:choose>
-				<h2>${tmp.name}</h2>
-				<h3>${tmp.description}</h3>
-				<h3>${tmp.price}원</h3>
-				<button>장바구니 추가</button>
-			</article>
-			
-			</c:forEach>
-			<!-- 첫화면 접속시 작동할 코드, c:forEach 이건 웹브라우저 로딩 이후 사라짐-->
-			
+		<div id="main" style="display: flex; flex-wrap: wrap;">
+			<!-- 첫화면 접속시 작동할 코드 -->
+			<c:choose>
+				<c:when test="${empty menuList}">
+					카테고리가 없습니다
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="tmp" items="${menuList}">
+						<article class="thumb"
+							style="width: 25%; box-sizing: border-box; padding: 10px; display: inline-block;">
+							<c:choose>
+								<c:when test="${tmp.imageUrl eq null}">
+									<a
+										href="${pageContext.request.contextPath}/images/fulls/prepare.jpg"
+										class="image"><img
+										src="${pageContext.request.contextPath}/images/fulls/prepare.jpg"
+										alt="" /></a>
+								</c:when>
+								<c:otherwise>
+									<a
+										href="${pageContext.request.contextPath}/upload/${tmp.imageUrl}"
+										class="image"><img
+										src="${pageContext.request.contextPath}/upload/${tmp.imageUrl}"
+										alt="" /></a>
+								</c:otherwise>
+							</c:choose>
+							<h2>${tmp.name}</h2>
+							<h3>${tmp.description}</h3>
+							<h3>${tmp.price}원</h3>
+							<button>장바구니 추가</button>
+						</article>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</div>
 
 		<!-- Footer -->
@@ -216,9 +235,9 @@ td {
 						<h2>CHOOSE CATEGORY</h2>
 						<ul class="action">
 							<c:forEach var="tmp" items="${requestScope.category}">
-								<li>
-									<a href="javascript:" class="category-list" >${tmp.category}</a>
-								</li>
+								<li><a
+									href="${pageContext.request.contextPath}/customer/order_menu.jsp?categoryName=${tmp.category}"
+									class="category-list">${tmp.category}</a></li>
 							</c:forEach>
 						</ul>
 					</section>
@@ -335,7 +354,6 @@ td {
 		src="${pageContext.request.contextPath}/order_assets/js/util.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
-	
 <script> 
 
 /* ===========================
@@ -351,7 +369,7 @@ td {
 
 ============================== */
 
-	// 여기는 사용자가 카테고리를 선택했을 때 fetch를 이용하여 정보를 getParameter로 전달 후 웹페이지 새로 언로드
+	// 여기는 사용자가 카테고리를 선택했을 때 즉각즉각 데이터를 웹브라우저에서 요청하고 응답하도록 구현
 	document.querySelectorAll(".category-list").forEach(item=>{
 		item.addEventListener("click",(e) => {
 			//이벤트가 발생한 폼의 참조값은 e.target 이다
@@ -379,45 +397,14 @@ td {
 		<h2>CHOOSE CATEGORY</h2>
 		<ul class="action">
 			<li>
-				<a href="javascript:" class="category-list" >(기존에 있던 문자열 정보)</a>
+				<a href="javascript:" class="category-list" >${tmp.category}</a>
 			</li>
-			
-			...
-			
-			(기존에 만들어둔 코드 개수만큼 존재함)
-			
-			...
-			
-			li>
-			<a href="javascript:" class="category-list" >(기존에 있던 문자열 정보)</a>
-		</li>
 		</ul>
 	</section>
 </div>
 	
 ============================== */
 
-	// 여기는 현재 페이지에서 새로 언로드 되었을 때 getParameter 정보 확인 후 null이 아닌 경우 위에 코드에 적용시키기
-	document.querySelectorAll(".category-list").forEach(item=>{
-		item.addEventListener("click",(e) => {
-			//이벤트가 발생한 폼의 참조값은 e.target 이다
-			
-			let clickCategory =e.target.innerText;
-			console.log(clickCategory+" 카테고리 버튼을 누름");
-			
-			//fetch() 함수를 이용해서 get 방식으로 입력한 닉네임을 보내고 사용가능 여부를 json으로 응답받는다.
-			fetch("${pageContext.request.contextPath}/customer/menu_list.jsp?clickCategory="+clickCategory)// get방식 파라미터를 쿼리 문자열로 전달
-			.then(res=>res.json())
-			.then(data=>{
-				//data 는 글 정보가 들어 있는  [{},{},{},...] 이런형식의 배열이다. 
-				console.log(data.clickCategory+" json 문자열로 카테고리 받아오기 성공");
-				
-				location.href='${pageContext.request.contextPath}/customer/order_menu.jsp?clickCategory='+data.clickCategory;
-			})
-		});
-	}); // category-list
-	
 </script>
-
 </body>
 </html>

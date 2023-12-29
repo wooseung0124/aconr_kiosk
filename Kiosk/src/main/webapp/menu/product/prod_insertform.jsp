@@ -2,6 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	request.setCharacterEncoding("utf-8");
+	//Object type을 String type으로 casting
+	String oName=(String)session.getAttribute("oName");
+	String email=(String)session.getAttribute("email");
+	String stoNum=(String)session.getAttribute("stoNum");
+	
 	MenuDto dto = new MenuDto();
 %>    
 <!DOCTYPE html>
@@ -27,8 +33,12 @@
 					<!-- Logo -->
 						<div id="logo">
 							<span class="image avatar48"><img src="${pageContext.request.contextPath}/images/avatar.jpg" alt="" /></span>
-							<h1 id="title">김동주</h1>
-							<p>억만장자</p>
+							<h1 id="title">${sessionScope.oName}</h1>
+							<p><%=email %></p>
+							<a href="${pageContext.request.contextPath}/owner/logout.jsp"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open" viewBox="0 0 16 16">
+  <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/>
+  <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117zM11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z"/>
+</svg></a>
 						</div>
 
 					<!-- Nav -->
@@ -56,55 +66,55 @@
 			</div>
 	<div id="main">
 		<!-- Contact -->
-					<section id="contact" class="three">
-						<div class="container">
+		<section id="contact" class="three">
+			<div class="container">
 
-							<header>
-								<h2>메뉴 추가하기</h2>
-							</header>
+				<header>
+					<h2>메뉴 추가하기</h2>
+				</header>
 
-							<p>새롭게 출시된 메뉴를 손쉽게 등록하세요! 간단한 정보 입력으로 메뉴 이름, 가격, 상세 설명을 추가하고, 매력적인 이미지로 고객의 눈길을 사로잡으세요. 품절 정보와 카테고리 분류로 메뉴 관리가 한결 편리해집니다. 지금 바로 시작해 보세요.</p>
+				<p>새롭게 출시된 메뉴를 손쉽게 등록하세요! 간단한 정보 입력으로 메뉴 이름, 가격, 상세 설명을 추가하고, 매력적인 이미지로 고객의 눈길을 사로잡으세요. 품절 정보와 카테고리 분류로 메뉴 관리가 한결 편리해집니다. 지금 바로 시작해 보세요.</p>
 
-							<form method="post" action="prod_insert">
-								<input type="hidden" name="imageUrl" value="<%=dto.getImageUrl() %>" />
-								<div class="row">
-									<div class="col-6 col-12-mobile">
-										<label for="name">메뉴 이름</label>
-										<input type="text" name="name" placeholder="메뉴 이름 입력" />
-									</div>
-									<div class="col-6 col-12-mobile">
-										<label for="price">가격</label>
-										<input type="text" name="price" id="price" " placeholder="메뉴 가격 입력" />
-									</div>
-									<div class="col-12">
-										<label for="description">메뉴 설명</label>
-										<textarea name="description" id="description" placeholder="메뉴 설명 입력"></textarea>
-									</div>
-									<div class="col-6 col-12-mobile">
-										<label for="category">카테고리</label>
-										<input type="text" name="category" id="category" placeholder="카테고리 입력"/>
-									</div>
-									<div class="col-6 col-12-moblie">
-										<label for="imageUrl">상품사진</label>
-										<div>
-											<a href="javascript:" id="imageUrl">
-												<%if(dto.getImageUrl()==null){ %>
-													<svg width="225" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="80" height="80" rx="15" fill="#f0f0f0"/><text x="50%" y="50%" text-anchor="middle" fill="#888888" font-size="20">이미지 준비중</text></svg>
-												<%}else{ %>
-													<img id="imageUrl" src="${pageContext.request.contextPath}/upload/<%=dto.getImageUrl() %>" alt="상품 이미지" />
-												<%} %>
-											</a>
-										</div>
-									</div>
-									<div class="col-12">
-										<input type="submit" value="메뉴 등록" />
-									</div>
-								</div>
-							</form>
-							<!-- 화면에 보이지 않는 이미지 선택할 input type="file" -->
-							<input type="file" id="image" accept="image/*" hidden/>
+				<form method="post" action="prod_insert">
+					<input type="hidden" name="imageUrl" value="<%=dto.getImageUrl() %>" />
+					<div class="row">
+						<div class="col-6 col-12-mobile">
+							<label for="name">메뉴 이름</label>
+							<input type="text" name="name" placeholder="메뉴 이름 입력" />
 						</div>
-					</section>
+						<div class="col-6 col-12-mobile">
+							<label for="price">가격</label>
+							<input type="text" name="price" id="price" " placeholder="메뉴 가격 입력" />
+						</div>
+						<div class="col-12">
+							<label for="description">메뉴 설명</label>
+							<textarea name="description" id="description" placeholder="메뉴 설명 입력"></textarea>
+						</div>
+						<div class="col-6 col-12-mobile">
+							<label for="category">카테고리</label>
+							<input type="text" name="category" id="category" placeholder="카테고리 입력"/>
+						</div>
+						<div class="col-6 col-12-moblie">
+							<label for="imageUrl">상품사진</label>
+							<div>
+								<a href="javascript:" id="imageUrl">
+									<%if(dto.getImageUrl()==null){ %>
+										<svg width="225" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="80" height="80" rx="15" fill="#f0f0f0"/><text x="50%" y="50%" text-anchor="middle" fill="#888888" font-size="20">이미지 준비중</text></svg>
+									<%}else{ %>
+										<img id="imageUrl" src="${pageContext.request.contextPath}/upload/<%=dto.getImageUrl() %>" alt="상품 이미지" />
+									<%} %>
+								</a>
+							</div>
+						</div>
+						<div class="col-12">
+							<input type="submit" value="메뉴 등록" />
+						</div>
+					</div>
+				</form>
+				<!-- 화면에 보이지 않는 이미지 선택할 input type="file" -->
+				<input type="file" id="image" accept="image/*" hidden/>
+			</div>
+		</section>
 	</div>	
 	<script>
 		//링크를 클릭했을때 
