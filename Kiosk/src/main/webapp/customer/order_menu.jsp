@@ -11,7 +11,8 @@
 // 여기는 사장님이 장사 오픈 전에 로그인 여부를 확인하여 DB에서 어떤 사장님의 메뉴를 가져올 지 판단하는 구간
 // 만약 로그인이 안된 상태로 접근할 경우 예외처리 페이지를 보여줘야 한다.
 String stoNum = (String) session.getAttribute("stoNum");
-
+String categoryName = request.getParameter("categoryName");
+System.out.println(categoryName);
 // (작업중)
 
 //=====================================================================================
@@ -19,7 +20,6 @@ String stoNum = (String) session.getAttribute("stoNum");
 
 MenuDao menuDao = MenuDao.getInstance();
 List<CategoryDto> categoryList = MenuDao.getInstance().getCategory(stoNum);
-System.out.println(categoryList);
 
 //카테고리가 없을 시 -> empty view 생성
 boolean isEmpty = categoryList.isEmpty();
@@ -45,48 +45,45 @@ try {// 일단 카테고리 등록여부 확인
 // =====================================================================================	
 // 두번째 작업으로 고객이 처음 마주할 때 첫화면을 랜덤으로 카테고리 하나 선택 후 'category' 변수에 담아서 메뉴 리스트를 뽑는다.
 String randomCategory = "";
-if(!isEmpty){
-	Random random = new Random();
-	List<String> row = new ArrayList<>();
-	List<String> sto = new ArrayList<>();
-	List<MenuDto> menuList = new ArrayList<>();
-	CategoryDto dto = new CategoryDto();
-
+Random random = new Random();
+List<String> row = new ArrayList<>();
+List<String> sto = new ArrayList<>();
+List<MenuDto> menuList = new ArrayList<>();
+CategoryDto dto = new CategoryDto();
+if (!isEmpty && categoryName == null) {
 	for (CategoryDto tmp : categoryList) {
 		row.add(tmp.getCategory());
 		sto.add(tmp.getStoNum());
 	}
 
 	int rowNum = random.nextInt(row.size());
-	System.out.println(rowNum + "번째 배열 정보를 가져온다.");
 
 	randomCategory = row.get(rowNum);
-	if (row.isEmpty()) { // 장사할 생각이 없는 경우
 
-		MenuDto dtoNull = new MenuDto();
-		dtoNull.setStoNum(stoNum);
-		dtoNull.setName("빈 잔");
-		dtoNull.setPrice(0);
-		dtoNull.setDescription("지문 찍힌 유리잔");
-		dtoNull.setSell("NO");
-		dtoNull.setImageUrl("/Kiosk/images/fulls/an_empty_glass.jpeg");
-		dtoNull.setCategory("장사접음");
-
-		menuList.add(dtoNull);
-	} else {
-
-		System.out.println(randomCategory);
-		dto.setStoNum(stoNum);
-		dto.setCategory(randomCategory);
-
-		menuList = MenuDao.getInstance().getList(dto);
-		System.out.println(menuList.size() + "개");
-	}
+	dto.setStoNum(stoNum);
+	dto.setCategory(randomCategory);
+	menuList = MenuDao.getInstance().getList(dto);
 
 	request.setAttribute("menuList", menuList);
+	request.setAttribute("category", categoryList);
+} else if (categoryName != null) {
+	//카테고리이름에 해당하는 것만 가져오게하면됨 
+	for (CategoryDto tmp : categoryList) {
+		if (tmp.getCategory().equals(categoryName)) {
+			row.add(tmp.getCategory());
+			sto.add(tmp.getStoNum());
+			break;
+		}
+	}
+	randomCategory = row.get(0);
+	dto.setStoNum(stoNum);
+	dto.setCategory(row.get(0));
+	menuList = MenuDao.getInstance().getList(dto);
+	request.setAttribute("menuList", menuList);
+	request.setAttribute("category", categoryList);
 }
-pageContext.setAttribute("randomCategory", randomCategory);
 
+pageContext.setAttribute("randomCategory", randomCategory);
 %>
 
 <!DOCTYPE html>
@@ -99,7 +96,8 @@ pageContext.setAttribute("randomCategory", randomCategory);
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/order_assets/css/main.css" />
 <noscript>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/order_assets/css/noscript.css" />
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/order_assets/css/noscript.css" />
 </noscript>
 <style>
 td {
@@ -128,28 +126,25 @@ td {
 		<div class="category">
 			<c:choose>
 				<c:when test="${isEmpty}">
-					<h1>메뉴 준비중</h1>	
+					<h1>메뉴 준비중</h1>
 				</c:when>
 				<c:otherwise>
-					<h1>${randomCategory}</h1>			
+					<h1>${randomCategory}</h1>
 				</c:otherwise>
 			</c:choose>
-			
+
 		</div>
 
-		<div id="main">
-
+		<div id="main" style="display: flex; flex-wrap: wrap;">
 			<!-- 첫화면 접속시 작동할 코드 -->
 			<c:choose>
 				<c:when test="${empty menuList}">
-					<!-- empty view 생성 -->
-					sdfaa
+					카테고리가 없습니다
 				</c:when>
 				<c:otherwise>
-					<!-- if list is not empty show list -->
 					<c:forEach var="tmp" items="${menuList}">
-						<article class="thumb">
-							<!-- 사진링크는 추후에 ${tmp.imageUrl}로 바꿀 예정 -->
+						<article class="thumb"
+							style="width: 25%; box-sizing: border-box; padding: 10px; display: inline-block;">
 							<c:choose>
 								<c:when test="${tmp.imageUrl eq null}">
 									<a
@@ -214,8 +209,9 @@ td {
 						<h2>CHOOSE CATEGORY</h2>
 						<ul class="action">
 							<c:forEach var="tmp" items="${requestScope.category}">
-								<li><a href="javascript:" class="category-list">${tmp.category}</a>
-								</li>
+								<li><a
+									href="${pageContext.request.contextPath}/customer/order_menu.jsp?categoryName=${tmp.category}"
+									class="category-list">${tmp.category}</a></li>
 							</c:forEach>
 						</ul>
 					</section>

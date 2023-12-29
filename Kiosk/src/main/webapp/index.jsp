@@ -82,7 +82,7 @@
 		const textArea = document.querySelector("#description");
 		document.querySelector("#edit").addEventListener("click",()=>{
 			textArea.removeAttribute("readonly");
-			textArea.focus();
+			textArea.focuse();
 		});
 		
 		document.querySelector("#save").addEventListener("click",()=>{
