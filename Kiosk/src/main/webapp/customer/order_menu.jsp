@@ -1,3 +1,4 @@
+<%@page import="kiosk.order.dto.OrderDto"%>
 <%@page import="kiosk.menu.dto.MenuDto"%>
 <%@page import="kiosk.menu.dto.CategoryDto"%>
 <%@page import="kiosk.menu.dao.MenuDao"%>
@@ -52,9 +53,9 @@ if (!isEmpty && categoryName == null) {
 	//카테고리이름에 해당하는 것만 가져오게하면됨 
 	for (CategoryDto tmp : categoryList) {
 		if (tmp.getCategory().equals(categoryName)) {
-			row.add(tmp.getCategory());
-			sto.add(tmp.getStoNum());
-			break;
+	row.add(tmp.getCategory());
+	sto.add(tmp.getStoNum());
+	break;
 		}
 	}
 	randomCategory = row.get(0);
@@ -120,7 +121,8 @@ td {
 			<!-- 첫화면 접속시 작동할 코드 -->
 			<c:choose>
 				<c:when test="${empty menuList}">
-					<img src="${pageContext.request.contextPath}/images/empty.jpg" alt="" />
+					<img src="${pageContext.request.contextPath}/images/empty.jpg"
+						alt="" />
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="tmp" items="${menuList}">
@@ -145,7 +147,8 @@ td {
 							<h2 id="name">${tmp.name}</h2>
 							<h3>${tmp.description}</h3>
 							<h3>${tmp.price}원</h3>
-							<button onclick="basketBtn('${tmp.name}','${tmp.price}')">장바구니 추가</button>
+							<button onclick="basketBtn('${tmp.name}','${tmp.price}')">장바구니
+								추가</button>
 
 						</article>
 					</c:forEach>
@@ -199,7 +202,7 @@ td {
 					</section>
 				</div>
 				<!-- categories -->
-				
+
 			</div>
 		</footer>
 
@@ -209,7 +212,6 @@ td {
 					<section>
 						<h2>장바구니 목록</h2>
 						<table>
-						
 							<thead>
 								<td>메뉴 이름</td>
 								<td>수량</td>
@@ -217,22 +219,7 @@ td {
 								<td>주문 금액</td>
 								<td>삭제</td>
 							</thead>
-							
-							<tbody>
-							
-								<tr>
-									<td>아메리카노</td>
-									<td>
-									<button id="minus">-</button>
-									2개
-									<button id="plus">+</button>
-									</td>
-									<td>2000원</td>
-									<td>4000원</td>
-									<td><button>X</button></td>
-								</tr>
-							</tbody>
-							
+							<tbody id="table"></tbody>
 							<tfoot>
 								<tr>
 									<td>총합계</td>
@@ -240,7 +227,6 @@ td {
 									<td><button>주문하기</button></td>
 								</tr>
 							</tfoot>
-							
 						</table>
 
 					</section>
@@ -291,14 +277,44 @@ td {
 		src="${pageContext.request.contextPath}/order_assets/js/util.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
-	
+
 	<script>
 	function basketBtn(name, price) {
 		
 		fetch("${pageContext.request.contextPath}/customer/data.jsp?name="+name+"&price="+price)
 		.then(res=>res.json())
 		.then(data=>{
-			console.log(data.shoplist);
+			let list = [];
+			<%List<OrderDto> shopList = (List<OrderDto>) session.getAttribute("shopList"); %>
+			<%if (shopList != null) {%>
+				console.log("asdf");
+				<%for (OrderDto item : shopList) {%>
+	        		list.push({
+	            		menu: '<%=item.getMenu()%>',
+	            		count: <%=item.getCount()%>,
+	            		price: <%=item.getPrice()%>
+	        		});
+	    		<%}%>
+			<%}%>
+		    
+			let str = "";
+			for(let i = 0; i < list.length; i++){
+				const item = list[i];
+				str+= `
+					<tr>
+						<td>\${item.menu}</td>
+						<td>
+							<button id="minus">-</button>
+								\${item.count}
+							<button id="plus">+</button>
+						</td>
+						<td>\${item.price}</td>
+						<td>\${item.price * item.count}</td>
+						<td><button>X</button></td>
+					</tr>
+				`;
+			}
+			document.querySelector("#table").innerHTML = str;
 		})
 	}
 	

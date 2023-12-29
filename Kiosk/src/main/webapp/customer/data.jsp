@@ -9,35 +9,38 @@
 <%
     String name = request.getParameter("name");
 	int price = Integer.parseInt(request.getParameter("price")) ;
-	int count=1;
-
-	List<OrderDto> shoplist = (List<OrderDto>) session.getAttribute("shoplist");
-	if(shoplist == null){
-        shoplist = new ArrayList<OrderDto>();
-        session.setAttribute("shoplist", shoplist);
-	}else{
-		// 세션에 동일한 이름이 있으면 
-        for (OrderDto order : shoplist) {
-            if (order.getMenu().equals(name)) {
-                // 이미 존재하는경우 카운트만 1 증가시킨다.
-                order.setCount(order.getCount() + 1);
-               
-            }
-            session.setAttribute("shoplist", shoplist);
-        }   
-		
-		OrderDto dto = new OrderDto();
+	boolean isSuccess = false;
+	List<OrderDto> shopList = (List<OrderDto>) session.getAttribute("shopList");
+	System.out.println(shopList);
+	if(shopList == null){
+		shopList = new ArrayList<OrderDto>();
+        OrderDto dto = new OrderDto();
+        dto.setCount(1);
         dto.setMenu(name);
-        dto.setCount(count);
         dto.setPrice(price);
-  
-        shoplist.add(dto);
-        session.setAttribute("shoplist", shoplist);
+        shopList.add(dto);
+        session.setAttribute("shopList", shopList);
+	}else{
+		//그냥 추가 근데 만약 이미 list에 존재하면 갯수만 plus
+		for(OrderDto order : shopList){
+			if(order.getMenu().equals(name)){
+				order.setCount(order.getCount() + 1);
+				break;
+			}
+		}
+		
+			OrderDto dto = new OrderDto();
+	        dto.setCount(1);
+	        dto.setMenu(name);
+	        dto.setPrice(price);
+	        shopList.add(dto);
+		
+		session.setAttribute("shopList", shopList);
 	}
 	
 	
     System.out.println("name:" + name + "price:" + price);
     // name이 null이거나 값이 없는 경우에 대한 예외 처리
 %>
-{"shoplist":"<%= shoplist %>"} 
+{"isSuccess":<%=isSuccess %> }
  
