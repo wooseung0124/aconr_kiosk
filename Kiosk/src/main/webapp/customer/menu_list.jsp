@@ -5,19 +5,12 @@
 <%@ page language="java" contentType="application/json; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-String stoNum = (String)session.getAttribute("stoNum");
-String category = (String)request.getParameter("category");
+String clickCategory = (String)request.getParameter("clickCategory");
+System.out.println("json - category : "+clickCategory);
 
-CategoryDto cDto=new CategoryDto();
-cDto.setStoNum(stoNum);
-cDto.setCategory(category);
+// 여기서 order_menu.jsp 의 clickCategory 변수를 저장한다.
+// request.setAttribute("clickCategory", clickCategory);
 
-MenuDao dao=MenuDao.getInstance();
-List<MenuDto> menuList=dao.getList(cDto);
-
-// json 형식 예시들
-// ["김구라","해골","원숭이","주뎅이","덩어리"]
-// {"num":1, "name":"김구라", "addr":"노량진"}
-// {"isSuccess": }
+// 밑에 json 문자열은 잘 전달되었는지 자바스크립트로 테스트
 %>
-{"menuList":<%= menuList%>}
+{"clickCategory":"<%= clickCategory%>"}
