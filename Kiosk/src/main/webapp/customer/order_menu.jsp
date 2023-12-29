@@ -12,7 +12,6 @@
 // 만약 로그인이 안된 상태로 접근할 경우 예외처리 페이지를 보여줘야 한다.
 String stoNum = (String) session.getAttribute("stoNum");
 String categoryName = request.getParameter("categoryName");
-System.out.println(categoryName);
 // (작업중)
 
 //=====================================================================================
@@ -121,7 +120,7 @@ td {
 			<!-- 첫화면 접속시 작동할 코드 -->
 			<c:choose>
 				<c:when test="${empty menuList}">
-					카테고리가 없습니다
+					<img src="${pageContext.request.contextPath}/images/empty.jpg" alt="" />
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="tmp" items="${menuList}">
@@ -224,7 +223,11 @@ td {
 							
 								<tr>
 									<td>아메리카노</td>
-									<td>2개</td>
+									<td>
+									<button id="minus">-</button>
+									2개
+									<button id="plus">+</button>
+									</td>
 									<td>2000원</td>
 									<td>4000원</td>
 									<td><button>X</button></td>
