@@ -218,7 +218,11 @@ td {
 							<tbody>
 								<tr>
 									<td>아메리카노</td>
-									<td>2개</td>
+									<td>
+									<button id="minus">-</button>
+									2개
+									<button id="plus">+</button>
+									</td>
 									<td>2000원</td>
 									<td>4000원</td>
 									<td><button>X</button></td>
