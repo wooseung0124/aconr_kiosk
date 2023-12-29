@@ -69,7 +69,6 @@ public class MenuDao {
 			} catch (Exception e) {
 			}
 		}
-		System.out.println("dao에서 가져온 list"+list);
 		return list;
 	}
 	
@@ -84,7 +83,7 @@ public class MenuDao {
 		
 		try {
 			conn = new DbcpBean().getConn();
-			String sql = "SELECT distinct category" // distinct: 데이터 중복방
+			String sql = "SELECT distinct category" // distinct: 데이터 중복방지
 					+ " FROM menu_info"
 					+ " WHERE sto_num = ?"; // 로그인한 사장님의 번호를 사용하여 설정한 카테고리를 가져온다.
 			pstmt = conn.prepareStatement(sql);

@@ -1,6 +1,7 @@
 <%@page import="kiosk.menu.dto.MenuDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	request.setCharacterEncoding("utf-8");
 	//Object type을 String type으로 casting
@@ -9,6 +10,7 @@
 	String stoNum=(String)session.getAttribute("stoNum");
 	
 	MenuDto dto = new MenuDto();
+	
 %>    
 <!DOCTYPE html>
 <html>
@@ -18,9 +20,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/menu_assets/css/main.css" />
 <style>
-	#imageUrl{
-		width:255px;
-		height:150px;
+		#imageUrl{
+		width: 400px;
+		height: 400px;
+		text-decoration:none;
+		border-radius:10px;
+		
+	}
+	.imageUrl{
+		border: solid 10px black;
+	}
+	.prod-img{
+		text-align:center;
+	}
+	
+	.small{
+		font-size:12px;
+		color: red; 
 	}
 </style>
 </head>
@@ -45,7 +61,7 @@
 						<nav id="nav">
 							<ul>
 								<li><a href="${pageContext.request.contextPath}/menu/menu" id="top-link"><span class="icon solid fa-home">메뉴 화면</span></a></li>
-								<li><a href="" id="portfolio-link"><span class="icon solid fa-th">메뉴 추가하기</span></a></li>
+								<%--<li><a href="" id="portfolio-link"><span class="icon solid fa-th">메뉴 추가하기</span></a></li> --%>
 							</ul>
 						</nav>
 
@@ -76,35 +92,41 @@
 				<p>새롭게 출시된 메뉴를 손쉽게 등록하세요! 간단한 정보 입력으로 메뉴 이름, 가격, 상세 설명을 추가하고, 매력적인 이미지로 고객의 눈길을 사로잡으세요. 품절 정보와 카테고리 분류로 메뉴 관리가 한결 편리해집니다. 지금 바로 시작해 보세요.</p>
 
 				<form method="post" action="prod_insert">
-					<input type="hidden" name="imageUrl" value="<%=dto.getImageUrl() %>" />
+					<input type="hidden" name="imageUrl" value="${dto.imageUrl}"/>
 					<div class="row">
-						<div class="col-6 col-12-mobile">
-							<label for="name">메뉴 이름</label>
-							<input type="text" name="name" placeholder="메뉴 이름 입력" />
-						</div>
-						<div class="col-6 col-12-mobile">
-							<label for="price">가격</label>
-							<input type="text" name="price" id="price" " placeholder="메뉴 가격 입력" />
-						</div>
-						<div class="col-12">
-							<label for="description">메뉴 설명</label>
-							<textarea name="description" id="description" placeholder="메뉴 설명 입력"></textarea>
-						</div>
-						<div class="col-6 col-12-mobile">
-							<label for="category">카테고리</label>
-							<input type="text" name="category" id="category" placeholder="카테고리 입력"/>
-						</div>
-						<div class="col-6 col-12-moblie">
-							<label for="imageUrl">상품사진</label>
+						<div class="col-12 ">
+							<label for="imageUrl" class="prod-img">메뉴사진</label>
 							<div>
 								<a href="javascript:" id="imageUrl">
-									<%if(dto.getImageUrl()==null){ %>
-										<svg width="225" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="80" height="80" rx="15" fill="#f0f0f0"/><text x="50%" y="50%" text-anchor="middle" fill="#888888" font-size="20">이미지 준비중</text></svg>
-									<%}else{ %>
-										<img id="imageUrl" src="${pageContext.request.contextPath}/upload/<%=dto.getImageUrl() %>" alt="상품 이미지" />
-									<%} %>
+									<c:choose>
+									    <c:when test="${empty dto.imageUrl}">
+									         <img src="${pageContext.request.contextPath}/images/prepare.jpg" width="400px" height="400px" alt="" />
+									    </c:when>
+									    <c:otherwise>
+									        <img id="imageUrl" class="imageUrl" src="${pageContext.request.contextPath}/upload/${dto.imageUrl}" width="400px" height="400px" alt="상품 이미지"/>
+									    </c:otherwise>
+									</c:choose>
 								</a>
 							</div>
+						</div>
+						<div class="col-5 col-12-mobile">
+							<label for="name">메뉴이름</label>
+							<input type="text" name="name" id="name" value="${dto.name}" placeholder="메뉴 이름 입력" />
+							<small class="small" id="smallName"></small>
+						</div>
+						<div class="col-2 col-12-mobile">
+							<label for="price">가격</label>
+							<input type="text" name="price" id="price" value="${dto.price}" placeholder="가격 입력" />
+							<small class="small" id="smallPrice"></small>
+						</div>
+						<div class="col-5 col-12-mobile">
+							<label for="category">카테고리</label>
+							<input type="text" name="category" id="category" value="${dto.getCategory()}" placeholder="카테고리 입력" />
+							<small class="small" id="smallCategory"></small>
+						</div>			
+						<div class="col-12">
+							<label for="description">메뉴설명</label>
+							<textarea name="description" id="description"  cols="30" rows="10">${dto.getDescription() }</textarea>
 						</div>
 						<div class="col-12">
 							<input type="submit" value="메뉴 등록" />
@@ -146,6 +168,116 @@
 				document.querySelector("[name=imageUrl]").value = data.saveFileName;
 			});
 		});
+		//유효성 검사 시작------------------------------
+		let isNameValid=false;
+		let isCategoryValid = false;
+		let isPricegoryValid = false;
+		
+		
+		const checkForm = ()=>{
+			//만일 아이디도 유효하고 그리고 비밀번호도 유효하고 그리고 비밀번호도 유효하다면
+			if(isNameValid && isCategoryValid && isPricegoryValid){
+				//전송 버튼에 disabled 속성을 제거하고 
+				document.querySelector("[type=submit]").removeAttribute("disabled");
+			}else{
+				//전송 버튼에 disabled 속성을 추가한다
+				document.querySelector("[type=submit]").setAttribute("disabled", "");
+			}
+		};
+		
+		//메뉴이름 유효성 검사
+		const reg_name=  /\S+/;
+		
+		document.querySelector("#name").addEventListener("input", (e) => {
+		    const name = e.target.value;
+		    const small = document.querySelector("#smallName");
+		    if (reg_name.test(name)) {
+		        //유효한 메뉴이름
+		        isNameValid = true;
+		        e.target.setCustomValidity('');
+		        small.innerText = "";
+
+		    } else {
+		        //유효하지 않은 메뉴이름
+		        isNameValid = false;
+		        e.target.setCustomValidity('메뉴이름을 입력해주세요');
+			    e.target.reportValidity();
+			    small.innerText = "메뉴이름을 다시 입력해주세요";
+		    }
+		 
+		  //fetch() 함수를 이용해서 get 방식으로 입력한 이메일을 보내고 사용가능 여부를 json 으로 응답받는다.
+			//todo 이부분의 jsp를 만들어야한다.
+			fetch("${pageContext.request.contextPath}/menu/check_name.jsp?name="+e.target.value)
+			.then(res=>res.json())
+			.then(data=>{
+				//data 는 {canUse:true} or {canUse:false} 형태의 object 이다.
+				if(data.canUse){
+					//사용할수 있는 메뉴이름 이라는 의미에서 true 를 넣어준다.
+					isNameValid=true;
+					e.target.setCustomValidity("");
+					small.innerText = "사용 가능한 메뉴 입니다.";
+					
+				}else{
+					//사용할수 없는 메뉴이름이라는 의미에서 false 를 넣어준다.
+					isNameValid=false;
+					e.target.setCustomValidity("중복된 메뉴이름 입니다");
+					e.target.reportValidity();
+					small.innerText = "중복된 메뉴이름 입니다";
+				}
+				checkForm();
+			});
+		    
+		});
+		//카테고리 유효성 검사
+		const reg_category=  /\S+/;
+		
+		document.querySelector("#category").addEventListener("input", (e) => {
+		    const category = e.target.value;
+		    const small = document.querySelector("#smallCategory");
+		   
+		    if (reg_category.test(category)) {
+		        //유효한 메뉴이름
+		        isCategoryValid = true;
+		        e.target.setCustomValidity('');
+		        small.innerText = "";
+
+		    } else {
+		        //유효하지 않은 메뉴이름
+		        isCategoryValid = false;
+		        e.target.setCustomValidity('카테고리를 입력해주세요');
+			    e.target.reportValidity();
+			    
+			    small.innerText = "카테고리를 다시 입력해주세요";			   
+		    }
+		    checkForm();	
+		});
+		
+		
+		
+		//가격 유효성검사
+		const reg_price=  /^[1-9][0-9]*$/;
+		
+		document.querySelector("#price").addEventListener("input", (e) => {
+		    const price = e.target.value;
+		    const small = document.querySelector("#smallPrice");
+		    if (reg_price.test(price)) {
+		        //유효한 메뉴이름
+		        isPricegoryValid = true;
+		        e.target.setCustomValidity('');
+		        small.innerText = "";
+
+		    } else {
+		        //유효하지 않은 메뉴이름
+		        isPricegoryValid = false;
+		        e.target.setCustomValidity('숫자형식으로 입력해주세요');
+			    e.target.reportValidity();
+			    small.innerText = "숫자형식으로 입력해주세요";
+		    }
+		    checkForm();	
+		});
+		
+		
+		
 	</script>
 	
 </body>
