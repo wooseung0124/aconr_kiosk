@@ -10,106 +10,63 @@
 <%
 // 여기는 사장님이 장사 오픈 전에 로그인 여부를 확인하여 DB에서 어떤 사장님의 메뉴를 가져올 지 판단하는 구간
 // 만약 로그인이 안된 상태로 접근할 경우 예외처리 페이지를 보여줘야 한다.
-
-// String stoNum = (String) session.getAttribute("stoNum");
-String stoNum = "000-00-00000"; // 테스트 코드
-System.out.println(stoNum);
-
-
-// ** (작업중) **
-
+String stoNum = (String) session.getAttribute("stoNum");
+String categoryName = request.getParameter("categoryName");
+System.out.println(categoryName);
+// (작업중)
 
 //=====================================================================================
-// 여기는 손님이 원하는 메뉴 카테고리를 눌렀는지 여부를 확인하는 구간(if문)
-String clickCategory = (String)request.getParameter("clickCategory");
-System.out.println("clickCategory : "+clickCategory);
-
-CategoryDto dto = new CategoryDto(); // 초기화 작업 : 사업자번호와 카테고리 동시관리
-List<CategoryDto> categoryList = null; // 초기화 작업 : 카테고리 list 관리
-Random random = new Random(); // 초기화 작업 : 랜덤번호 관리
-List<String> row = new ArrayList<>(); // 초기화 작업 : 카테고리 list를 랜덤으로 관리
-List<String> sto = new ArrayList<>(); // 초기화 작업 : 정확도를 위해 db에서 가져온 사업자번호 관리
-String randomCategory = null; // 초기화 작업 : 랜덤으로 선택된 최종 타이틀 카테고리를 관리
-List<MenuDto> menuList = new ArrayList<>(); // 초기화 작업 : 최종 타이틀 카테고리의 메뉴들 관리
+// 여기는 사장님이 로그인 후 장사를 시작했다고 가정하여 고객님들이 키오스크를 눌렀을 때 메뉴를 가져오기 위한 첫번째 작업
 
 MenuDao menuDao = MenuDao.getInstance();
-categoryList = MenuDao.getInstance().getCategory(stoNum);
-System.out.println("등록한 카테고리들 : "+categoryList.size()+"개");
+List<CategoryDto> categoryList = MenuDao.getInstance().getCategory(stoNum);
 
-if(clickCategory==null){ // 만약 클릭해둔 카테고리가 없다면
-	
-	//=====================================================================================
-	// 여기는 사장님이 로그인 후 장사를 시작했다고 가정하여 고객님들이 키오스크를 눌렀을 때 메뉴를 가져오기 위한 첫번째 작업
+//카테고리가 없을 시 -> empty view 생성
+boolean isEmpty = categoryList.isEmpty();
+pageContext.setAttribute("isEmpty", isEmpty);
 
-	try {// 일단 카테고리 등록여부 확인
-		if (categoryList.isEmpty()) { // 그 와중에 사장님이 장사할 생각이 없는지 아직 등록하지 않았을 경우
-			System.out.println("장사할 생각이 없네");
-			dto.setStoNum(stoNum);
-			dto.setCategory("장사할 생각이 없음");
-			categoryList.add(dto);
-		}
-
-	} catch (Exception e) {
-		System.err.println("category error :" + e);
-
-	} finally {
-		request.setAttribute("category", categoryList); // List<CategoryDto> type
-	}
-
-	// =====================================================================================	
-	// 두번째 작업으로 고객이 처음 마주할 때 첫화면을 랜덤으로 카테고리 하나 선택 후 'category' 변수에 담아서 메뉴 리스트를 뽑는다.
-
-	categoryList = (List) request.getAttribute("category");  // List<CategoryDto> type
-
+// =====================================================================================	
+// 두번째 작업으로 고객이 처음 마주할 때 첫화면을 랜덤으로 카테고리 하나 선택 후 'category' 변수에 담아서 메뉴 리스트를 뽑는다.
+String randomCategory = "";
+Random random = new Random();
+List<String> row = new ArrayList<>();
+List<String> sto = new ArrayList<>();
+List<MenuDto> menuList = new ArrayList<>();
+CategoryDto dto = new CategoryDto();
+if (!isEmpty && categoryName == null) {
 	for (CategoryDto tmp : categoryList) {
 		row.add(tmp.getCategory());
 		sto.add(tmp.getStoNum());
-		System.out.println("카테고리 값 :"+row);
 	}
 
 	int rowNum = random.nextInt(row.size());
-	System.out.println(rowNum+"번째 row 배열 정보를 가져온다.");
 
 	randomCategory = row.get(rowNum);
 
-	if(row.get(0).equals("장사할 생각이 없음")){ // 장사할 생각이 없는 경우
-		
-		MenuDto dtoNull=new MenuDto();
-		dtoNull.setStoNum(stoNum);
-		dtoNull.setName("장사접음");
-		dtoNull.setPrice(0);
-		dtoNull.setDescription("없어 돌아가");
-		dtoNull.setSell("NO");
-		
-		menuList.add(dtoNull);
-	}else{
-		
-		System.out.println(randomCategory);
-		dto.setStoNum(stoNum);
-		dto.setCategory(randomCategory);
-
-		menuList = MenuDao.getInstance().getList(dto); // List<MenuDto> type
-		System.out.println("메뉴 개수 :"+menuList.size()+"개");
-	}
-
-	request.setAttribute("titleCategory", randomCategory); // String type
-	request.setAttribute("menuList", menuList); // List<MenuDto> type
-	
-}else{ // 원하는 카테고리를 눌렀을 경우
-	
-	System.out.println("선택한 카테고리 : "+clickCategory);
-
-	request.setAttribute("category", clickCategory); // List<CategoryDto> type
-	
 	dto.setStoNum(stoNum);
-	dto.setCategory(clickCategory);
-	
-	menuList = MenuDao.getInstance().getList(dto); // List<MenuDto> type
-	System.out.println("메뉴 개수 :"+menuList.size()+"개");
-	
-	request.setAttribute("titleCategory", clickCategory); // String type
-	request.setAttribute("menuList", menuList); // List<MenuDto> type
+	dto.setCategory(randomCategory);
+	menuList = MenuDao.getInstance().getList(dto);
+
+	request.setAttribute("menuList", menuList);
+	request.setAttribute("category", categoryList);
+} else if (categoryName != null) {
+	//카테고리이름에 해당하는 것만 가져오게하면됨 
+	for (CategoryDto tmp : categoryList) {
+		if (tmp.getCategory().equals(categoryName)) {
+			row.add(tmp.getCategory());
+			sto.add(tmp.getStoNum());
+			break;
+		}
+	}
+	randomCategory = row.get(0);
+	dto.setStoNum(stoNum);
+	dto.setCategory(row.get(0));
+	menuList = MenuDao.getInstance().getList(dto);
+	request.setAttribute("menuList", menuList);
+	request.setAttribute("category", categoryList);
 }
+
+pageContext.setAttribute("randomCategory", randomCategory);
 %>
 
 <!DOCTYPE html>
@@ -158,7 +115,6 @@ td {
 					<h1>${randomCategory}</h1>
 				</c:otherwise>
 			</c:choose>
-
 		</div>
 
 		<div id="main" style="display: flex; flex-wrap: wrap;">
@@ -354,57 +310,6 @@ td {
 		src="${pageContext.request.contextPath}/order_assets/js/util.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
-<script> 
 
-/* ===========================
-카테고리별로 반복문 돌려서 데이터 주입
-	
-<article class="thumb">
-	<a href="${pageContext.request.contextPath}/images/prepare.jpg" class="image"><img src="${pageContext.request.contextPath}/images/prepare.jpg" alt="" /></a>
-	<h2>${tmp.name}</h2>
-	<h3>${tmp.description}</h3>
-	<h3>${tmp.price}원</h3>
-	<button>장바구니 추가</button>
-</article>
-
-============================== */
-
-	// 여기는 사용자가 카테고리를 선택했을 때 즉각즉각 데이터를 웹브라우저에서 요청하고 응답하도록 구현
-	document.querySelectorAll(".category-list").forEach(item=>{
-		item.addEventListener("click",(e) => {
-			//이벤트가 발생한 폼의 참조값은 e.target 이다
-			
-			let clickCategory =e.target.innerText;
-			console.log(clickCategory+" 카테고리 버튼을 누름");
-			
-			//fetch() 함수를 이용해서 get 방식으로 입력한 닉네임을 보내고 사용가능 여부를 json으로 응답받는다.
-			fetch("${pageContext.request.contextPath}/customer/menu_list.jsp?clickCategory="+clickCategory)// get방식 파라미터를 쿼리 문자열로 전달
-			.then(res=>res.json())
-			.then(data=>{
-				//data 는 글 정보가 들어 있는  [{},{},{},...] 이런형식의 배열이다. 
-				console.log(data.clickCategory+" json 문자열로 카테고리 받아오기 성공");
-				
-				location.href='${pageContext.request.contextPath}/customer/order_menu.jsp?clickCategory='+data.clickCategory;
-			})
-		});
-	}); // category-list
-	
-/* ===========================
-위에 자바스크립트가 동작되기 전 웹브라우저 코드모습 
-
-<div>
-	<section>
-		<h2>CHOOSE CATEGORY</h2>
-		<ul class="action">
-			<li>
-				<a href="javascript:" class="category-list" >${tmp.category}</a>
-			</li>
-		</ul>
-	</section>
-</div>
-	
-============================== */
-
-</script>
 </body>
 </html>
