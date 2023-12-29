@@ -220,26 +220,28 @@ td {
 							</thead>
 							
 							<tbody>
-							
-								<tr>
-									<td>아메리카노</td>
-									<td>
-									<button id="minus">-</button>
-									2개
-									<button id="plus">+</button>
-									</td>
-									<td>2000원</td>
-									<td>4000원</td>
-									<td><button>X</button></td>
-								</tr>
+							<!-- 이거 자체 테스트입니다. 다 바꿔야 합니다. -->
+								<c:forEach var="tmp" items="${menuList}">
+									<tr class="shopping-menu">
+										<td class="name">${tmp.name}</td>
+										<td>
+											<button class="minus">-</button>
+											<span class="count">1<!-- (수량 바꾸기) --></span>
+											<button class="plus">+</button>
+										</td>
+										<td class="price">${tmp.price}</td>
+										<td class="total">총액 <!-- 계산하는 곳 --></td>
+										<td><button class="shopping-delete">X</button></td>
+									</tr>
+								</c:forEach>
 								
 							</tbody>
 							
 							<tfoot>
 								<tr>
 									<td>총합계</td>
-									<td colspan='3'>20000원</td>
-									<td><button>주문하기</button></td>
+									<td id="shopping-total" colspan='3'>20000원</td>
+									<td><button id="order-button">주문하기</button></td>
 								</tr>
 							</tfoot>
 							
@@ -295,21 +297,88 @@ td {
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
 		
 	<script>
+	/*
+	<tbody>
+	<!-- 이거 자체 테스트입니다. 다 바꿔야 합니다. -->
+		
+			<tr class="shopping-menu">
+				<td class="name">${tmp.name}</td>
+				<td class="count">
+					<button class="minus">-</button>
+					<span class="count"><!-- (수량 바꾸기) --></span>
+					<button class="plus">+</button>
+				</td>
+				<td class="price">${tmp.price}원</td>
+				<td class="total">총액 <!-- 계산하는 곳 --></td>
+				<td><button class="shopping-delete">X</button></td>
+			</tr>
+		
+	</tbody>
+	
+	<tfoot>
+		<tr>
+			<td>총합계</td>
+			<td id="shopping-total" colspan='3'>20000원</td>
+			<td><button id="order-button">주문하기</button></td>
+		</tr>
+	</tfoot>
+	========================================= */
+	
+	// 고객이 특정 메뉴의 장바구니를 눌렀을 경우 시작
+	
+	let listTotal = document.querySelector("#shopping-total");
+	let LT = listTotal.innerText; // 이건 총액 값 초기화
 
-		document.querySelectorAll(".shopping").forEach((form)=>{
+		document.querySelectorAll(".shopping-menu").forEach((menu)=>{
+			// 메뉴 1개당 정보
+			let name = menu.querySelector(".name");
+			let count = menu.querySelector(".count");
+			let minus = menu.querySelector(".minus");
+			let plus = menu.querySelector(".plus");
+			let price = menu.querySelector(".price");
+			let total = menu.querySelector(".total");
 			
-			let name = form.querySelector(".name").innerText;
-			let descriptio = form.querySelector(".description").innerText;
-			let price = form.querySelector(".price").innerText;
+			let num = count.innerText; // 맨처음 장바구니 들어왔을 때 1로 초기화
 			
-			form.querySelector("button").addEventListener("click", (e)=>{
+			let p = price.innerText; // 맨처음 장바구니 들어왔을 때 1개당 가격 초기화
+			price.innerText = p+"원";
+			
+			let calculation = p; // 각 메뉴별로 수량*가격
+			total.innerText = calculation+"원";
+			
+			LT = calculation;
+			listTotal.innerText = LT+"원";
+			
+			minus.addEventListener("click", ()=>{
 				
-				fetch()
-				// order 메뉴를 jsp에 전달 후 그곳에서 request 혹은 session 으로 dto와 list 저장
-				// 여기는 그냥 fetch 함수 data 잘 받아왔는지 확인하는 정도로 끝내기
-				// 그리고 현재 페이지 reload
-			})
+				if(num > 1){
+					num --;
+				}
+				
+				count.innerText = num;
+				total.innerText = calculation * num + "원";
+				
+				
+			}); // minus button
+			
+			plus.addEventListener("click", ()=>{
+				num ++;
+				
+				count.innerText = num;
+				total.innerText = calculation * num + "원";
+				
+				
+			}); // plus button
 		});
+		
+	document.querySelector("#order-button").addEventListener("click", ()=>{
+		// 
+	})
+	
+	// fetch()
+	// order 메뉴를 jsp에 전달 후 그곳에서 request 혹은 session 으로 dto와 list 저장
+	// 여기는 그냥 fetch 함수 data 잘 받아왔는지 확인하는 정도로 끝내기
+	// 그리고 현재 페이지 reload
 		
 	</script>
 
