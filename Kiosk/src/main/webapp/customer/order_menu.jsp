@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 
 <%@page import="kiosk.order.dto.OrderDto"%>
+=======
+>>>>>>> upstream/main
 <%@page import="kiosk.menu.dto.MenuDto"%>
 <%@page import="kiosk.menu.dto.CategoryDto"%>
 <%@page import="kiosk.menu.dao.MenuDao"%>
@@ -9,57 +12,83 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<% 
-//String stoNum = (String)req.getAttribute("stoNum"); => session 에 담기
-String stoNum = (String)session.getAttribute("stoNum"); // 임시, 테스트 DB에도 저장되어있음(kiosk.sql 참고)
-System.out.println(stoNum);
-MenuDao menuDao=MenuDao.getInstance(); // 현재 경로 : customer.mvc.model.dao.MenuDao
+<%
+// 여기는 사장님이 장사 오픈 전에 로그인 여부를 확인하여 DB에서 어떤 사장님의 메뉴를 가져올 지 판단하는 구간
+// 만약 로그인이 안된 상태로 접근할 경우 예외처리 페이지를 보여줘야 한다.
+String stoNum = (String) session.getAttribute("stoNum");
+String categoryName = request.getParameter("categoryName");
+System.out.println(categoryName);
+// (작업중)
+
+//=====================================================================================
+// 여기는 사장님이 로그인 후 장사를 시작했다고 가정하여 고객님들이 키오스크를 눌렀을 때 메뉴를 가져오기 위한 첫번째 작업
+
+MenuDao menuDao = MenuDao.getInstance();
 List<CategoryDto> categoryList = MenuDao.getInstance().getCategory(stoNum);
 
-System.out.println(categoryList);
-	try {// 일단 카테고리 등록여부 확인			
-		if(categoryList.isEmpty()) { // 그 와중에 사장님이 장사할 생각이 없는지 아직 등록하지 않았을 경우
-			CategoryDto dto=new CategoryDto();
-			dto.setStoNum(stoNum);
-			dto.setCategory("장사할 생각이 없음");
-			categoryList.add(dto);
-		}
-			
-		}catch(Exception e) {
-			System.err.println("category error :"+e);
-			
-		}finally {
-			request.setAttribute("category", categoryList);
-		}
-	
+//카테고리가 없을 시 -> empty view 생성
+boolean isEmpty = categoryList.isEmpty();
+pageContext.setAttribute("isEmpty", isEmpty);
+/*
+try {// 일단 카테고리 등록여부 확인
+	if (categoryList.isEmpty()) { // 그 와중에 사장님이 장사할 생각이 없는지 아직 등록하지 않았을 경우
+		System.out.println("장사할 생각이 없네");
+		CategoryDto dto = new CategoryDto();
+		dto.setStoNum(stoNum);
+		dto.setCategory("장사할 생각이 없음");
+		categoryList.add(dto);
+	}
+
+} catch (Exception e) {
+	System.err.println("category error :" + e);
+
+} finally {
+	request.setAttribute("category", categoryList);
+}
+*/
+
 // =====================================================================================	
+// 두번째 작업으로 고객이 처음 마주할 때 첫화면을 랜덤으로 카테고리 하나 선택 후 'category' 변수에 담아서 메뉴 리스트를 뽑는다.
+String randomCategory = "";
+Random random = new Random();
+List<String> row = new ArrayList<>();
+List<String> sto = new ArrayList<>();
+List<MenuDto> menuList = new ArrayList<>();
+CategoryDto dto = new CategoryDto();
+if (!isEmpty && categoryName == null) {
+	for (CategoryDto tmp : categoryList) {
+		row.add(tmp.getCategory());
+		sto.add(tmp.getStoNum());
+	}
 
-categoryList = (List)request.getAttribute("category");
+	int rowNum = random.nextInt(row.size());
 
-// 첫화면은 랜덤으로 카테고리 하나 선택 후 'category' 변수에 담기
-Random random=new Random();
-List<String> row=new ArrayList<>();
-List<String> sto=new ArrayList<>();
-List<MenuDto> menuList=new ArrayList<>();
-CategoryDto dto=new CategoryDto();
+	randomCategory = row.get(rowNum);
 
-for(CategoryDto tmp : categoryList) {
-	row.add(tmp.getCategory());
-	sto.add(tmp.getStoNum());
-	System.out.println(row);
+	dto.setStoNum(stoNum);
+	dto.setCategory(randomCategory);
+	menuList = MenuDao.getInstance().getList(dto);
+
+	request.setAttribute("menuList", menuList);
+	request.setAttribute("category", categoryList);
+} else if (categoryName != null) {
+	//카테고리이름에 해당하는 것만 가져오게하면됨 
+	for (CategoryDto tmp : categoryList) {
+		if (tmp.getCategory().equals(categoryName)) {
+			row.add(tmp.getCategory());
+			sto.add(tmp.getStoNum());
+			break;
+		}
+	}
+	randomCategory = row.get(0);
+	dto.setStoNum(stoNum);
+	dto.setCategory(row.get(0));
+	menuList = MenuDao.getInstance().getList(dto);
+	request.setAttribute("menuList", menuList);
+	request.setAttribute("category", categoryList);
 }
 
-int rowNum=random.nextInt(row.size());
-String randomCategory = row.get(rowNum);
-System.out.println(randomCategory);
-
-dto.setStoNum(stoNum);
-dto.setCategory(randomCategory);
-
-menuList=MenuDao.getInstance().getList(dto);
-System.out.println("카테고리별 메뉴항목들"+menuList);
-
-request.setAttribute("menuList", menuList);	
+pageContext.setAttribute("randomCategory", randomCategory);
 %>
 
 <!DOCTYPE html>
@@ -85,9 +114,6 @@ a{
 </style>
 </head>
 <body class="is-preload">
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -106,13 +132,20 @@ a{
 
 		<!-- Main -->
 		<div class="category">
-			<h1><%=randomCategory %></h1>
+			<c:choose>
+				<c:when test="${isEmpty}">
+					<h1>메뉴 준비중</h1>
+				</c:when>
+				<c:otherwise>
+					<h1>${randomCategory}</h1>
+				</c:otherwise>
+			</c:choose>
+
 		</div>
-		
-		
+
 		<div id="main">
 			
-		
+		<!--  
 			<c:forEach var="tmp" items="${menuList}">
 			<article class="thumb">
 				<!-- 사진링크는 추후에 ${tmp.imageUrl}로 바꿀 예정 -->
@@ -126,7 +159,44 @@ a{
 					
 			</article>
 			</c:forEach>
+-->
+		<div id="main" style="display: flex; flex-wrap: wrap;">
+			<!-- 첫화면 접속시 작동할 코드 -->
+			<c:choose>
+				<c:when test="${empty menuList}">
+					카테고리가 없습니다
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="tmp" items="${menuList}">
+						<article class="thumb"
+							style="width: 25%; box-sizing: border-box; padding: 10px; display: inline-block;">
+							<c:choose>
+								<c:when test="${tmp.imageUrl eq null}">
+									<a
+										href="${pageContext.request.contextPath}/images/fulls/prepare.jpg"
+										class="image"><img
+										src="${pageContext.request.contextPath}/images/fulls/prepare.jpg"
+										alt="" /></a>
+								</c:when>
+								<c:otherwise>
+									<a
+										href="${pageContext.request.contextPath}/upload/${tmp.imageUrl}"
+										class="image"><img
+										src="${pageContext.request.contextPath}/upload/${tmp.imageUrl}"
+										alt="" /></a>
+								</c:otherwise>
+							</c:choose>
+							<h2>${tmp.name}</h2>
+							<h3>${tmp.description}</h3>
+							<h3>${tmp.price}원</h3>
+							<button>장바구니 추가</button>
+						</article>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+>>>>>>> upstream/main
 		</div>
+
 		<!-- Footer -->
 		<footer id="footer" class="panel">
 			<div class="inner split">
@@ -158,18 +228,21 @@ a{
 					</section>
 					<p class="copyright">&copy; Acorn Order. Design: Team1.</p>
 				</div>
-				
+
+				<!-- categories -->
 				<div>
 					<section>
 						<h2>CHOOSE CATEGORY</h2>
 						<ul class="action">
 							<c:forEach var="tmp" items="${requestScope.category}">
-								<li><a href="${pageContext.request.contextPath}/customer/menu_list.jsp?category=${tmp.category}">${tmp.category}</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/customer/order_menu.jsp?categoryName=${tmp.category}"
+									class="category-list">${tmp.category}</a></li>
 							</c:forEach>
 						</ul>
 					</section>
 				</div>
-				
+
 			</div>
 		</footer>
 
@@ -270,7 +343,6 @@ a{
 		src="${pageContext.request.contextPath}/order_assets/js/util.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
-
 </body>
 <script>
 	document.querySelector("#plus").addEventListener("click",()=>{

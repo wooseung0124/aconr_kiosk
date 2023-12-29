@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kiosk.menu.dto.CategoryDto;
+import kiosk.menu.dto.UpdateMenuDto;
 import kiosk.menu.dto.MenuDto;
 import kiosk.util.DbcpBean;
 
@@ -32,7 +33,7 @@ public class MenuDao {
 		try {
 			
 			conn = new DbcpBean().getConn();
-			String sql = "select *"
+			String sql = "select sto_num, name, price, description, imageUrl, sell, category"
 					+ " from menu_info"
 					+ " where sto_num = ? and category = ?";
 			pstmt = conn.prepareStatement(sql);
@@ -68,7 +69,7 @@ public class MenuDao {
 			} catch (Exception e) {
 			}
 		}
-		
+		System.out.println("dao에서 가져온 list"+list);
 		return list;
 	}
 	
@@ -202,8 +203,8 @@ public class MenuDao {
 			System.out.println(dto.getDescription());
 			//실행할 sql 문
 			 String sql = "UPDATE menu_info"
-		               + " SET price=?,description=?,imageurl=?,category=?, sell=?"
-		               + " WHERE name=?";
+		               + " SET price=?,description=?,imageurl=?,category=?,sell=?"
+		               + " WHERE name=? and sto_num=?";
 			pstmt = conn.prepareStatement(sql);
 			//? 에 바인딩 할 내용이 있으면 바인딩
 			pstmt.setInt(1, dto.getPrice());
@@ -212,6 +213,7 @@ public class MenuDao {
 			pstmt.setString(4, dto.getCategory());
 			pstmt.setString(5, dto.getSell());
 			pstmt.setString(6, dto.getName());
+			pstmt.setString(7, dto.getStoNum());
 			rowCount = pstmt.executeUpdate();
 //			rowCount = pstmt.execute() ? 1 : 0;
 			conn.commit();
@@ -241,7 +243,7 @@ public class MenuDao {
 	}
 	
 	//상품목록 하나 가져오기  (stoNum 매개변수 추가예정)
-	public MenuDto getdata(String name) {
+	public MenuDto getdata(UpdateMenuDto udto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -252,11 +254,14 @@ public class MenuDao {
 			//실행할 sql 문
 			String sql = "SELECT *"
 					+ " FROM menu_info"
-					+ " WHERE name=?";
+					+ " WHERE name=? and sto_num=?";
 			pstmt = conn.prepareStatement(sql);
 			//? 에 바인딩할 내용이 있으면 여기서 한다.
 			
-			pstmt.setString(1, name);
+
+			pstmt.setString(1, udto.getName());
+			pstmt.setString(2, udto.getStoNum());
+			
 
 
 			//query 문 수행하고 결과(ResultSet) 얻어내기
@@ -266,7 +271,7 @@ public class MenuDao {
 				dto=new MenuDto();
 				//dto.setStoNum(stoNum);
 				dto.setStoNum(rs.getString("sto_num"));
-				dto.setName(name);
+				dto.setName(rs.getString("name"));
 				dto.setPrice(rs.getInt("price"));
 				dto.setDescription(rs.getString("description"));
 				dto.setImageUrl(rs.getString("imageUrl"));

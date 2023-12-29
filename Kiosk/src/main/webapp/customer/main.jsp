@@ -5,6 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	// 세번째, 메뉴 정보를 ui틀에 뿌림, 사진클릭시 디테일 화면으로 전환
 	List <MenuDto> list=(List<MenuDto>)request.getAttribute("menulist");
 %>
 <!DOCTYPE html>

@@ -7,6 +7,7 @@
 <title>start</title>
 </head>
 <body>
+<!--테스트 첫 화면 -->
 	<a href="${pageContext.request.contextPath}/customer/menu">3</a>
 </body>
 </html>
