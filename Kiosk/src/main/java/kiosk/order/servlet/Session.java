@@ -43,7 +43,7 @@ public class Session extends HttpServlet{
                  // 이미 존재하는경우 카운트만 1 증가시킨다.
                  order.setCount(order.getCount() + 1);
           
-    			RequestDispatcher rd=req.getRequestDispatcher("/customer/shoppingtest.jsp");
+    			RequestDispatcher rd=req.getRequestDispatcher("/customer/basket.jsp");
     			rd.forward(req, resp);
     			return;
              }
@@ -60,7 +60,7 @@ public class Session extends HttpServlet{
          shoplist.add(dto);
          
          req.setAttribute("shoplist", shoplist);
-         RequestDispatcher rd=req.getRequestDispatcher("/customer/shoppingtest.jsp");
+         RequestDispatcher rd=req.getRequestDispatcher("/customer/basket.jsp");
          rd.forward(req, resp);
     
          
@@ -77,7 +77,7 @@ public class Session extends HttpServlet{
 		                 // 이미 존재하는경우 카운트만 1 증가시킨다.
 		                 order.setCount(order.getCount() + 1);
 		          
-		    			RequestDispatcher rd=req.getRequestDispatcher("/customer/shoppingtest.jsp");
+		    			RequestDispatcher rd=req.getRequestDispatcher("/customer/basket.jsp");
 		    			rd.forward(req, resp);
 		    			return;
 		             }
@@ -92,7 +92,7 @@ public class Session extends HttpServlet{
 		                }else {
 		                	order.setCount(order.getCount() - 1);
 		                }
-		    			RequestDispatcher rd=req.getRequestDispatcher("/customer/shoppingtest.jsp");
+		    			RequestDispatcher rd=req.getRequestDispatcher("/customer/basket.jsp");
 		    			rd.forward(req, resp);
 		    			return;
 		             }

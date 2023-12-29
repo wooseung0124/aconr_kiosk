@@ -29,7 +29,7 @@ public class ShoppingList extends HttpServlet{
 		
 		  req.setAttribute("shoplist", shoplist);
 		 
-		  RequestDispatcher rd = req.getRequestDispatcher("/customer/shoppingtest.jsp");
+		  RequestDispatcher rd = req.getRequestDispatcher("/customer/basket.jsp");
 	      rd.forward(req, resp);
 
 	}

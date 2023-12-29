@@ -16,9 +16,9 @@ public class Pay extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int table_num=1;
-		boolean pass=OrderDao.getInstance().delete(table_num);
+		OrderDao.getInstance().delete(table_num);
 		
-		RequestDispatcher rd=req.getRequestDispatcher("/customer/index.jsp");
+		RequestDispatcher rd=req.getRequestDispatcher("/customer/menu");
 		rd.forward(req, resp);
 	}
 }

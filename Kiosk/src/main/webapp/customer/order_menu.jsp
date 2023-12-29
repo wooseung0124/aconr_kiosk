@@ -1,4 +1,5 @@
 
+<%@page import="kiosk.order.dto.OrderDto"%>
 <%@page import="kiosk.menu.dto.MenuDto"%>
 <%@page import="kiosk.menu.dto.CategoryDto"%>
 <%@page import="kiosk.menu.dao.MenuDao"%>
@@ -78,6 +79,9 @@ request.setAttribute("menuList", menuList);
 td {
 	text-align: center;
 }
+a{
+	text-decoration-line: none;
+}
 </style>
 </head>
 <body class="is-preload">
@@ -105,18 +109,23 @@ td {
 			<h1><%=randomCategory %></h1>
 		</div>
 		
+		
 		<div id="main">
+			
+		
 			<c:forEach var="tmp" items="${menuList}">
 			<article class="thumb">
 				<!-- 사진링크는 추후에 ${tmp.imageUrl}로 바꿀 예정 -->
-				<a href="${pageContext.request.contextPath}/images/fulls/americano.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/americano.jpg" alt="" /></a>
+				<a href="${pageContext.request.contextPath}/images/fulls/americano.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/americano.jpg"/></a>
 				<h2>${tmp.name}</h2>
-				<h3>${tmp.description}</h3>
+				<h3>test</h3>
 				<h3>${tmp.price}원</h3>
-				<button>장바구니 추가</button>
+				<a href="${pageContext.request.contextPath}/customer/basket?name=${tmp.name}">
+				<button>장바구님에 담기</button>
+				</a>
+					
 			</article>
 			</c:forEach>
-			
 		</div>
 		<!-- Footer -->
 		<footer id="footer" class="panel">
@@ -164,10 +173,12 @@ td {
 			</div>
 		</footer>
 
+<!-- 안철 -->
 		<footer id="footer2" class="panel">
 			<div class="inner split">
 				<div>
 					<section>
+					
 						<h2>장바구니 목록</h2>
 						<table>
 							<thead>
@@ -177,52 +188,40 @@ td {
 								<td>주문 금액</td>
 								<td>삭제</td>
 							</thead>
+							<% 
+							if(session.getAttribute("shoplist")!=null){
+								List<OrderDto> shoplist=(List<OrderDto>) session.getAttribute("shoplist");
+								int count=0;
+								int total=0;
+							%>
 							<tbody>
-								<tr>
-									<td>아메리카노</td>
-									<td>2개</td>
-									<td>2000원</td>
-									<td>4000원</td>
-									<td><button>X</button></td>
+								<%
+						for(OrderDto tmp:shoplist){ 
+						total +=tmp.getPrice() *tmp.getCount();%>
+								 <tr>
+									<td><%=tmp.getMenu() %></td>
+									<td><%=tmp.getCount() %></td>
+									<td><%=tmp.getPrice() %></td>
+									<td><%=total %></td>
+									<td>
+									<a href="${pageContext.request.contextPath}/customer/mainDelete?menu=<%=tmp.getMenu()%>">
+									<button>x</button>
+									</a>
+								
+									</td>
 								</tr>
-								<tr>
-									<td>아메리카노</td>
-									<td>2개</td>
-									<td>2000원</td>
-									<td>4000원</td>
-									<td><button>X</button></td>
-								</tr>
-								<tr>
-									<td>아메리카노</td>
-									<td>2개</td>
-									<td>2000원</td>
-									<td>4000원</td>
-									<td><button>X</button></td>
-								</tr>
-								<tr>
-									<td>아메리카노</td>
-									<td>2개</td>
-									<td>2000원</td>
-									<td>4000원</td>
-									<td><button>X</button></td>
-								</tr>
-								<tr>
-									<td>아메리카노</td>
-									<td>2개</td>
-									<td>2000원</td>
-									<td>4000원</td>
-									<td><button>X</button></td>
-								</tr>
+								<%} %>
 							</tbody>
 							<tfoot>
 								<tr>
 									<td>총합계</td>
-									<td colspan='3'>20000원</td>
-									<td><button>주문하기</button></td>
+									<td colspan='3'><%=total %></td>
+									<td><button >주문하기</button></td>
 								</tr>
 							</tfoot>
+							<%}%>
 						</table>
-
+							
 					</section>
 				</div>
 				<div>
@@ -258,7 +257,7 @@ td {
 
 	</div>
 
-	<!-- Scripts -->
+	<!-- Scripts(디자인) -->
 	<script
 		src="${pageContext.request.contextPath}/order_assets/js/jquery.min.js"></script>
 	<script
@@ -273,4 +272,26 @@ td {
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
 
 </body>
+<script>
+	document.querySelector("#plus").addEventListener("click",()=>{
+		let count=document.querySelector("#count").value;
+		  count = parseInt(count) + 1;
+		  document.querySelector("#count").value = count;
+		  
+	});
+	
+	document.querySelector("#minus").addEventListener("click",()=>{
+		let count=document.querySelector("#count").value;
+		console.log("ugj");
+		if(count==1){
+			 document.querySelector("#count").value=1;
+		}else{
+				count = parseInt(count) - 1;
+		  document.querySelector("#count").value = count;
+		}
+		
+	});
+	
+
+</script>	
 </html>

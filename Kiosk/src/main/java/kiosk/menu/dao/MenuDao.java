@@ -128,7 +128,7 @@ public class MenuDao {
 			conn = new DbcpBean().getConn();
 			//실행할 sql 문
 			String sql = "INSERT INTO menu_info"
-		               + " (sto_num,name,price,description,imageUrl,is_sold,category)"
+		               + " (sto_num,name,price,description,imageUrl,sell,category)"
 		               + " values(?,?,?,?,?,'NO',?)";
 			pstmt = conn.prepareStatement(sql);
 			
@@ -202,7 +202,7 @@ public class MenuDao {
 			System.out.println(dto.getDescription());
 			//실행할 sql 문
 			 String sql = "UPDATE menu_info"
-		               + " SET price=?,description=?,imageurl=?,category=?, is_sold=?"
+		               + " SET price=?,description=?,imageurl=?,category=?, sell=?"
 		               + " WHERE name=?";
 			pstmt = conn.prepareStatement(sql);
 			//? 에 바인딩 할 내용이 있으면 바인딩
@@ -257,7 +257,7 @@ public class MenuDao {
 			//? 에 바인딩할 내용이 있으면 여기서 한다.
 			
 			pstmt.setString(1, name);
-			System.out.println(name);
+
 
 			//query 문 수행하고 결과(ResultSet) 얻어내기
 			rs = pstmt.executeQuery();
@@ -270,7 +270,7 @@ public class MenuDao {
 				dto.setPrice(rs.getInt("price"));
 				dto.setDescription(rs.getString("description"));
 				dto.setImageUrl(rs.getString("imageUrl"));
-				dto.setSell(rs.getString("is_sold"));
+				dto.setSell(rs.getString("sell"));
 				dto.setCategory(rs.getString("category"));
 			}
 		} catch (Exception e) {
@@ -315,7 +315,7 @@ public class MenuDao {
 				dto.setPrice(rs.getInt("price"));
 				dto.setDescription(rs.getString("description"));
 				dto.setImageUrl(rs.getString("imageUrl"));
-				dto.setSell(rs.getString("is_sold"));
+				dto.setSell(rs.getString("sell"));
 				dto.setCategory(rs.getString("category"));
 				list.add(dto);
 			}

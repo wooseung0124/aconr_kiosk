@@ -18,10 +18,10 @@ List<OrderDto> list =(List<OrderDto>)request.getAttribute("orderlist");
 <meta charset="UTF-8">
 <title>주문 목록 테스트</title>
 <style>
- .container{
-    text-align: center;
-    
- }
+	.container{
+		justify-content:center;
+		text-align: center;
+	}
 </style>
 </head>
 <body>

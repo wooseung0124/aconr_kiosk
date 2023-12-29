@@ -12,11 +12,15 @@
 <meta charset="UTF-8">
 <title>메뉴 상세히 보기</title>
 <style>
-
+	.container{
+		justify-content:center;
+		text-align: center;
+	}
 </style>
 </head>
+
 <body>
-	<div>
+	<div class="container">
 	<form action="${pageContext.request.contextPath}/customer/session" method="post">
 	<div>
 	<img src="<%=dto.getImageUrl() %>" alt="메뉴이미지" />
