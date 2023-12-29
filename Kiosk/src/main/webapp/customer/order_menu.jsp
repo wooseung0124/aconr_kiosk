@@ -142,12 +142,11 @@ td {
 										alt="" /></a>
 								</c:otherwise>
 							</c:choose>
-							<form action="javascript:" method="post" class="shopping">
-								<h2 type="text" class="name" name="name">${tmp.name}</h2>
-								<h3 type="text" class="description" name="description">${tmp.description}</h3>
-								<h3 type="text" class="price" name="price">${tmp.price}원</h3>
-								<button type="submit">장바구니 추가</button>
-							</form>
+							<h2 id="name">${tmp.name}</h2>
+							<h3>${tmp.description}</h3>
+							<h3>${tmp.price}원</h3>
+							<button onclick="basketBtn('${tmp.name}','${tmp.price}')">장바구니 추가</button>
+
 						</article>
 					</c:forEach>
 				</c:otherwise>
@@ -232,7 +231,6 @@ td {
 									<td>4000원</td>
 									<td><button>X</button></td>
 								</tr>
-								
 							</tbody>
 							
 							<tfoot>
@@ -293,25 +291,34 @@ td {
 		src="${pageContext.request.contextPath}/order_assets/js/util.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
-		
+	
 	<script>
-
-		document.querySelectorAll(".shopping").forEach((form)=>{
-			
-			let name = form.querySelector(".name").innerText;
-			let descriptio = form.querySelector(".description").innerText;
-			let price = form.querySelector(".price").innerText;
-			
-			form.querySelector("button").addEventListener("click", (e)=>{
-				
-				fetch()
-				// order 메뉴를 jsp에 전달 후 그곳에서 request 혹은 session 으로 dto와 list 저장
-				// 여기는 그냥 fetch 함수 data 잘 받아왔는지 확인하는 정도로 끝내기
-				// 그리고 현재 페이지 reload
-			})
-		});
+	function basketBtn(name, price) {
 		
-	</script>
+		fetch("${pageContext.request.contextPath}/customer/data.jsp?name="+name+"&price="+price)
+		.then(res=>res.json())
+		.then(data=>{
+			console.log(data.shoplist);
+		})
+	}
+	
+	document.querySelectorAll(".shopping").forEach((form)=>{
+		
+		let name = form.querySelector(".name").innerText;
+		let descriptio = form.querySelector(".description").innerText;
+		let price = form.querySelector(".price").innerText;
+		
+		form.querySelector("button").addEventListener("click", (e)=>{
+			
+			fetch()
+			// order 메뉴를 jsp에 전달 후 그곳에서 request 혹은 session 으로 dto와 list 저장
+			// 여기는 그냥 fetch 함수 data 잘 받아왔는지 확인하는 정도로 끝내기
+			// 그리고 현재 페이지 reload
+		})
+	});
 
+		
+	
+	</script>
 </body>
 </html>

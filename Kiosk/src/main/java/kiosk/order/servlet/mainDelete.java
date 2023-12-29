@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import kiosk.order.dto.OrderDto;
 
-@WebServlet("/customer/delete")
-public class Delete extends HttpServlet{
+@WebServlet("/customer/mainDelete")
+public class mainDelete extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
@@ -24,7 +24,7 @@ public class Delete extends HttpServlet{
 		List<OrderDto> shoplist = (List<OrderDto>) req.getSession().getAttribute("shoplist");
 		
 		if(shoplist==null) {
-			 RequestDispatcher rd=req.getRequestDispatcher("/customer/main.jsp");
+			 RequestDispatcher rd=req.getRequestDispatcher("/customer/order_menu.jsp");
 		     rd.forward(req, resp);
 		     return;
 		}else {
@@ -40,7 +40,7 @@ public class Delete extends HttpServlet{
 		
 	    
 		req.setAttribute("shoplist", shoplist);
-	     RequestDispatcher rd=req.getRequestDispatcher("/customer/basket.jsp");
+	     RequestDispatcher rd=req.getRequestDispatcher("/customer/order_menu.jsp");
 	     rd.forward(req, resp);
 		}
 	}
