@@ -147,9 +147,7 @@ td {
 							<h2 id="name">${tmp.name}</h2>
 							<h3>${tmp.description}</h3>
 							<h3>${tmp.price}원</h3>
-							<button onclick="basketBtn('${tmp.name}','${tmp.price}')">장바구니
-								추가</button>
-
+							<a href="add.jsp?name=${tmp.name}&price=${tmp.price}" class="button">장바구니 추가</a>
 						</article>
 					</c:forEach>
 				</c:otherwise>
@@ -219,7 +217,22 @@ td {
 								<td>주문 금액</td>
 								<td>삭제</td>
 							</thead>
-							<tbody id="table"></tbody>
+							<tbody id="table">
+								<c:if test="${sessionScope.shopList ne null}">
+									<c:forEach var="item" items="${sessionScope.shopList}">
+									<tr>
+										<td>${item.menu}</td>
+										<td>
+											<button id="minus">-</button>${item.count}
+											<button id="plus">+</button>
+										</td>
+										<td>${item.price }</td>
+										<td>${item.price * item.count }</td>
+										<td><button>X</button></td>
+									</tr>
+								</c:forEach>
+								</c:if>
+							</tbody>
 							<tfoot>
 								<tr>
 									<td>총합계</td>
@@ -279,44 +292,6 @@ td {
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
 
 	<script>
-	function basketBtn(name, price) {
-		
-		fetch("${pageContext.request.contextPath}/customer/data.jsp?name="+name+"&price="+price)
-		.then(res=>res.json())
-		.then(data=>{
-			let list = [];
-			<%List<OrderDto> shopList = (List<OrderDto>) session.getAttribute("shopList"); %>
-			<%if (shopList != null) {%>
-				console.log("asdf");
-				<%for (OrderDto item : shopList) {%>
-	        		list.push({
-	            		menu: '<%=item.getMenu()%>',
-	            		count: <%=item.getCount()%>,
-	            		price: <%=item.getPrice()%>
-	        		});
-	    		<%}%>
-			<%}%>
-		    
-			let str = "";
-			for(let i = 0; i < list.length; i++){
-				const item = list[i];
-				str+= `
-					<tr>
-						<td>\${item.menu}</td>
-						<td>
-							<button id="minus">-</button>
-								\${item.count}
-							<button id="plus">+</button>
-						</td>
-						<td>\${item.price}</td>
-						<td>\${item.price * item.count}</td>
-						<td><button>X</button></td>
-					</tr>
-				`;
-			}
-			document.querySelector("#table").innerHTML = str;
-		})
-	}
 	
 	document.querySelectorAll(".shopping").forEach((form)=>{
 		
@@ -332,8 +307,16 @@ td {
 			// 그리고 현재 페이지 reload
 		})
 	});
-
-		
+	
+	
+	window.addEventListener('DOMContentLoaded', function() {
+	    // 페이지 로딩 시 장바구니 열기
+	    var isAdded = '<%= request.getParameter("isAdded") %>';
+	    console.log(isAdded);
+	    if(isAdded != "null"){
+	    	document.querySelector("#footer2").classList.add("active");
+	    }
+	  });
 	
 	</script>
 </body>
