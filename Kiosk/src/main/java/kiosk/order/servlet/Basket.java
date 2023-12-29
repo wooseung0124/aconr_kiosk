@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kiosk.menu.dao.MenuDao;
 import kiosk.menu.dto.MenuDto;
+import kiosk.menu.dto.UpdateMenuDto;
 import kiosk.order.dto.OrderDto;
 
 @WebServlet("/customer/basket")
@@ -28,8 +29,10 @@ public class Basket extends HttpServlet{
 			
 		}else {
 		String name=req.getParameter("name");
+		String stoNum=(String)req.getSession().getAttribute("stoNum");
+		UpdateMenuDto udto=new UpdateMenuDto(stoNum,name);
 		
-		MenuDto menuData=MenuDao.getInstance().getdata(name);
+		MenuDto menuData=MenuDao.getInstance().getdata(udto);
 		int price=menuData.getPrice();
 		int count=1;
 		List<OrderDto> shoplist = (List<OrderDto>) req.getSession().getAttribute("shoplist");

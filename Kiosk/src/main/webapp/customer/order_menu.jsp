@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-
-<%@page import="kiosk.order.dto.OrderDto"%>
-=======
->>>>>>> upstream/main
 <%@page import="kiosk.menu.dto.MenuDto"%>
 <%@page import="kiosk.menu.dto.CategoryDto"%>
 <%@page import="kiosk.menu.dao.MenuDao"%>
@@ -29,23 +24,6 @@ List<CategoryDto> categoryList = MenuDao.getInstance().getCategory(stoNum);
 //카테고리가 없을 시 -> empty view 생성
 boolean isEmpty = categoryList.isEmpty();
 pageContext.setAttribute("isEmpty", isEmpty);
-/*
-try {// 일단 카테고리 등록여부 확인
-	if (categoryList.isEmpty()) { // 그 와중에 사장님이 장사할 생각이 없는지 아직 등록하지 않았을 경우
-		System.out.println("장사할 생각이 없네");
-		CategoryDto dto = new CategoryDto();
-		dto.setStoNum(stoNum);
-		dto.setCategory("장사할 생각이 없음");
-		categoryList.add(dto);
-	}
-
-} catch (Exception e) {
-	System.err.println("category error :" + e);
-
-} finally {
-	request.setAttribute("category", categoryList);
-}
-*/
 
 // =====================================================================================	
 // 두번째 작업으로 고객이 처음 마주할 때 첫화면을 랜덤으로 카테고리 하나 선택 후 'category' 변수에 담아서 메뉴 리스트를 뽑는다.
@@ -108,9 +86,6 @@ pageContext.setAttribute("randomCategory", randomCategory);
 td {
 	text-align: center;
 }
-a{
-	text-decoration-line: none;
-}
 </style>
 </head>
 <body class="is-preload">
@@ -140,26 +115,8 @@ a{
 					<h1>${randomCategory}</h1>
 				</c:otherwise>
 			</c:choose>
-
 		</div>
 
-		<div id="main">
-			
-		<!--  
-			<c:forEach var="tmp" items="${menuList}">
-			<article class="thumb">
-				<!-- 사진링크는 추후에 ${tmp.imageUrl}로 바꿀 예정 -->
-				<a href="${pageContext.request.contextPath}/images/fulls/americano.jpg" class="image"><img src="${pageContext.request.contextPath}/images/fulls/americano.jpg"/></a>
-				<h2>${tmp.name}</h2>
-				<h3>test</h3>
-				<h3>${tmp.price}원</h3>
-				<a href="${pageContext.request.contextPath}/customer/basket?name=${tmp.name}">
-				<button>장바구님에 담기</button>
-				</a>
-					
-			</article>
-			</c:forEach>
--->
 		<div id="main" style="display: flex; flex-wrap: wrap;">
 			<!-- 첫화면 접속시 작동할 코드 -->
 			<c:choose>
@@ -186,15 +143,14 @@ a{
 										alt="" /></a>
 								</c:otherwise>
 							</c:choose>
-							<h2>${tmp.name}</h2>
+							<h2 id="name">${tmp.name}</h2>
 							<h3>${tmp.description}</h3>
 							<h3>${tmp.price}원</h3>
-							<button>장바구니 추가</button>
+							<button onclick="basketBtn('${tmp.name}','${tmp.price}')">장바구니 추가</button>
 						</article>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
->>>>>>> upstream/main
 		</div>
 
 		<!-- Footer -->
@@ -242,16 +198,15 @@ a{
 						</ul>
 					</section>
 				</div>
-
+				<!-- categories -->
+				
 			</div>
 		</footer>
 
-<!-- 안철 -->
 		<footer id="footer2" class="panel">
 			<div class="inner split">
 				<div>
 					<section>
-					
 						<h2>장바구니 목록</h2>
 						<table>
 							<thead>
@@ -261,40 +216,25 @@ a{
 								<td>주문 금액</td>
 								<td>삭제</td>
 							</thead>
-							<% 
-							if(session.getAttribute("shoplist")!=null){
-								List<OrderDto> shoplist=(List<OrderDto>) session.getAttribute("shoplist");
-								int count=0;
-								int total=0;
-							%>
 							<tbody>
-								<%
-						for(OrderDto tmp:shoplist){ 
-						total +=tmp.getPrice() *tmp.getCount();%>
-								 <tr>
-									<td><%=tmp.getMenu() %></td>
-									<td><%=tmp.getCount() %></td>
-									<td><%=tmp.getPrice() %></td>
-									<td><%=total %></td>
-									<td>
-									<a href="${pageContext.request.contextPath}/customer/mainDelete?menu=<%=tmp.getMenu()%>">
-									<button>x</button>
-									</a>
-								
-									</td>
+								<tr>
+									<td>아메리카노</td>
+									<td>2개</td>
+									<td>2000원</td>
+									<td>4000원</td>
+									<td><button>X</button></td>
 								</tr>
-								<%} %>
+
 							</tbody>
 							<tfoot>
 								<tr>
 									<td>총합계</td>
-									<td colspan='3'><%=total %></td>
-									<td><button >주문하기</button></td>
+									<td colspan='3'>20000원</td>
+									<td><button>주문하기</button></td>
 								</tr>
 							</tfoot>
-							<%}%>
 						</table>
-							
+
 					</section>
 				</div>
 				<div>
@@ -330,7 +270,7 @@ a{
 
 	</div>
 
-	<!-- Scripts(디자인) -->
+	<!-- Scripts -->
 	<script
 		src="${pageContext.request.contextPath}/order_assets/js/jquery.min.js"></script>
 	<script
@@ -343,27 +283,20 @@ a{
 		src="${pageContext.request.contextPath}/order_assets/js/util.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
-</body>
-<script>
-	document.querySelector("#plus").addEventListener("click",()=>{
-		let count=document.querySelector("#count").value;
-		  count = parseInt(count) + 1;
-		  document.querySelector("#count").value = count;
-		  
-	});
 	
-	document.querySelector("#minus").addEventListener("click",()=>{
-		let count=document.querySelector("#count").value;
-		console.log("ugj");
-		if(count==1){
-			 document.querySelector("#count").value=1;
-		}else{
-				count = parseInt(count) - 1;
-		  document.querySelector("#count").value = count;
-		}
+	
+	<script>
+	function basketBtn(name, price) {
 		
-	});
-	
+		fetch("${pageContext.request.contextPath}/customer/data.jsp?name="+name+"&price="+price)
+		.then(res=>res.json())
+		.then(data=>{
+			console.log(data.shoplist);
+		})
+	}
 
-</script>	
+		
+	
+	</script>
+</body>
 </html>

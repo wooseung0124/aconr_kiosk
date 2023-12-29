@@ -242,7 +242,7 @@ public class MenuDao {
 		}
 	}
 	
-	//상품목록 하나 가져오기  (stoNum 매개변수 추가예정)
+
 	public MenuDto getdata(UpdateMenuDto udto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -293,7 +293,6 @@ public class MenuDao {
 		}
 		return dto;
 	}
-	
 	//상품목록 전체 가져오기 ? 아직 사용할지는 미정
 	public List<MenuDto> getList(){
 		Connection conn = null;
