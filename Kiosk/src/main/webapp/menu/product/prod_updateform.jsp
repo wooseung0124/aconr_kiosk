@@ -186,6 +186,9 @@
 		if(checkValue=="YES"){
 			document.querySelector("#sell").checked=true;
 		}
+		//처음 수정 페이지에 들어왔을때의 메뉴 이름
+		const oldName = document.querySelector("#name").value;
+		console.log(oldName);
 		
 		
 		function handleCheckbox() {
@@ -265,7 +268,26 @@
 			    e.target.reportValidity();
 			    small.innerText = "메뉴이름을 다시 입력해주세요";
 		    }
-		    checkForm();	
+		    
+		    fetch("${pageContext.request.contextPath}/menu/check_name_update.jsp?name="+name+"&oldName="+oldName)
+			.then(res=>res.json())
+			.then(data=>{
+				//data 는 {canUse:true} or {canUse:false} 형태의 object 이다.
+				console.log(data);
+				if(data.canUse){
+					//사용할수 있는 이메일이라는 의미에서 true 를 넣어준다.
+					isEmailValid=true;
+					e.target.setCustomValidity("");
+					small.innerText = "사용가능한 메뉴 입니다."
+				}else{
+					//사용할수 없는 이메일이라는 의미에서 false 를 넣어준다.
+					isEmailValid=false;
+					e.target.setCustomValidity("중복된 메뉴이름 입니다.");
+					e.target.reportValidity();
+					small.innerText = "";
+				}
+				checkForm();
+			});
 		});
 		//카테고리 유효성 검사
 		const reg_category=  /\S+/;

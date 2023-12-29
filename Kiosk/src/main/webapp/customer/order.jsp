@@ -17,6 +17,12 @@ pageContext.setAttribute("isSuccess", isSuccess);
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/main_assets/css/noscript.css" />
 </noscript>
 <title>customer/order.jsp</title>
+<style>
+	h1:hover {
+		color: #64CCC5;
+	
+	}
+</style>
 </head>
 <body class="is-preload">
 
