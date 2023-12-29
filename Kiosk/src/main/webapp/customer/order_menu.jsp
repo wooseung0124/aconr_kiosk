@@ -24,23 +24,6 @@ List<CategoryDto> categoryList = MenuDao.getInstance().getCategory(stoNum);
 //카테고리가 없을 시 -> empty view 생성
 boolean isEmpty = categoryList.isEmpty();
 pageContext.setAttribute("isEmpty", isEmpty);
-/*
-try {// 일단 카테고리 등록여부 확인
-	if (categoryList.isEmpty()) { // 그 와중에 사장님이 장사할 생각이 없는지 아직 등록하지 않았을 경우
-		System.out.println("장사할 생각이 없네");
-		CategoryDto dto = new CategoryDto();
-		dto.setStoNum(stoNum);
-		dto.setCategory("장사할 생각이 없음");
-		categoryList.add(dto);
-	}
-
-} catch (Exception e) {
-	System.err.println("category error :" + e);
-
-} finally {
-	request.setAttribute("category", categoryList);
-}
-*/
 
 // =====================================================================================	
 // 두번째 작업으로 고객이 처음 마주할 때 첫화면을 랜덤으로 카테고리 하나 선택 후 'category' 변수에 담아서 메뉴 리스트를 뽑는다.
@@ -132,7 +115,6 @@ td {
 					<h1>${randomCategory}</h1>
 				</c:otherwise>
 			</c:choose>
-
 		</div>
 
 		<div id="main" style="display: flex; flex-wrap: wrap;">
@@ -216,7 +198,8 @@ td {
 						</ul>
 					</section>
 				</div>
-
+				<!-- categories -->
+				
 			</div>
 		</footer>
 
@@ -327,5 +310,6 @@ td {
 		src="${pageContext.request.contextPath}/order_assets/js/util.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
+
 </body>
 </html>
