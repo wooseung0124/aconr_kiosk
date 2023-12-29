@@ -1624,11 +1624,11 @@ input, select, textarea {
 				background-size: cover;
 				content: '';
 				display: block;
-				height: 400px;
+				height: 100%;
 				left: 0;
 				position: absolute;
 				top: 0;
-				width: 400px;
+				width: 100%;
 			}
 
 			#main .thumb > .image {
@@ -1657,7 +1657,7 @@ input, select, textarea {
 			#main .thumb > p {
 				display: none;
 			}
-	
+
 		#main:after {
 			pointer-events: none;
 			-moz-transition: opacity 0.5s ease, visibility 0.5s;
@@ -1706,7 +1706,7 @@ input, select, textarea {
 			transition-delay: 2.525s;
 			height: calc(40vh - 2em);
 			min-height: 20em;
-			width: 100%;
+			width: 25%;
 		}
 
 			#main .thumb:nth-child(1) {
