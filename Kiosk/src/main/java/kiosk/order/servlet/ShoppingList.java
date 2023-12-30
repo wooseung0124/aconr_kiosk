@@ -21,13 +21,15 @@ public class ShoppingList extends HttpServlet{
 		List<OrderDto> shoplist=(List<OrderDto>) req.getSession().getAttribute("shoplist");
 		
 		if(shoplist==null) {	
-			 RequestDispatcher rd = req.getRequestDispatcher("/customer/index.jsp");
+			
+			  RequestDispatcher rd=req.getRequestDispatcher("/customer/menu");
 		      rd.forward(req, resp);
+		      return;
 		}
 		
 		  req.setAttribute("shoplist", shoplist);
 		 
-		  RequestDispatcher rd = req.getRequestDispatcher("/customer/shoppingtest.jsp");
+		  RequestDispatcher rd = req.getRequestDispatcher("/customer/basket.jsp");
 	      rd.forward(req, resp);
 
 	}

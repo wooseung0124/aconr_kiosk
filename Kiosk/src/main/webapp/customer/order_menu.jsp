@@ -1,3 +1,4 @@
+<%@page import="kiosk.order.dto.OrderDto"%>
 <%@page import="kiosk.menu.dto.MenuDto"%>
 <%@page import="kiosk.menu.dto.CategoryDto"%>
 <%@page import="kiosk.menu.dao.MenuDao"%>
@@ -12,6 +13,7 @@
 // 만약 로그인이 안된 상태로 접근할 경우 예외처리 페이지를 보여줘야 한다.
 String stoNum = (String) session.getAttribute("stoNum");
 String categoryName = request.getParameter("categoryName");
+
 // (작업중)
 
 //=====================================================================================
@@ -32,6 +34,7 @@ List<String> row = new ArrayList<>();
 List<String> sto = new ArrayList<>();
 List<MenuDto> menuList = new ArrayList<>();
 CategoryDto dto = new CategoryDto();
+
 if (!isEmpty && categoryName == null) {
 	for (CategoryDto tmp : categoryList) {
 		row.add(tmp.getCategory());
@@ -66,6 +69,10 @@ if (!isEmpty && categoryName == null) {
 }
 
 pageContext.setAttribute("randomCategory", randomCategory);
+
+//=====================================================================================	
+// 세번째 작업으로 고객이 원하는 메뉴를 눌러 장바구니를 눌렀을 경우 장바구니 리스트 최신화 및 화면에 정보를 담는다.
+List<OrderDto> shoplist = (List<OrderDto>)session.getAttribute("shoplist");
 %>
 
 <!DOCTYPE html>
@@ -142,12 +149,11 @@ td {
 										alt="" /></a>
 								</c:otherwise>
 							</c:choose>
-							<form action="javascript:" method="post" class="shopping">
-								<h2 type="text" class="name" name="name">${tmp.name}</h2>
-								<h3 type="text" class="description" name="description">${tmp.description}</h3>
-								<h3 type="text" class="price" name="price">${tmp.price}원</h3>
-								<button type="submit">장바구니 추가</button>
-							</form>
+							<h2 id="name">${tmp.name}</h2>
+							<h3>${tmp.description}</h3>
+							<h3>${tmp.price}원</h3>
+							<button onclick="basketBtn('${tmp.name}','${tmp.price}','${tmp.category}')">장바구니 추가</button>
+
 						</article>
 					</c:forEach>
 				</c:otherwise>
@@ -220,8 +226,9 @@ td {
 							</thead>
 							
 							<tbody>
+
 							<!-- 이거 자체 테스트입니다. 다 바꿔야 합니다. -->
-								<c:forEach var="tmp" items="${menuList}">
+								<c:forEach var="tmp" items="${shoplist}">
 									<tr class="shopping-menu">
 										<td class="name">${tmp.name}</td>
 										<td>
@@ -234,7 +241,7 @@ td {
 										<td><button class="shopping-delete">X</button></td>
 									</tr>
 								</c:forEach>
-								
+	
 							</tbody>
 							
 							<tfoot>
@@ -295,8 +302,20 @@ td {
 		src="${pageContext.request.contextPath}/order_assets/js/util.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
-		
+	
 	<script>
+	function basketBtn(name, price, category) {
+		
+		fetch("${pageContext.request.contextPath}/customer/data.jsp?name="+name+"&price="+price)
+		.then(res=>res.json())
+		.then(data=>{
+			// 웹브라우저 F12에서 콘솔메시지 확인 가능
+			let shoplist = data.shoplist
+			console.log(shoplist);
+			href="${pageContext.request.contextPath}/customer/order_menu.jsp?categoryName="+category
+		})
+	}; // function basketBtn
+	
 	/*
 	<tbody>
 	<!-- 이거 자체 테스트입니다. 다 바꿔야 합니다. -->
@@ -325,6 +344,7 @@ td {
 	========================================= */
 	
 	// 고객이 특정 메뉴의 장바구니를 눌렀을 경우 시작
+	
 	
 	let listTotal = document.querySelector("#shopping-total");
 	let LT = listTotal.innerText; // 이건 총액 값 초기화
@@ -381,6 +401,5 @@ td {
 	// 그리고 현재 페이지 reload
 		
 	</script>
-
 </body>
 </html>

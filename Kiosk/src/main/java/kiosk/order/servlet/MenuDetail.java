@@ -29,7 +29,7 @@ public class MenuDetail extends HttpServlet{
 		MenuDto dto=MenuDao.getInstance().getdata(udto);
 		
 		req.setAttribute("menudto", dto);
-		RequestDispatcher rd=req.getRequestDispatcher("/customer/detailTest.jsp");
+		RequestDispatcher rd=req.getRequestDispatcher("/customer/menu.jsp");
 		rd.forward(req, resp);
 	}
 }

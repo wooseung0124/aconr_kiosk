@@ -241,7 +241,7 @@ public class MenuDao {
 		}
 	}
 	
-	//상품목록 하나 가져오기  (stoNum 매개변수 추가예정)
+
 	public MenuDto getdata(UpdateMenuDto udto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -257,10 +257,11 @@ public class MenuDao {
 			pstmt = conn.prepareStatement(sql);
 			//? 에 바인딩할 내용이 있으면 여기서 한다.
 			
+
 			pstmt.setString(1, udto.getName());
 			pstmt.setString(2, udto.getStoNum());
 			
-		
+
 
 			//query 문 수행하고 결과(ResultSet) 얻어내기
 			rs = pstmt.executeQuery();
@@ -291,7 +292,6 @@ public class MenuDao {
 		}
 		return dto;
 	}
-	
 	//상품목록 전체 가져오기 ? 아직 사용할지는 미정
 	public List<MenuDto> getList(){
 		Connection conn = null;

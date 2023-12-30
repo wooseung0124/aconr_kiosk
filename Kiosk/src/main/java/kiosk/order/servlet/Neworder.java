@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import kiosk.order.dao.OrderDao;
 import kiosk.order.dto.OrderDto;
 
-@WebServlet("/customer/order")
-public class Order extends HttpServlet {
+@WebServlet("/customer/neworder")
+public class Neworder extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
@@ -23,7 +23,7 @@ public class Order extends HttpServlet {
 		
 		if(req.getSession().getAttribute("shoplist")==null) {
 			String url = req.getContextPath();
-			resp.sendRedirect(url+"/cutomer/menu");
+			resp.sendRedirect(url+"/cutomer/order_menu.jsp");
 			return;
 		}
 		
@@ -63,7 +63,7 @@ public class Order extends HttpServlet {
 
 			req.getSession().removeAttribute("shoplist");
 			
-			RequestDispatcher rd=req.getRequestDispatcher("/customer/main.jsp");
+			RequestDispatcher rd=req.getRequestDispatcher("/customer/order_menu.jsp");
 		    rd.forward(req, resp);
 	
 	}

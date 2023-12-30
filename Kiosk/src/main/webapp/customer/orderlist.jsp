@@ -18,10 +18,10 @@ List<OrderDto> list =(List<OrderDto>)request.getAttribute("orderlist");
 <meta charset="UTF-8">
 <title>주문 목록 테스트</title>
 <style>
- .container{
-    text-align: center;
-    
- }
+	.container{
+		justify-content:center;
+		text-align: center;
+	}
 </style>
 </head>
 <body>
@@ -62,7 +62,9 @@ List<OrderDto> list =(List<OrderDto>)request.getAttribute("orderlist");
 				<th>합계</th>
 				
 				<td><%=total%></td>
-				<td><a href="pay.jsp">결제하기</a></td>
+				<td>
+				<a href="${pageContext.request.contextPath}/customer/pay">결제</a>
+				</td>
 			</tr>
 		</tfoot>
 

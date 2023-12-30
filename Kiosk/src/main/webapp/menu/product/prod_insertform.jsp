@@ -10,6 +10,7 @@
 	String stoNum=(String)session.getAttribute("stoNum");
 	
 	MenuDto dto = new MenuDto();
+	
 %>    
 <!DOCTYPE html>
 <html>
@@ -203,7 +204,29 @@
 			    e.target.reportValidity();
 			    small.innerText = "메뉴이름을 다시 입력해주세요";
 		    }
-		    checkForm();	
+		 
+		  //fetch() 함수를 이용해서 get 방식으로 입력한 이메일을 보내고 사용가능 여부를 json 으로 응답받는다.
+			//todo 이부분의 jsp를 만들어야한다.
+			fetch("${pageContext.request.contextPath}/menu/check_name.jsp?name="+e.target.value)
+			.then(res=>res.json())
+			.then(data=>{
+				//data 는 {canUse:true} or {canUse:false} 형태의 object 이다.
+				if(data.canUse){
+					//사용할수 있는 메뉴이름 이라는 의미에서 true 를 넣어준다.
+					isNameValid=true;
+					e.target.setCustomValidity("");
+					small.innerText = "사용 가능한 메뉴 입니다.";
+					
+				}else{
+					//사용할수 없는 메뉴이름이라는 의미에서 false 를 넣어준다.
+					isNameValid=false;
+					e.target.setCustomValidity("중복된 메뉴이름 입니다");
+					e.target.reportValidity();
+					small.innerText = "중복된 메뉴이름 입니다";
+				}
+				checkForm();
+			});
+		    
 		});
 		//카테고리 유효성 검사
 		const reg_category=  /\S+/;
@@ -252,6 +275,9 @@
 		    }
 		    checkForm();	
 		});
+		
+		
+		
 	</script>
 	
 </body>
