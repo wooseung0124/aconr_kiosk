@@ -152,7 +152,7 @@ td {
 							<h3>${tmp.description}</h3>
 							<h3>${tmp.price}원</h3>
 							
-							<button onclick="basketBtn('${tmp.name}','${tmp.price}')">장바구니 추가</button>
+							<button onclick="insertBtn('${tmp.name}','${tmp.price}')">장바구니 추가</button>
 
 						</article>
 					</c:forEach>
@@ -307,11 +307,11 @@ td {
 	<script
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
 
-	<script>
+	<script> // ========= 장바구니 (session 정보)관리 =========
     
- 	function basketBtn(name, price) {
+ 	function insertBtn(name, price) {
 		
-		fetch("${pageContext.request.contextPath}/customer/data.jsp?name="+name+"&price="+price)
+		fetch("${pageContext.request.contextPath}/customer/data_insert.jsp?name="+name+"&price="+price)
 		.then(res=>res.json()) // 페이지 전환없이 응답하는 일반적인 방법 : JSON 문자열
 		.then(data=>{ // json String 을 javascript object로 바꾸고 data 매개변수로 들어옴
 			
@@ -348,6 +348,20 @@ td {
 			return false;
 		} // else
 	}; // function deleteBtn
+	
+	function updateBtn(name, count){
+		
+		console.log(name, count);
+		
+		fetch("${pageContext.request.contextPath}/customer/data_update.jsp?name="+name+"&count="+count)
+		.then(res=>res.json())
+		.then(data=>{
+			
+			// 웹브라우저 F12에서 콘솔메시지 확인 가능
+			console.log(data.isSuccess);
+			
+		})// .then(data)
+	}; // function updateBtn
 
 	// 장바구니 테이블(<tbody id="shopList-table">)의 <tr>
 	document.querySelectorAll(".shopList-table-row").forEach((menu)=>{
@@ -365,16 +379,22 @@ td {
         
         console.log("Name:", name, "Count:", count, "Price:", price, "Total:", total);
         
+        let menuOfChoice = name.innerText; // 메뉴이름
+        
     	let resultCount = count.innerText; // 맨처음 장바구니 들어왔을 때 1로 초기화
         count.innerText = resultCount + "원";
     	
-    	let resultPrice = price.innerText;; // 맨처음 장바구니 들어왔을 때 1개당 가격 초기화
+    	let resultPrice = price.innerText; // 맨처음 장바구니 들어왔을 때 1개당 가격 초기화
     	price.innerText = resultPrice + "원";
     		
     	let calculation = resultPrice; // 각 메뉴별로 수량*가격을 알아내기 위한 변수
     	
     	let resultTotal = total.innerText;; // 결과값
-    	total.innerText = resultTotal + "원";
+    	if(resultTotal == null){ // 빈 값인 경우
+    		resultTotal.innerText = resultPrice + "원"
+    	}else{ // 수량 체크시 
+    		total.innerText = price.innerText;
+    	}
     	
     	console.log("resultCount :", resultCount, "resultPrice:", resultPrice, "calculation:", calculation);
     	
@@ -389,6 +409,8 @@ td {
 			resultTotal = calculation * resultCount;
 			total.innerText = resultTotal + "원";
 			
+			updateBtn(menuOfChoice, resultTotal); // session 최신화 : 수량체크
+			
 		}); // minus button
 		
 		plus.addEventListener("click", ()=>{
@@ -398,10 +420,12 @@ td {
 			resultTotal = calculation * resultCount;
 			total.innerText = resultTotal + "원";
 			
+			updateBtn(menuOfChoice, resultTotal); // session 최신화 : 수량체크
 			
 		}); // plus button
 	}); // shopListMenu.forEach
 	
+	// 장바구니 (session 정보)관리
 	</script>
 </body>
 </html>

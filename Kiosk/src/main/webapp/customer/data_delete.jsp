@@ -3,7 +3,8 @@
 <%@ page language="java" contentType="application/json; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-String stoNum = (String) session.getAttribute("stoNum");
+//추가(수정)사항 : tableNum => 유저ID
+
 int tableNum = 1; // 테이블 좌석(테스트코드)
 String menu = request.getParameter("menu");
 
