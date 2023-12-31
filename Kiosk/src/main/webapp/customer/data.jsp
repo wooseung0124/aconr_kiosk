@@ -8,99 +8,58 @@
 <%@ page language="java" contentType="application/json; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
-// OrderDto 배치순
 String stoNum = (String) session.getAttribute("stoNum");
 int tableNum = 1; // 테이블 좌석(테스트코드)
 String name = request.getParameter("name");
 int price = Integer.parseInt(request.getParameter("price")) ;
-int count=1; // 수량
+boolean isSuccess = false;
+List<OrderDto> shopList = (List<OrderDto>)session.getAttribute("shopList");
+System.out.println("data.jsp-json => name: " + name + ", price: " + price + ", shoplist: "+shopList);
 
-List<OrderDto> shoplist = (List<OrderDto>)session.getAttribute("shoplist");
-System.out.println("data.jsp-json => name: " + name + ", price: " + price + ", shoplist: "+shoplist);
-OrderDao dao = OrderDao.getInstance(); // 혹시 모르니
-
-if(shoplist == null){
+if(shopList == null){
 	System.out.println("data.jsp-json => shoplist = null");
-    shoplist = new ArrayList<OrderDto>();
+    shopList = new ArrayList<OrderDto>();
     
- 	// 첫 장바구니 작동시작(OrderDto 배치순)
+ 	// 첫 장바구니 작동시작
     OrderDto dto = new OrderDto();
    	dto.setStoNum(stoNum);
    	dto.setTableNum(tableNum);
     dto.setMenu(name);
     dto.setPrice(price);
-    dto.setCount(count);
-    shoplist.add(dto);
+    dto.setCount(1);
+    shopList.add(dto);
+    
+    session.setAttribute("shopList", shopList);
+    isSuccess = true;
+    
+} else {
+    System.out.println("data.jsp-json => shopList = " + shopList);
 
-    session.setAttribute("shoplist", shoplist);
-}else{
-	try {
-		System.out.println("data.jsp-json => shoplist = "+shoplist);
+    boolean found = false;
+    for (OrderDto order : shopList) {
+        if (order.getMenu().equals(name)) {
+            // 이미 존재하는 경우 넘어가기, 수량은 자바스크립트로 처리한다.
+            // order.setCount(order.getCount() + 1);
+            found = true;
+            isSuccess = false;
+            break;
+        }
+    }
 
-	    for (OrderDto order : shoplist) {
-	        if (order.getMenu().equals(name)) {
-	            // 이미 존재하는 경우 카운트만 1 증가시킨다.
-	            order.setCount(order.getCount() + 1);
-	            session.setAttribute("shoplist", shoplist); // 수정 후에 세션에 다시 저장
-	        }
-	    } // for문
+    if (!found) {
+        // 장바구니에 계속 다른 상품 담기
+        OrderDto dto = new OrderDto();
+        dto.setStoNum(stoNum);
+        dto.setTableNum(tableNum);
+        dto.setMenu(name);
+        dto.setPrice(price);
+        dto.setCount(1);
+        shopList.add(dto);
+        isSuccess = true;
+    }
 
-	    // 새로 추가한 거 담기(OrderDto 배치순)
-		OrderDto dto = new OrderDto();
-   		dto.setStoNum(stoNum);
-   		dto.setTableNum(tableNum);
-    	dto.setMenu(name);
-    	dto.setPrice(price);
-    	dto.setCount(count);
-    	shoplist.add(dto);
-
-	    session.setAttribute("shoplist", shoplist);
-
-	} catch (Exception e) {
-	    e.printStackTrace();
-	}
-
-	
+    session.setAttribute("shopList", shopList);
+    System.out.println("data.jsp-json => isSuccesst = " + isSuccess);
 } // else
 %>
-{"shoplist":"<%= shoplist %>"} 
-
-<%-- =============================
-git fetch + merge 이후 이전 코드들 
-
-<%
-    String name = request.getParameter("name");
-	int price = Integer.parseInt(request.getParameter("price")) ;
-	int count=1;
-
-	List<OrderDto> shoplist = (List<OrderDto>) session.getAttribute("shoplist");
-	
-	if(shoplist == null){
-        shoplist = new ArrayList<OrderDto>();
-        session.setAttribute("shoplist", shoplist);
-	}else{
-		// 세션에 동일한 이름이 있으면 
-        for (OrderDto order : shoplist) {
-            if (order.getMenu().equals(name)) {
-                // 이미 존재하는경우 카운트만 1 증가시킨다.
-                order.setCount(order.getCount() + 1);
-               
-            }
-            session.setAttribute("shoplist", shoplist);
-        }   
-		
-		OrderDto dto = new OrderDto();
-        dto.setMenu(name);
-        dto.setCount(count);
-        dto.setPrice(price);
-  
-        shoplist.add(dto);
-        session.setAttribute("shoplist", shoplist);
-	}
-	
-    System.out.println("name:" + name + "price:" + price);
-    // name이 null이거나 값이 없는 경우에 대한 예외 처리
-%> 
-
-============================= --%>
- 
+{"isSuccess":"<%= isSuccess %>"}

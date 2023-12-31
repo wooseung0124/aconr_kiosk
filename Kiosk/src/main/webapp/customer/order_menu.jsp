@@ -55,9 +55,9 @@ if (!isEmpty && categoryName == null) {
 	//카테고리이름에 해당하는 것만 가져오게하면됨 
 	for (CategoryDto tmp : categoryList) {
 		if (tmp.getCategory().equals(categoryName)) {
-			row.add(tmp.getCategory());
-			sto.add(tmp.getStoNum());
-			break;
+	row.add(tmp.getCategory());
+	sto.add(tmp.getStoNum());
+	break;
 		}
 	}
 	randomCategory = row.get(0);
@@ -71,8 +71,6 @@ if (!isEmpty && categoryName == null) {
 pageContext.setAttribute("randomCategory", randomCategory);
 
 //=====================================================================================	
-// 세번째 작업으로 고객이 원하는 메뉴를 눌러 장바구니를 눌렀을 경우 장바구니 리스트 최신화 및 화면에 정보를 담는다.
-List<OrderDto> shoplist = (List<OrderDto>)session.getAttribute("shoplist");
 %>
 
 <!DOCTYPE html>
@@ -127,7 +125,8 @@ td {
 			<!-- 첫화면 접속시 작동할 코드 -->
 			<c:choose>
 				<c:when test="${empty menuList}">
-					<img src="${pageContext.request.contextPath}/images/empty.jpg" alt="" />
+					<img src="${pageContext.request.contextPath}/images/empty.jpg"
+						alt="" />
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="tmp" items="${menuList}">
@@ -152,7 +151,8 @@ td {
 							<h2 id="name">${tmp.name}</h2>
 							<h3>${tmp.description}</h3>
 							<h3>${tmp.price}원</h3>
-							<button onclick="basketBtn('${tmp.name}','${tmp.price}','${tmp.category}')">장바구니 추가</button>
+							
+							<button onclick="basketBtn('${tmp.name}','${tmp.price}')">장바구니 추가</button>
 
 						</article>
 					</c:forEach>
@@ -206,7 +206,7 @@ td {
 					</section>
 				</div>
 				<!-- categories -->
-				
+
 			</div>
 		</footer>
 
@@ -216,7 +216,6 @@ td {
 					<section>
 						<h2>장바구니 목록</h2>
 						<table>
-						
 							<thead>
 								<td>메뉴 이름</td>
 								<td>수량</td>
@@ -225,24 +224,30 @@ td {
 								<td>삭제</td>
 							</thead>
 							
+							<!-- 동작원리 : jsp을 활용한 session 저장, 자바스크립트로 브라우저 최신화 -->
 							<tbody>
-
-							<!-- 이거 자체 테스트입니다. 다 바꿔야 합니다. -->
-								<c:forEach var="tmp" items="${shoplist}">
-									<tr class="shopping-menu">
-										<td class="name">${tmp.name}</td>
+							
+							<tbody id="shopList-table">
+								<c:if test="${sessionScope.shopList ne null}">
+									<c:forEach var="tmp" items="${sessionScope.shopList}">
+									<tr class="shopList-table-row">
+										<td class="name">${tmp.menu}</td>
 										<td>
 											<button class="minus">-</button>
-											<span class="count">1<!-- (수량 바꾸기) --></span>
+											<span class="count">${tmp.count}</span>
 											<button class="plus">+</button>
 										</td>
 										<td class="price">${tmp.price}</td>
-										<td class="total">총액 <!-- 계산하는 곳 --></td>
-										<td><button class="shopping-delete">X</button></td>
+										<td class="total"></td>
+										<td><button 
+										class="shopping-delete"
+										onclick="deleteBtn('${tmp.menu}')"
+										>X</button>
+										</td>
 									</tr>
 								</c:forEach>
-	
-							</tbody>
+								</c:if>
+							</tbody>							
 							
 							<tfoot>
 								<tr>
@@ -251,7 +256,6 @@ td {
 									<td><button id="order-button">주문하기</button></td>
 								</tr>
 							</tfoot>
-							
 						</table>
 
 					</section>
@@ -302,104 +306,102 @@ td {
 		src="${pageContext.request.contextPath}/order_assets/js/util.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
-	
+
 	<script>
-	function basketBtn(name, price, category) {
+    
+ 	function basketBtn(name, price) {
 		
 		fetch("${pageContext.request.contextPath}/customer/data.jsp?name="+name+"&price="+price)
-		.then(res=>res.json())
-		.then(data=>{
+		.then(res=>res.json()) // 페이지 전환없이 응답하는 일반적인 방법 : JSON 문자열
+		.then(data=>{ // json String 을 javascript object로 바꾸고 data 매개변수로 들어옴
+			
 			// 웹브라우저 F12에서 콘솔메시지 확인 가능
-			let shoplist = data.shoplist
-			console.log(shoplist);
-			href="${pageContext.request.contextPath}/customer/order_menu.jsp?categoryName="+category
-		})
+			console.log(data.isSuccess);
+			
+			if(JSON.parse(data.isSuccess)){ // 이렇게 해야 값을 가지고 활용가능
+				alert("장바구니에 추가했습니다.")
+			}else{
+				alert("이미 장바구니에 추가했습니다.")
+			}
+			window.location.href = window.location.href; // 현재 페이지 URL로 재전송(새로고침x, session 정보 최신화)
+			
+		}) // .then(data)
 	}; // function basketBtn
 	
-	/*
-	<tbody>
-	<!-- 이거 자체 테스트입니다. 다 바꿔야 합니다. -->
+	function deleteBtn(menu){
 		
-			<tr class="shopping-menu">
-				<td class="name">${tmp.name}</td>
-				<td class="count">
-					<button class="minus">-</button>
-					<span class="count"><!-- (수량 바꾸기) --></span>
-					<button class="plus">+</button>
-				</td>
-				<td class="price">${tmp.price}원</td>
-				<td class="total">총액 <!-- 계산하는 곳 --></td>
-				<td><button class="shopping-delete">X</button></td>
-			</tr>
-		
-	</tbody>
-	
-	<tfoot>
-		<tr>
-			<td>총합계</td>
-			<td id="shopping-total" colspan='3'>20000원</td>
-			<td><button id="order-button">주문하기</button></td>
-		</tr>
-	</tfoot>
-	========================================= */
-	
-	// 고객이 특정 메뉴의 장바구니를 눌렀을 경우 시작
-	
-	
-	let listTotal = document.querySelector("#shopping-total");
-	let LT = listTotal.innerText; // 이건 총액 값 초기화
+		if (confirm("삭제 하시겠습니까?")) {
+			
+			fetch("${pageContext.request.contextPath}/customer/data_delete.jsp?menu="+menu)
+			.then(res=>res.json())
+			.then(data=>{
+				
+				// 웹브라우저 F12에서 콘솔메시지 확인 가능
+				console.log(data.isSuccess);
+				alert("삭제되었습니다.")
+				
+				window.location.href = window.location.href; // 현재 페이지 URL로 재전송(새로고침x, session 정보 최신화)
+				
+			})// .then(data)
+			
+		}else {
+			return false;
+		} // else
+	}; // function deleteBtn
 
-		document.querySelectorAll(".shopping-menu").forEach((menu)=>{
-			// 메뉴 1개당 정보
-			let name = menu.querySelector(".name");
-			let count = menu.querySelector(".count");
-			let minus = menu.querySelector(".minus");
-			let plus = menu.querySelector(".plus");
-			let price = menu.querySelector(".price");
-			let total = menu.querySelector(".total");
-			
-			let num = count.innerText; // 맨처음 장바구니 들어왔을 때 1로 초기화
-			
-			let p = price.innerText; // 맨처음 장바구니 들어왔을 때 1개당 가격 초기화
-			price.innerText = p+"원";
-			
-			let calculation = p; // 각 메뉴별로 수량*가격
-			total.innerText = calculation+"원";
-			
-			LT = calculation;
-			listTotal.innerText = LT+"원";
-			
-			minus.addEventListener("click", ()=>{
-				
-				if(num > 1){
-					num --;
-				}
-				
-				count.innerText = num;
-				total.innerText = calculation * num + "원";
-				
-				
-			}); // minus button
-			
-			plus.addEventListener("click", ()=>{
-				num ++;
-				
-				count.innerText = num;
-				total.innerText = calculation * num + "원";
-				
-				
-			}); // plus button
-		});
+	// 장바구니 테이블(<tbody id="shopList-table">)의 <tr>
+	document.querySelectorAll(".shopList-table-row").forEach((menu)=>{
+		// 메뉴 1개당 정보
 		
-	document.querySelector("#order-button").addEventListener("click", ()=>{
-		// 
-	})
+		// 값 적용하기
+		let name = menu.querySelector(".name")
+	    let count = menu.querySelector(".count")
+	    let price = menu.querySelector(".price")
+	    let total = menu.querySelector(".total")
+	    
+	    // 버튼객체 값 적용하기
+		let minus = menu.querySelector(".minus");
+        let plus = menu.querySelector(".plus");
+        
+        console.log("Name:", name, "Count:", count, "Price:", price, "Total:", total);
+        
+    	let resultCount = count.innerText; // 맨처음 장바구니 들어왔을 때 1로 초기화
+        count.innerText = resultCount + "원";
+    	
+    	let resultPrice = price.innerText;; // 맨처음 장바구니 들어왔을 때 1개당 가격 초기화
+    	price.innerText = resultPrice + "원";
+    		
+    	let calculation = resultPrice; // 각 메뉴별로 수량*가격을 알아내기 위한 변수
+    	
+    	let resultTotal = total.innerText;; // 결과값
+    	total.innerText = resultTotal + "원";
+    	
+    	console.log("resultCount :", resultCount, "resultPrice:", resultPrice, "calculation:", calculation);
+    	
+    	
+    	minus.addEventListener("click", ()=>{
+    		
+			if(resultCount > 1){
+				resultCount --;
+			}
+			
+			count.innerText = resultCount + "원";
+			resultTotal = calculation * resultCount;
+			total.innerText = resultTotal + "원";
+			
+		}); // minus button
+		
+		plus.addEventListener("click", ()=>{
+			resultCount ++;
+			
+			count.innerText = resultCount + "원";
+			resultTotal = calculation * resultCount;
+			total.innerText = resultTotal + "원";
+			
+			
+		}); // plus button
+	}); // shopListMenu.forEach
 	
-	// fetch()
-	// order 메뉴를 jsp에 전달 후 그곳에서 request 혹은 session 으로 dto와 list 저장
-	// 여기는 그냥 fetch 함수 data 잘 받아왔는지 확인하는 정도로 끝내기
-	// 그리고 현재 페이지 reload
-		
 	</script>
 </body>
 </html>
