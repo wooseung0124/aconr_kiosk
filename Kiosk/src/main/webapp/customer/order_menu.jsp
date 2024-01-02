@@ -83,9 +83,20 @@ pageContext.setAttribute("randomCategory", randomCategory);
 		href="${pageContext.request.contextPath}/order_assets/css/noscript.css" />
 </noscript>
 <style>
-td {
-	text-align: center;
-}
+	td {
+		text-align: center;
+	}
+	.thumb{
+	  position: relative;
+      display: inline-block;
+	}
+    .overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: block;
+    }
 </style>
 </head>
 <body class="is-preload">
@@ -130,11 +141,10 @@ td {
 							style="width: 25%; box-sizing: border-box; padding: 10px; display: inline-block;">
 							<c:choose>
 								<c:when test="${tmp.imageUrl eq null}">
-									<a
-										href="${pageContext.request.contextPath}/images/fulls/prepare.jpg"
-										class="image"><img
-										src="${pageContext.request.contextPath}/images/fulls/prepare.jpg"
-										alt="" /></a>
+									href="${pageContext.request.contextPath}/images/fulls/prepare.jpg"
+									class="image"><img
+									src="${pageContext.request.contextPath}/images/fulls/prepare.jpg"
+									alt="" /></a>
 								</c:when>
 								<c:otherwise>
 									<a
@@ -144,6 +154,12 @@ td {
 										alt="" /></a>
 								</c:otherwise>
 							</c:choose>
+							
+							
+							<c:if test="${tmp.sell eq 'YES'}">
+								<img src="${pageContext.request.contextPath}/images/sell2.png" alt="덮어쓸 이미지" class="overlay" id="overlayImage" width="200px" height="200px">	
+							</c:if>
+							
 							<h2 id="name">${tmp.name}</h2>
 							<h3>${tmp.description}</h3>
 							<h3>${tmp.price}원</h3>
@@ -293,6 +309,22 @@ td {
 
 	<script>
 	
+	  // JavaScript를 사용하여 덮어쓸 이미지를 표시하거나 숨깁니다.
+	 
+	  /*
+	  window.onload = function() {
+		  // 모든 .thumb 요소를 찾습니다.
+		  var thumbs = document.querySelectorAll(".thumb");
+		  
+		  // 각 .thumb 요소에 대해 반복합니다.
+		  thumbs.forEach(function(thumb) {
+		    // 현재 요소에서 overlay 클래스를 찾아오고 보이도록 설정합니다.
+		    
+		    var overlay = thumb.querySelector(".overlay");
+		    overlay.style.display = 'block';
+		  });
+		};
+	  */
 	document.querySelectorAll(".shopping").forEach((form)=>{
 		
 		let name = form.querySelector(".name").innerText;
