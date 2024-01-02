@@ -254,9 +254,9 @@ td {
 									<td>총합계</td>
 									<td id="shopping-total" colspan='3'></td>
 									<td>
-										<a href="${pageContext.request.contextPath}/customer/order.jsp">
-											<button id="order-button">주문하기</button>
-										</a>
+										<button id="order-button">
+											<a href="${pageContext.request.contextPath}/customer/order.jsp">주문하기</a>
+										</button>
 									</td>
 								</tr>
 							</tfoot>
