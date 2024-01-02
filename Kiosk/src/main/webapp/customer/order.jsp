@@ -6,6 +6,7 @@
 <%
 boolean isSuccess = true;
 List<OrderDto> shopList = (List<OrderDto>)session.getAttribute("shopList");
+if(shopList.isEmpty()) isSuccess = false;
 int totalPrice = 0;
 for(OrderDto item : shopList){
 	totalPrice += item.getCount() * item.getPrice();
