@@ -103,7 +103,7 @@ td {
 			</h1>
 			<nav>
 				<ul>
-					<li><a href="#footer2">장바구니</a></li>
+					<li><a href="#footer2" id="shopping-basket-btn">장바구니</a></li>
 					<li><a href="#footer" class="icon solid fa-info-circle">Category</a></li>
 				</ul>
 			</nav>
@@ -252,8 +252,12 @@ td {
 							<tfoot>
 								<tr>
 									<td>총합계</td>
-									<td id="shopping-total" colspan='3'>20000원</td>
-									<td><button id="order-button">주문하기</button></td>
+									<td id="shopping-total" colspan='3'></td>
+									<td>
+										<a href="${pageContext.request.contextPath}/customer/order.jsp">
+											<button id="order-button">주문하기</button>
+										</a>
+									</td>
 								</tr>
 							</tfoot>
 						</table>
@@ -307,8 +311,8 @@ td {
 	<script
 		src="${pageContext.request.contextPath}/order_assets/js/main.js"></script>
 
-	<script> // ========= 장바구니 (session 정보)관리 =========
-    
+	<!-- Scripts 장바구니 (session 정보)관리 -->
+	<script>
  	function insertBtn(name, price) {
 		
 		fetch("${pageContext.request.contextPath}/customer/data_insert.jsp?name="+name+"&price="+price)
@@ -360,6 +364,10 @@ td {
 			// 웹브라우저 F12에서 콘솔메시지 확인 가능
 			console.log(data.isSuccess);
 			
+			// 여기서는 웹브라우저가 새로고침되는 개념이 아니다.
+			// 웹브라우저에서 즉각적으로 수량 체크를 응답하는 동안 session 에서 정보를 담아두었다가
+			// 다른 카테고리를 누르거나 구매하기 누르면 저장된 session 정보로 전달된다.
+			
 		})// .then(data)
 	}; // function updateBtn
 
@@ -382,50 +390,79 @@ td {
         let menuOfChoice = name.innerText; // 메뉴이름
         
     	let resultCount = count.innerText; // 맨처음 장바구니 들어왔을 때 1로 초기화
-        count.innerText = resultCount + "원";
+        count.innerText = resultCount;
     	
     	let resultPrice = price.innerText; // 맨처음 장바구니 들어왔을 때 1개당 가격 초기화
     	price.innerText = resultPrice + "원";
-    		
+    	
     	let calculation = resultPrice; // 각 메뉴별로 수량*가격을 알아내기 위한 변수
     	
     	let resultTotal = total.innerText;; // 결과값
     	if(resultTotal == null){ // 빈 값인 경우
     		resultTotal.innerText = resultPrice + "원"
-    	}else{ // 수량 체크시 
-    		total.innerText = price.innerText;
+    	}else{ // 이미 수량 체크한 이력이 있는 경우
+    		resultTotal = calculation * resultCount;
+            total.innerText = resultTotal + "원";
     	}
     	
     	console.log("resultCount :", resultCount, "resultPrice:", resultPrice, "calculation:", calculation);
     	
     	
-    	minus.addEventListener("click", ()=>{
-    		
-			if(resultCount > 1){
-				resultCount --;
-			}
-			
-			count.innerText = resultCount + "원";
-			resultTotal = calculation * resultCount;
-			total.innerText = resultTotal + "원";
-			
-			updateBtn(menuOfChoice, resultTotal); // session 최신화 : 수량체크
-			
-		}); // minus button
+    	minus.addEventListener("click", () => {
+            if (resultCount > 1) {
+                resultCount--;
+                count.innerText = resultCount;
+                resultTotal = calculation * resultCount;
+                total.innerText = resultTotal + "원";
+                updateBtn(menuOfChoice, resultCount); // session 최신화 : 수량체크
+                
+                updateShoppingTotal(); // 총합계 업데이트
+            }
+        }); // minus button
 		
-		plus.addEventListener("click", ()=>{
-			resultCount ++;
-			
-			count.innerText = resultCount + "원";
-			resultTotal = calculation * resultCount;
-			total.innerText = resultTotal + "원";
-			
-			updateBtn(menuOfChoice, resultTotal); // session 최신화 : 수량체크
-			
-		}); // plus button
+        plus.addEventListener("click", () => {
+            resultCount++;
+            count.innerText = resultCount;
+            resultTotal = calculation * resultCount;
+            total.innerText = resultTotal + "원";
+            updateBtn(menuOfChoice, resultCount); // session 최신화 : 수량체크
+            
+            updateShoppingTotal(); // 총합계 업데이트
+        }); // plus button
 	}); // shopListMenu.forEach
-	
-	// 장바구니 (session 정보)관리
 	</script>
+	<!-- Scripts 장바구니 (session 정보)관리 -->
+	
+	<!-- Scripts 총금액 관리 -->
+	<script> 
+	// 총합계 업데이트 함수
+	function updateShoppingTotal() {
+	    let total = 0;
+
+	    document.querySelectorAll(".shopList-table-row").forEach((menu) => {
+	        let totalCell = menu.querySelector(".total");
+	        if (totalCell) {
+	            total += parseInt(totalCell.innerText);
+	        }
+	    });
+
+	    let shoppingTotal = document.querySelector("#shopping-total");
+	    if (shoppingTotal) {
+	        shoppingTotal.innerText = total + "원";
+	    }
+	}
+	
+	// shopping-basket-btn 클릭 이벤트
+	document.querySelector("#shopping-basket-btn").addEventListener("click", () => {
+	    // 장바구니 버튼 클릭 시 총합계 업데이트
+	    updateShoppingTotal();
+	});
+	
+	// 페이지 로드 시에도 총합계 업데이트
+	document.addEventListener("DOMContentLoaded", () => {
+	    updateShoppingTotal();
+	});
+	</script>
+	<!-- Scripts 총금액 관리 -->
 </body>
 </html>

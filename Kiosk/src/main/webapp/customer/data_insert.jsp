@@ -16,7 +16,7 @@ String name = request.getParameter("name");
 int price = Integer.parseInt(request.getParameter("price"));
 boolean isSuccess = false;
 List<OrderDto> shopList = (List<OrderDto>)session.getAttribute("shopList");
-System.out.println("data.jsp-json => name: " + name + ", price: " + price + ", shoplist: "+shopList);
+System.out.println("data_insert.jsp-json => name: " + name + ", price: " + price + ", shoplist: "+shopList);
 
 if(shopList == null){
 	System.out.println("data.jsp-json => shoplist = null");
@@ -35,7 +35,7 @@ if(shopList == null){
     isSuccess = true;
     
 } else {
-    System.out.println("data.jsp-json => shopList = " + shopList);
+    System.out.println("data_insert.jsp-json => shopList = " + shopList);
 
     boolean found = false;
     for (OrderDto order : shopList) {
@@ -61,7 +61,7 @@ if(shopList == null){
     }
 
     session.setAttribute("shopList", shopList);
-    System.out.println("data.jsp-json => isSuccesst = " + isSuccess);
+    System.out.println("data_insert.jsp-json => isSuccesst = " + isSuccess);
 } // else
 %>
 {"isSuccess":"<%= isSuccess %>"}
