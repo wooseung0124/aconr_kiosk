@@ -142,11 +142,13 @@ pageContext.setAttribute("randomCategory", randomCategory);
 						alt="" />
 				</c:when>
 				<c:otherwise>
+				
 					<c:forEach var="tmp" items="${menuList}">
 						<article class="thumb"
 							style="width: 25%; box-sizing: border-box; padding: 10px; display: inline-block;">
 							<c:choose>
 								<c:when test="${tmp.imageUrl eq null}">
+								<a
 									href="${pageContext.request.contextPath}/images/fulls/prepare.jpg"
 									class="image"><img
 									src="${pageContext.request.contextPath}/images/fulls/prepare.jpg"
@@ -426,7 +428,7 @@ pageContext.setAttribute("randomCategory", randomCategory);
     	
     	
     	minus.addEventListener("click", () => {
-            if (<resultcount></resultcount> > 1) {
+            if (resultcount > 1) {
                 resultCount--;
                 count.innerText = resultCount;
                 resultTotal = calculation * resultCount;
