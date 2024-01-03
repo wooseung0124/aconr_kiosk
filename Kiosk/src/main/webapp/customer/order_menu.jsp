@@ -100,6 +100,8 @@ pageContext.setAttribute("randomCategory", randomCategory);
       left: 50%;
       transform: translate(-50%, -50%);
       display: block;
+      width:100%;
+      height:100%;
     }
 </style>
 </head>
@@ -153,7 +155,7 @@ pageContext.setAttribute("randomCategory", randomCategory);
 								<c:otherwise>
 									<a
 										href="${pageContext.request.contextPath}/upload/${tmp.imageUrl}"
-										class="image"><img
+										class="image"  id="imageLink"><img
 										src="${pageContext.request.contextPath}/upload/${tmp.imageUrl}"
 										alt="" /></a>
 								</c:otherwise>
@@ -161,7 +163,7 @@ pageContext.setAttribute("randomCategory", randomCategory);
 							
 							
 							<c:if test="${tmp.sell eq 'YES'}">
-								<img src="${pageContext.request.contextPath}/images/sell2.png" alt="덮어쓸 이미지" class="overlay" id="overlayImage" width="200px" height="200px">	
+								<img src="${pageContext.request.contextPath}/images/sell2.png" alt="덮어쓸 이미지" class="overlay" id="overlayImage" >	
 							</c:if>
 							
 							<h2 id="name">${tmp.name}</h2>
@@ -222,7 +224,6 @@ pageContext.setAttribute("randomCategory", randomCategory);
 					</section>
 				</div>
 				<!-- categories -->
-
 			</div>
 		</footer>
 
@@ -425,7 +426,7 @@ pageContext.setAttribute("randomCategory", randomCategory);
     	
     	
     	minus.addEventListener("click", () => {
-            if (resultCount > 1) {
+            if (<resultcount></resultcount> > 1) {
                 resultCount--;
                 count.innerText = resultCount;
                 resultTotal = calculation * resultCount;
