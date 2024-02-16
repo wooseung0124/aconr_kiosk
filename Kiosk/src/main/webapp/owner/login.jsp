@@ -1,4 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+	String email = request.getParameter("email");
+	String pwd = request.getParameter("pwd");
+	String isSave = request.getParameter("isSave");
+	if(isSave != null){
+		//아이디 비밀번호를 쿠키로 응답하고 1주일 동안 유지되도록 한다.
+		Cookie cook1 = new Cookie("savedEmail", email);
+		Cookie cook2 = new Cookie("savedPwd", pwd);
+		cook1.setMaxAge(60*60*24*7);
+		cook2.setMaxAge(60*60*24*7);
+		response.addCookie(cook1);
+		response.addCookie(cook2);
+
+	}else{
+		//특정 키값으로 저장된 쿠키값 삭제하기 (value 에는 아무 값이나 넣어도 상관없다)
+		Cookie cook1 = new Cookie("savedEmail", "");
+		Cookie cook2 = new Cookie("savedPwd", null);
+		cook1.setMaxAge(0);
+		cook2.setMaxAge(0);		
+		response.addCookie(cook1);
+		response.addCookie(cook2);
+	}
+
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +34,7 @@
 <title>/owner/login.jsp</title>
 </head>
 <body class="is-preload">
-
+		
 		<!-- Header -->
 			<header id="header">
 			<c:choose>
@@ -18,7 +44,10 @@
 					회원가입이 완료되었습니다. <br/>
 					이제 저희 서비스를 자유롭게 이용하실 수 있습니다.<br/> 
 					환영합니다!</p>
-					<a href="${pageContext.request.contextPath}/owner/login_form.jsp">로그인 하러 가기</a>
+					<br />
+					<a href="${pageContext.request.contextPath}/menu/menu">메뉴 관리 하러 가기</a>
+					<br /><br />
+					<a href="${pageContext.request.contextPath}/index.jsp">메인 화면으로 가기</a>
 				</c:when>
 				<c:otherwise>
 					<p>
@@ -45,6 +74,5 @@
 
 		<!-- Scripts -->
 			<script src="${pageContext.request.contextPath}/owner_assets/js/main.js"></script>
-
 	</body>
 </html>

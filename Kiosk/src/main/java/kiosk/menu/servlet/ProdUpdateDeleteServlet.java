@@ -17,38 +17,46 @@ import kiosk.menu.dto.MenuDto;
 public class ProdUpdateDeleteServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session =req.getSession();
+		//HttpSession session =req.getSession();
 		MenuDto dto = new MenuDto();
 		String action = req.getParameter("action");
 		
-		String stoNum=(String)session.getAttribute("stoNum");
+		String stoNum=(String)req.getSession().getAttribute("stoNum");
 		String name= req.getParameter("name");
 		int price=Integer.parseInt(req.getParameter("price"));
 		String description=req.getParameter("description");
 		String imageUrl=req.getParameter("imageUrl");
 		String category=req.getParameter("category");
-		System.out.println(imageUrl);
+		String sell=req.getParameter("sell");
 		
-		dto.setStoNum("123-45-6789"); 
+		dto.setStoNum(stoNum);
 		dto.setName(name);
 		dto.setPrice(price);
 		dto.setDescription(description);
 		dto.setImageUrl(imageUrl);
 		dto.setCategory(category);
+		dto.setSell(sell);
 		
+		
+		//jstl을 사용하기 위해서는 request영역에 담는다.
+		req.setAttribute("dto", dto);
+		
+	
 		if(action.equals("수정")) {
 			boolean isSuccess=MenuDao.getInstance().update(dto);
 			//jstl을 사용하기 위해서는 request영역에 담는다.
 			req.setAttribute("isSuccess",isSuccess);
 			req.setAttribute("action", action);
+			System.out.println(isSuccess);
 			
-		}else {
+		}else if(action.equals("삭제")) {
 			boolean isSuccess=MenuDao.getInstance().delete(name);
 			
 			req.setAttribute("isSuccess",isSuccess);
 			req.setAttribute("action", action);
+			System.out.println(isSuccess);
 		}
-	
+
 		
 		RequestDispatcher rd= req.getRequestDispatcher("/menu/product/prod_update_delete.jsp");
 		rd.forward(req,resp);

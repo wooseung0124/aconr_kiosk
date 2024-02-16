@@ -14,11 +14,12 @@
 </head>
 <body>
 
+
 	<c:choose>
 		<c:when test="${isSuccess}"> 
 			<script>
 				alert("상품 등록이 완료되었습니다.")
-				window.location.href = '${pageContext.request.contextPath}/menu/menu.jsp';
+				window.location.href = '${pageContext.request.contextPath}/menu/menu';
 			</script>	
 		</c:when>
 		<c:otherwise>

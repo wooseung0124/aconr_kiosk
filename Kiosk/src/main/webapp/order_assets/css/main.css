@@ -388,7 +388,7 @@ input, select, textarea {
 		height: 3.05556em;
 		letter-spacing: 0.1em;
 		line-height: 3.05556em;
-		padding: 0 2.5em;
+		padding: 0 0.5em;
 		text-align: center;
 		text-decoration: none;
 		text-transform: uppercase;
@@ -1657,7 +1657,7 @@ input, select, textarea {
 			#main .thumb > p {
 				display: none;
 			}
-	
+
 		#main:after {
 			pointer-events: none;
 			-moz-transition: opacity 0.5s ease, visibility 0.5s;

@@ -17,21 +17,20 @@
 			</header>
 
 		<!-- Signup Form -->
-			<form id="signup-form" action="${pageContext.request.contextPath}/owner/signup" method="post" >
+			<form id="signup-form" action="${pageContext.request.contextPath}/owner/signup.jsp" method="post" >
 				<div>
 					<label for="stoNum">사업자 번호</label>
-					<input type="text"  name="stoNum" id="stoNum" placeholder="사업자 번호"/>
+					<input type="text"  name="sto_Num" id="stoNum" placeholder="사업자 번호"/>
 					<small id="smallStoNum">000-00-00000로 숫자로만 10자로 입력해주세요.</small>
-					<!-- 자동 대시 작성 기능 -->
 				</div>
 				<div>
 					<label for="stoName">가게 이름</label>
-					<input type="text" name="stoName" id="stoName" placeholder="가게 이름" />
+					<input type="text" name="sto_Name" id="stoName" placeholder="가게 이름" />
 					<small id="smallStoName">한글로만 30자 이내로 입력해주세요.</small>
 				</div>
 				<div>
 					<label for="oName">사장님 이름</label>
-					<input type="text" name="oName" id="oName" placeholder="사장님 이름" />
+					<input type="text" name="o_Name" id="oName" placeholder="사장님 이름" />
 					<small id="smallOName">한글로 2~4자 이내로 입력해주세요.</small>
 					
 				</div>
@@ -60,6 +59,7 @@
 			<script src="${pageContext.request.contextPath}/owner_assets/js/main.js"></script>
 	
 	</body>
+	
 	<script>
 		let isStoNumValid=false;
 		let isStoNameValid=false;
@@ -173,10 +173,11 @@
 			
 			//fetch() 함수를 이용해서 get 방식으로 입력한 이메일을 보내고 사용가능 여부를 json 으로 응답받는다.
 			//todo 이부분의 jsp를 만들어야한다.
-			fetch("${pageContext.request.contextPath}/user/check_id.jsp?id="+e.target.value)
+			fetch("${pageContext.request.contextPath}/owner/check_id.jsp?email="+e.target.value)
 			.then(res=>res.json())
 			.then(data=>{
 				//data 는 {canUse:true} or {canUse:false} 형태의 object 이다.
+				console.log(data);
 				if(data.canUse){
 					//사용할수 있는 이메일이라는 의미에서 true 를 넣어준다.
 					isEmailValid=true;
@@ -197,7 +198,7 @@
 		//비밀 번호를 검증할 정규 표현식(특수문자 포함여부)
 		const reg_pwd=/[\W]/;
 		//함수를 미리 만들어서 
-		const checkPwd = ()=>{
+		const checkPwd1 = ()=>{
 			//양쪽에 입력한 비밀번호를 읽어와서
 			let pwd=document.querySelector("#pwd");
 			let pwd2=document.querySelector("#pwd2");
@@ -208,16 +209,8 @@
 			if( !reg_pwd.test(pwd.value)){
 				isPwdValid = false;
 				pwd.setCustomValidity("특수문자를 포함해야 합니다.");
-				pwd.reportValidity();
 				pwd2.setCustomValidity("");
-				small.innerText="";
-				checkForm();
-				return;
-			} else if(!reg_pwd.test(pwd2.value)) {
-				isPwdValid = false;
-				pwd2.setCustomValidity("특수문자를 포함해야 합니다.");
-				pwd2.reportValidity();
-				pwd.setCustomValidity("");
+				pwd.reportValidity();
 				small.innerText="";
 				checkForm();
 				return;
@@ -239,10 +232,48 @@
 				small.innerText="";
 			}
 			checkForm();
+			
 		};
 		
-		document.querySelector("#pwd").addEventListener("input", checkPwd);
+		const checkPwd2 = ()=>{
+			//양쪽에 입력한 비밀번호를 읽어와서
+			let pwd=document.querySelector("#pwd");
+			let pwd2=document.querySelector("#pwd2");
+			
+			const small = document.querySelector("#smallPwd");
+			//일단 정규표현식을 만족하는지 확인해서 만족하지 않으면 함수를 여기서 종료
+			//만일 첫번째 비밀번호가 정규표현식을 통과하지 못하거나 또는 두번째 비밀번호가 정규표현식을 통과하지 못한다면
+			if(!reg_pwd.test(pwd2.value)) {
+				isPwdValid = false;
+				pwd2.setCustomValidity("특수문자를 포함해야 합니다.");
+				pwd.setCustomValidity("");
+				pwd2.reportValidity();
+				small.innerText="";
+				checkForm();
+				return;
+			}else {
+				pwd.setCustomValidity("");
+				pwd2.setCustomValidity("");
+			}
+			
+			if(pwd.value == pwd2.value){
+				//비밀번호가 유효 하다는 의미에서 true 를 넣어준다.
+				isPwdValid = true;
+				pwd.setCustomValidity("");
+				small.innerText = "사용 가능한 비밀번호 입니다.";
+			}else{
+				//비밀번호가 유효 하지 않다는 의미에서 false 를 넣어준다.
+				isPwdValid = false;
+				pwd.setCustomValidity("비밀번호가 일치하지 않습니다.");
+				pwd.reportValidity();
+				small.innerText="";
+			}
+			checkForm();
+			
+		};
 		
-		document.querySelector("#pwd2").addEventListener("input", checkPwd);
+		document.querySelector("#pwd").addEventListener("input", checkPwd1);
+		
+		document.querySelector("#pwd2").addEventListener("input", checkPwd2);
 	</script>
 </html>
