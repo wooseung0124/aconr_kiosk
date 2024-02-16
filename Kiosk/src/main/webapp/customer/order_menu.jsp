@@ -9,15 +9,10 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
-// 여기는 사장님이 장사 오픈 전에 로그인 여부를 확인하여 DB에서 어떤 사장님의 메뉴를 가져올 지 판단하는 구간
-// 만약 로그인이 안된 상태로 접근할 경우 예외처리 페이지를 보여줘야 한다.
-String stoNum = (String) session.getAttribute("stoNum");
-String categoryName = request.getParameter("categoryName");
-
-// (작업중)
-
 //=====================================================================================
 // 여기는 사장님이 로그인 후 장사를 시작했다고 가정하여 고객님들이 키오스크를 눌렀을 때 메뉴를 가져오기 위한 첫번째 작업
+String stoNum = (String) session.getAttribute("stoNum");
+String categoryName = request.getParameter("categoryName");
 
 MenuDao menuDao = MenuDao.getInstance();
 List<CategoryDto> categoryList = MenuDao.getInstance().getCategory(stoNum);
@@ -69,7 +64,6 @@ if (!isEmpty && categoryName == null) {
 }
 
 pageContext.setAttribute("randomCategory", randomCategory);
-
 //=====================================================================================	
 %>
 
